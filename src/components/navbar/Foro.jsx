@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Nosotros = () => {
+const Foro = () => {
 
   const [equipo, setEquipo] = React.useState([])
 
@@ -18,7 +18,7 @@ const Nosotros = () => {
 
   return (
     <div>
-        <h1>NOSOTROS</h1>
+        <h1>Foro</h1>
         <ul>
           {equipo.map((item)=> <li key={item.id}>{item.name}</li>)}
         </ul>
@@ -26,4 +26,4 @@ const Nosotros = () => {
   )
 }
 
-export default Nosotros
+export default Foro
