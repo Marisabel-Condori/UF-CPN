@@ -14,7 +14,7 @@ const Navbar = () => {
           <Link to="/" className="btn btn-dark mr-2"> Mis Cursos </Link>
           <Link to="/NuevoCurso" className="btn btn-dark mr-2"> Nuevo Curso </Link>
           <NavLink to="/Foro" className="btn btn-dark mr-2"> Foro </NavLink>
-          <NavLink to="/Alumnos" className="btn btn-dark"> Alumnos </NavLink>
+          <NavLink to="/Alumnos" className="btn btn-dark float-right"> Alumnos </NavLink>
         </div>
       <hr/>
         <Routes>
