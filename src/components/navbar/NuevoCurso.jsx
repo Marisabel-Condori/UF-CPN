@@ -4,7 +4,7 @@ import React from 'react'
 
 const NuevoCurso = () => {
 
-  const { register, formState:{errors},handleSubmit} = useForm(); 
+  const { register, formState:{ errors},handleSubmit} = useForm(); 
   // const [formFields, setFormFields] = useState([])
 
   const onSubmit = (data) => {
@@ -16,23 +16,49 @@ const NuevoCurso = () => {
         <h1>Nuevo Curso</h1>
 
     <form onSubmit={handleSubmit(onSubmit)}>
+
       <div className="form-group">
         <label >Titulo del curso</label>
-        <input type="text" {...register('titulo', { required:true} )} 
-          className="form-control" placeholder="Ingresa titulo del curso"/>
-          {errors.titulo?.type==='required'&&<p>nombre es requerido MEJORAR</p>}
+        <input 
+          type="text" 
+          { ...register('tituloCurso',{ 
+            required:{value:true, message:'El titulo es requerido'}})
+          } 
+          name='tituloCurso' className="form-control" placeholder="Ingresa titulo del curso"
+        />
+
+        {errors.tituloCurso&& <span className='text-danger text-small d-block mb-2'>{errors.tituloCurso.message}</span>}
+        
       </div>
+
       <div className="form-group">
         <label>Descripcion del Curso</label>
-        <textarea {...register('descripcion', { required:true})} className="form-control" rows="3"></textarea>
+        <textarea 
+          {...register('descripcion', { 
+            required:{value:true, message: 'La descripcion es requerida'}})
+          } 
+          name='descripcion' className="form-control" rows="3"
+        />
+        {errors.descripcion&& <div className='alert alert-danger mt-1 p-1'>{errors.descripcion.message}</div>}
       </div>
+
       <div className="form-group">
         <label >Requisitos del curso</label>
-        <textarea {...register('requisitos', { required:true})} className="form-control" rows="3"></textarea>
+        <textarea {...register('requisitos', { 
+          required:{value:true, message:'Los requisitos son requeridos'}})
+          } 
+          name= 'requisitos' className="form-control" rows="3"
+        />
+        {errors.requisitos&& <div className='alert alert-danger mt-1 p-1'>{errors.requisitos.message}</div>}
+
       </div>
+
       <div className="form-group">
         <label>Categoria</label>
-        <select {...register('categoria', { required:true})} className="form-control" id="exampleFormControlSelect1">
+        <select 
+          {...register('categoria')  } 
+          name='categoria' className="form-control">
+          
           <option>Informatica</option>
           <option>Matematica</option>
           <option>Biologia</option>
