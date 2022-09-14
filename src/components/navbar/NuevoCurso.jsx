@@ -1,30 +1,38 @@
+import {useForm} from 'react-hook-form'
+
 import React from 'react'
-import NuevaSeccion from '../NuevaSeccion'
 
 const NuevoCurso = () => {
 
-  const seccion1 = false
-  console.log('**************** val seccion1 '+seccion1)
+  const { register, formState:{errors},handleSubmit} = useForm(); 
+  // const [formFields, setFormFields] = useState([])
+
+  const onSubmit = (data) => {
+    console.log(data);
+  }
+  
   return (
     <div>
         <h1>Nuevo Curso</h1>
 
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="form-group">
         <label >Titulo del curso</label>
-        <input type="text" className="form-control" placeholder="Ingresa titulo del curso"/>
+        <input type="text" {...register('titulo', { required:true} )} 
+          className="form-control" placeholder="Ingresa titulo del curso"/>
+          {errors.titulo?.type==='required'&&<p>nombre es requerido MEJORAR</p>}
       </div>
       <div className="form-group">
         <label>Descripcion del Curso</label>
-        <textarea className="form-control" rows="3"></textarea>
+        <textarea {...register('descripcion', { required:true})} className="form-control" rows="3"></textarea>
       </div>
       <div className="form-group">
-        <label >Requisitos</label>
-        <textarea className="form-control" rows="3"></textarea>
+        <label >Requisitos del curso</label>
+        <textarea {...register('requisitos', { required:true})} className="form-control" rows="3"></textarea>
       </div>
       <div className="form-group">
-        <label for="exampleFormControlSelect1">Categoria</label>
-        <select className="form-control" id="exampleFormControlSelect1">
+        <label>Categoria</label>
+        <select {...register('categoria', { required:true})} className="form-control" id="exampleFormControlSelect1">
           <option>Informatica</option>
           <option>Matematica</option>
           <option>Biologia</option>
@@ -33,13 +41,20 @@ const NuevoCurso = () => {
           <option>Estadistica</option>
         </select>
       </div>
+      <div className="form-group">
+        <label >Seccion 1:</label>
+        <input type="text"  className="form-control" placeholder="Ingresa titulo de la seccion"/>
+        <button type="button" className="btn btn-outline-dark mt-2 mr-5">+ video</button>
+        <button type="button" className="btn btn-outline-dark mt-2">+ recurso</button> 
+      </div>
 
-      {/* <div className="form-group">
-        <button type="button" className="btn btn-light" onClick={<NuevaSeccion/>}>+ Seccion</button>
-        {seccion1===true}
-        {console.log('---------------- valor '+seccion1)}
+      <input type="submit" value={"enviar"} />
+
+      <div className="form-group">
+        <button type="button" className="btn btn-light">+ Seccion</button>
         
-      </div> */}
+        
+      </div>
 
 
   
