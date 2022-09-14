@@ -1,14 +1,16 @@
-import {useForm} from 'react-hook-form'
+import NuevaSeccion from '../NuevaSeccion'
 
+import {useForm} from 'react-hook-form'
 import React from 'react'
 
 const NuevoCurso = () => {
 
   const { register, formState:{ errors},handleSubmit} = useForm(); 
-  // const [formFields, setFormFields] = useState([])
+  // const [secciones, setSecciones] = useState([])
 
-  const onSubmit = (data) => {
+  const onSubmit = (data, e) => {
     console.log(data);
+    e.target.reset()
   }
   
   return (
@@ -27,7 +29,7 @@ const NuevoCurso = () => {
           name='tituloCurso' className="form-control" placeholder="Ingresa titulo del curso"
         />
 
-        {errors.tituloCurso&& <span className='text-danger text-small d-block mb-2'>{errors.tituloCurso.message}</span>}
+        {errors.tituloCurso&& <div className='alert alert-danger mt-1 p-1'>{errors.tituloCurso.message}</div>}
         
       </div>
 
@@ -67,20 +69,13 @@ const NuevoCurso = () => {
           <option>Estadistica</option>
         </select>
       </div>
-      <div className="form-group">
-        <label >Seccion 1:</label>
-        <input type="text"  className="form-control" placeholder="Ingresa titulo de la seccion"/>
-        <button type="button" className="btn btn-outline-dark mt-2 mr-5">+ video</button>
-        <button type="button" className="btn btn-outline-dark mt-2">+ recurso</button> 
-      </div>
-
-      <input type="submit" value={"enviar"} />
-
+      <NuevaSeccion/>
       <div className="form-group">
         <button type="button" className="btn btn-light">+ Seccion</button>
-        
-        
       </div>
+        
+        
+      <input type="submit" value={"enviar"} />
 
 
   
