@@ -1,5 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link, NavLink }from "react-router-dom";
+
+
 import MisCursos from "./navbar/MisCursos";
 import Foro from "./navbar/Foro";
 import NuevoCurso from "./navbar/NuevoCurso";

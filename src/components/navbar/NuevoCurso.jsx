@@ -1,5 +1,5 @@
-import NuevaSeccion from '../NuevaSeccion'
-
+//import NuevaSeccion from '../NuevaSeccion'
+import {app} from '../Firebase'
 import {useForm} from 'react-hook-form'
 import React from 'react'
 
@@ -11,6 +11,13 @@ const NuevoCurso = () => {
   const onSubmit = (data, e) => {
     console.log(data);
     e.target.reset()
+
+    // para input tipo file
+    const storage = app.storage().register();
+    const fileRef = storage.child(data.video[0].name);
+    fileRef.put(data.video[0].then(()=>{
+      console.log('subiendo video....')
+    }))
   }
   
   return (
@@ -69,9 +76,20 @@ const NuevoCurso = () => {
           <option>Estadistica</option>
         </select>
       </div>
-      <NuevaSeccion/>
+      
+      <div className='form-group'>
+        <input type="file" 
+        { ...register('video',{ 
+          required:{value:true, message:'El video es requerido'}})
+        }
+        className='form-control-file' name='video' />
+        {errors.video&& <div className='alert alert-danger mt-1 p-1'>{errors.video.message}</div>}
+
+      </div>
+
       <div className="form-group">
         <button type="button" className="btn btn-light">+ Seccion</button>
+        
       </div>
         
         
