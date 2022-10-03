@@ -1,23 +1,39 @@
-//import NuevaSeccion from '../NuevaSeccion'
-import {app} from '../Firebase'
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import {useForm} from 'react-hook-form'
-import React from 'react'
+import {React, useState} from 'react'
+import { storage } from "../Firebase";
 
 const NuevoCurso = () => {
 
+  const [progress, setProgress] = useState(0)
+
   const { register, formState:{ errors},handleSubmit} = useForm(); 
-  // const [secciones, setSecciones] = useState([])
 
   const onSubmit = (data, e) => {
     console.log(data);
     e.target.reset()
+  }
 
-    // para input tipo file
-    const storage = app.storage().register();
-    const fileRef = storage.child(data.video[0].name);
-    fileRef.put(data.video[0].then(()=>{
-      console.log('subiendo video....')
-    }))
+  const onChange = (e) => {
+    const file = e.target.files[0]
+    console.log('*******************')
+    uploadFiles(file)
+  }
+
+  const uploadFiles = (file)=>{
+    if(!file) return;
+    const storageRef = ref(storage, `/files/${file.name}`)
+    const uploadTask = uploadBytesResumable(storageRef, file)
+
+    uploadTask.on("state_changed", (snapshot)=>{
+      const prog = Math.round(snapshot.bytesTransferred / snapshot.totalBytes)*100
+    
+      setProgress(prog)
+    },
+    (err) => console.log(err),
+    () => {
+      getDownloadURL(uploadTask.snapshot.ref).then((url)=> console.log(url))
+    })
   }
   
   return (
@@ -78,18 +94,18 @@ const NuevoCurso = () => {
       </div>
       
       <div className='form-group'>
-        <input type="file" 
+        <input type="file" className='form-control-file' name='video' onChange={onChange}/>
+        {/* //// SOLUCIONAR EL MENSAJE DE ALERTA******
         { ...register('video',{ 
           required:{value:true, message:'El video es requerido'}})
         }
-        className='form-control-file' name='video' />
-        {errors.video&& <div className='alert alert-danger mt-1 p-1'>{errors.video.message}</div>}
-
+        
+        {errors.video&& <div className='alert alert-danger mt-1 p-1'>{errors.video.message}</div>} */}
+        <h3>Upload{progress}%</h3>
       </div>
 
       <div className="form-group">
         <button type="button" className="btn btn-light">+ Seccion</button>
-        
       </div>
         
         
