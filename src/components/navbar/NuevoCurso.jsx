@@ -26,8 +26,7 @@ const NuevoCurso = () => {
     const uploadTask = uploadBytesResumable(storageRef, file)
 
     uploadTask.on("state_changed", (snapshot)=>{
-      const prog = Math.round(snapshot.bytesTransferred / snapshot.totalBytes)*100
-    
+      const prog = Math.round((snapshot.bytesTransferred*100)/snapshot.totalBytes)
       setProgress(prog)
     },
     (err) => console.log(err),
