@@ -23,7 +23,7 @@ const Navbar = () => {
           <Route path="/NuevoCurso" element={<NuevoCurso/>}/>
           <Route path="/Foro" element={<Foro/>}/> 
           <Route path="/Alumnos" element={<Alumnos/>}/> 
-          <Route path="/" element={<MisCursos/>}/>
+          <Route path="*" element={<MisCursos/>}/>
           
         </Routes> 
       </div>
