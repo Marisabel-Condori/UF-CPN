@@ -1,11 +1,27 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import { usersApi } from "../../api/UserApi";
 // import JSONPretty from 'react-json-pretty';
 
 const Profile = () => {
+
+/////// USEEFECT DE API
+    useEffect(() => {
+        getUsers(); 
+      }, []);
+//////////
     const {user, isAuthenticated, isLoading} = useAuth0();
 
     if(isLoading) return <h1>Cargando...</h1>
+
+    ///////////// API ///////////
+    const getUsers = () => {
+        usersApi.get('http://localhost:8000/persona') 
+            .then(resp => {
+                console.log(resp.data)
+            });
+    }
+    ////////////
 
     return( isAuthenticated && (
             <div>
