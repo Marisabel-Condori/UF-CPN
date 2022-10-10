@@ -14,8 +14,16 @@ import LogoutButton from "./login/LogoutButton";
 
 const Navbar = () => {
 
-  const {isAuthenticated, isLoading} = useAuth0()
-  if(isLoading) return <h1>Cargando...</h1>
+  const {isAuthenticated} = useAuth0()
+
+//   if(isAuthenticated){
+
+    
+// //     if(!existe el usuario){ // get usuarios correo == 
+// //   // enviar a backend post post
+
+// // }
+//   }
 
 
   return (
