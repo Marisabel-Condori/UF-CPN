@@ -18,16 +18,6 @@ const Login = () => {
 
     const procesarDatos = async (e) =>{
         e.preventDefault()
-        if (!nombre.trim()) {
-            console.log('nombre vacio')
-            setError('nombre vacio')
-            return
-        }
-        if (!apellidos.trim()) {
-            console.log('apellido vacio')
-            setError('ape vacio')
-            return
-        }
         if (!email.trim()) {
             console.log('**** AQUI VALIDAR email@gmail.com *****IF***')
             console.log('email vacio')
@@ -39,43 +29,68 @@ const Login = () => {
             setError('password vacio')
             return
         }
-        if (pass.length<8) {
-            console.log('pass menor a 8 caracteres')
-            setError('ingrese pass mayor a 8 caracteres')
-            return
+        if (esRegistro) {
+            if (!nombre.trim()) {
+                console.log('nombre vacio')
+                setError('nombre vacio')
+                return
+            }
+            if (!apellidos.trim()) {
+                console.log('apellido vacio')
+                setError('ape vacio')
+                return
+            }
+            if (pass.length<8) {
+                console.log('pass menor a 8 caracteres')
+                setError('ingrese pass mayor a 8 caracteres')
+                return
+            }
         }
         setError(null)
         console.log('pasando validaciones')
         if (esRegistro) {
-            botonRegistrar()
-        }
+            registrar()
+        }else {login()}
+        
+        setNombre('')
+        setApellidos('')
+        setEmail('')
+        setPass('')
+        setError('')          
     }
 
-    /************** POST LOGIN ****************/
-        const botonRegistrar = useCallback(async ()=>{
-            if( await existeEmail())
+    /************* LOGIN GET************* */
+    const login = useCallback(async()=>{
+        const dato = await existeEmail()
+        // console.log("dato lenght...")
+        // console.log(dato.length)
+        if (dato.length>0 && dato[0].correo==email && dato[0].password==pass) {
+            console.log('ingresado con exito')
+        } else {
+            setError('Datos incorrectos')
+        }
+    })
+
+    /************** REGISTRO POST****************/
+        const registrar = useCallback(async ()=>{
+            const dato = await existeEmail()
+            if( dato.length>0 && dato[0].correo==email)
                setError('ya existe el email')    
             else  
                 {console.log('no reg') 
                 adicionaPersonaBD()
-                setNombre('')
-                setApellidos('')
-                setEmail('')
-                setPass('')
-                setError('')
             }    
         }, [nombre, apellidos, email, pass, depto])
-    /*********************************************/
-    
+
+    /**************EXISTE EMAIL**********************/
     const existeEmail = async()=>{
         let url = Apiurl + "personabyemail"
-        let valor = false
-        const obtEmail = await axios.get(url, {
+        let obtEmail = await axios.get(url, {
             params:{correo:email}
         })
-        if (obtEmail.data.length > 0) valor = true
-        console.log('antes del return '+ valor)
-        return valor
+        console.log('!!!!! OBTIENE EMAIL !!!!!!')
+        console.log(obtEmail.data)
+        return obtEmail.data
     }
 
     const adicionaPersonaBD= ()=>{
@@ -118,21 +133,7 @@ const Login = () => {
                         }
                         <div className="input-group mb-3">
 							<div className="input-group-append">
-								<span className="input-group-text"><i className="fas fa-user">N</i></span>
-							</div>
-                            {/* --------------------nombres */}
-							<input type="text" className="form-control"  placeholder="Nombre" onChange={e=>setNombre(e.target.value)} value={nombre}/>
-						</div>
-                        <div className="input-group mb-3">
-							<div className="input-group-append">
-								<span className="input-group-text"><i className="fas fa-user">A</i></span>
-							</div>
-                            {/* --------------------apellidos */}
-							<input type="text" className="form-control"  placeholder="Apellido" onChange={e=>setApellidos(e.target.value)} value={apellidos}/>
-						</div>
-                        <div className="input-group mb-3">
-							<div className="input-group-append">
-								<span className="input-group-text"><i className="fas fa-user">U</i></span>
+								<span className="input-group-text"><i className="fas fa-user">E</i></span>
 							</div>
                             {/* --------------------email */}
 							<input type="email" className="form-control"  placeholder="Email" onChange={e=>setEmail(e.target.value)} value={email}/>
@@ -144,22 +145,43 @@ const Login = () => {
                             {/* -----------------password */}
 							<input type="password" className="form-control input_pass"  placeholder="Password" onChange={e=>setPass(e.target.value)} value={pass}/>
 						</div>
-
-                        {/* -----------------departamento */}
-                        <div class="form-group">
-                            <label for="sel1">Departamento:</label>
-                            <select className="form-control" onChange={e=>setDepto(e.target.value)} value={depto}>
-                                <option>La Paz</option>
-                                <option>Oruro</option>
-                                <option>Potosi</option>
-                                <option>Cochabamba</option>
-                                <option>Sucre</option>
-                                <option>Tarija</option>
-                                <option>Pando</option>
-                                <option>Beni</option>
-                                <option>Santa Cruz</option>
-                            </select>
+                        {
+                            esRegistro&&( 
+                                <>
+                                <div className="input-group mb-3">
+							        <div className="input-group-append">
+								        <span className="input-group-text"><i className="fas fa-user">N</i></span>
+                                    </div>
+                                    {/* --------------------nombres */}
+                                <input type="text" className="form-control"  placeholder="Nombre" onChange={e=>setNombre(e.target.value)} value={nombre}/>
                             </div>
+                            <div className="input-group mb-3">
+							    <div className="input-group-append">
+								    <span className="input-group-text"><i className="fas fa-user">A</i></span>
+							    </div>
+                                {/* --------------------apellidos */}
+							    <input type="text" className="form-control"  placeholder="Apellido" onChange={e=>setApellidos(e.target.value)} value={apellidos}/>
+						    </div>
+
+                            {/* -----------------departamento */}
+                            <div class="form-group">
+                                <label for="sel1">Departamento:</label>
+                                <select className="form-control" onChange={e=>setDepto(e.target.value)} value={depto}>
+                                    <option>La Paz</option>
+                                    <option>Oruro</option>
+                                    <option>Potosi</option>
+                                    <option>Cochabamba</option>
+                                    <option>Sucre</option>
+                                    <option>Tarija</option>
+                                    <option>Pando</option>
+                                    <option>Beni</option>
+                                    <option>Santa Cruz</option>
+                                </select>
+                            </div>
+                            </>
+                            )
+                        }
+                        
 						<div className="form-group">
 							<div className="custom-control custom-checkbox">
 								<input type="checkbox" className="custom-control-input" id="customControlInline"/>
