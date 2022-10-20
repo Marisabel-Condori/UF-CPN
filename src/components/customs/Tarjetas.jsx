@@ -12,7 +12,8 @@ const Tarjetas = () => {
             id:1,
             titulo:'Java Avanzado',
             image: img1,
-            url: 'https://youtube.com'
+            url: 'https://youtube.com',
+            descripcion:'desc pruebaaaa aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaa aaaaa aaaaa'
         },
         {
             id:2,
@@ -37,7 +38,7 @@ const Tarjetas = () => {
             {
                 cards.map(card => (
                     <div className='col-md-4' key={card.id}>
-                        <TarjetaCurso titulo={card.titulo} imageSource={card.image} url={card.url}/>
+                        <TarjetaCurso titulo={card.titulo} imageSource={card.image} url={card.url} descripcion={card.descripcion}/>
                     </div>
                 ))
             }
