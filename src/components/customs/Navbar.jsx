@@ -4,12 +4,12 @@ import {useAuth0} from '@auth0/auth0-react'
 import { BrowserRouter as Router, Routes, Route, Link, NavLink }from "react-router-dom";
 
 
-import MisCursos from "./navbar/MisCursos";
-import Foro from "./navbar/Foro";
-import NuevoCurso from "./navbar/NuevoCurso";
-import Alumnos from "./navbar/Alumnos";
-import LogoutButton from "./login/LogoutButton";
-import RegistroUsuario from "./login/RegistroUsuario";
+import MisCursos from "../pages/MisCursos";
+import Foro from "../pages/Foro";
+import NuevoCurso from "../pages/NuevoCurso"
+import Alumnos from "../pages/Alumnos";
+import LogoutButton from "../login/LogoutButton";
+import RegistroUsuario from "../login/RegistroUsuario";
 
 
 const Navbar = () => {
