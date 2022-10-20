@@ -5,9 +5,6 @@ import PropTypes from 'prop-types'
 import '../css/cards.css'
 
 const TarjetaCurso = ({titulo, imageSource, descripcion, url}) => {
-  console.log('********1***********')
-  console.log(titulo)
-  console.log('********2***********')
   
   return (
     <div className='card text-center bg-dark'>

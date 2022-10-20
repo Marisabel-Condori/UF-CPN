@@ -1,6 +1,10 @@
 import React from 'react'
 import TarjetaCurso from './TarjetaCurso'
 
+import Slider from 'react-slick';
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
+
 const Tarjetas = () => {
 
     const img1 = 'https://png.pngtree.com/thumb_back/fw800/back_our/20190619/ourmid/pngtree-family-story-cover-background-material-image_140957.jpg'
@@ -32,16 +36,56 @@ const Tarjetas = () => {
     console.log(cards)
     console.log('+++++++++')
 
+    /******************SETTINGS SLIDES***********************/
+    const settings = {
+        dots: true,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 4,
+        slidesToScroll: 4,
+        initialSlide: 0,
+        responsive: [
+          {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 3,
+              infinite: true,
+              dots: true
+            }
+          },
+          {
+            breakpoint: 600,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+              initialSlide: 2
+            }
+          },
+          {
+            breakpoint: 480,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1
+            }
+          }
+        ]
+      };
+    /***************************************************** */
+
   return (
     <div className='container d-flex justify-content-center align-items-center h-100'>
         <div className='row'>
-            {
-                cards.map(card => (
-                    <div className='col-md-4' key={card.id}>
-                        <TarjetaCurso titulo={card.titulo} imageSource={card.image} url={card.url} descripcion={card.descripcion}/>
-                    </div>
-                ))
-            }
+          {/* <Slider {...settings}> */}
+                {
+                    cards.map(card => (
+                        // <div key={card.id}>
+                        <div className='col-md-4' key={card.id}> 
+                            <TarjetaCurso titulo={card.titulo} imageSource={card.image} url={card.url} descripcion={card.descripcion}/>
+                        </div>
+                    ))
+                }
+        {/* </Slider> */}
         </div>
     </div>
   )
