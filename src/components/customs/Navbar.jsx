@@ -32,7 +32,7 @@ const Navbar = () => {
         <div className="navbar navbar-dark bg-dark">
           <Link className="navbar-brand" to="/">FCPN</Link>
           <div>
-              <NavLink to="/" exact className="btn btn-dark mr-2"> Mis Cursos </NavLink>
+              <NavLink to="/" className="btn btn-dark mr-2"> Mis Cursos </NavLink>
               <NavLink to="/NuevoCurso" className="btn btn-dark mr-2"> Nuevo Curso </NavLink>
               <NavLink to="/Foro" className="btn btn-dark mr-2"> Foro </NavLink>
               {isAuthenticated? <LogoutButton/>

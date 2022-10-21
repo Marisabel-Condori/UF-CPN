@@ -1,9 +1,11 @@
 import React from 'react'
 import TarjetaCurso from './TarjetaCurso'
 
-import Slider from 'react-slick';
-import "slick-carousel/slick/slick.css"; 
-import "slick-carousel/slick/slick-theme.css";
+import {Swiper, SwiperSlide} from 'swiper/react'
+import { FreeMode } from 'swiper'
+
+import 'swiper/css'
+import 'swiper/css/free-mode'
 
 const Tarjetas = () => {
 
@@ -17,77 +19,126 @@ const Tarjetas = () => {
             titulo:'Java Avanzado',
             image: img1,
             url: 'https://youtube.com',
-            descripcion:'desc pruebaaaa aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaa aaaaa aaaaa'
+            descripcion:'desc pruebaaaa aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaa aaaaa aaaaa',
+            nombreDocente:'aaaa',
+            precio:'50'
         },
         {
             id:2,
             titulo:'My Sql',
             image: img2,
-            url: 'https://youtube.com'
+            url: 'https://youtube.com',
+            nombreDocente:'bbb',
+            precio:'50'
         },
         {
             id:3,
             titulo:'Express',
             image: img3,
-            url: 'https://youtube.com'
+            url: 'https://youtube.com',
+            nombreDocente:'cccc',
+            precio:'50'
+        },
+        {
+            id:4,
+            titulo:'1 Java Avanzado',
+            image: img1,
+            url: 'https://youtube.com',
+            descripcion:'desc pruebaaaa aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaa aaaaa aaaaa',
+            nombreDocente:'dddd',
+            precio:'50'
+        },
+        {
+            id:5,
+            titulo:'1 My Sql',
+            image: img2,
+            url: 'https://youtube.com',
+            nombreDocente:'dddd',
+            precio:'50'
+        },
+        {
+            id:6,
+            titulo:'1 Express',
+            image: img3,
+            url: 'https://youtube.com',
+            nombreDocente:'dddd',
+            precio:'50'
+        },
+        {
+            id:7,
+            titulo:'2 Java Avanzado',
+            image: img1,
+            url: 'https://youtube.com',
+            descripcion:'desc pruebaaaa aaaaaaa aaaaaaaaa aaaaaaaaaaaaaaa aaaaa aaaaa',
+            nombreDocente:'dddd',
+            precio:'50'
+        },
+        {
+            id:8,
+            titulo:'2 My Sql',
+            image: img2,
+            url: 'https://youtube.com',
+            nombreDocente:'dddd',
+            precio:'50'
+        },
+        {
+            id:9,
+            titulo:'2 Express',
+            image: img3,
+            url: 'https://youtube.com',
+            nombreDocente:'dddd',
+            precio:'50'
         }
     ]
     console.log('++++CARDS')
     console.log(cards)
     console.log('+++++++++')
 
-    /******************SETTINGS SLIDES***********************/
-    const settings = {
-        dots: true,
-        infinite: false,
-        speed: 500,
-        slidesToShow: 4,
-        slidesToScroll: 4,
-        initialSlide: 0,
-        responsive: [
-          {
-            breakpoint: 1024,
-            settings: {
-              slidesToShow: 3,
-              slidesToScroll: 3,
-              infinite: true,
-              dots: true
-            }
-          },
-          {
-            breakpoint: 600,
-            settings: {
-              slidesToShow: 2,
-              slidesToScroll: 2,
-              initialSlide: 2
-            }
-          },
-          {
-            breakpoint: 480,
-            settings: {
-              slidesToShow: 1,
-              slidesToScroll: 1
-            }
-          }
-        ]
-      };
-    /***************************************************** */
-
   return (
-    <div className='container d-flex justify-content-center align-items-center h-100'>
-        <div className='row'>
-          {/* <Slider {...settings}> */}
-                {
-                    cards.map(card => (
-                        // <div key={card.id}>
-                        <div className='col-md-4' key={card.id}> 
-                            <TarjetaCurso titulo={card.titulo} imageSource={card.image} url={card.url} descripcion={card.descripcion}/>
-                        </div>
-                    ))
-                }
-        {/* </Slider> */}
-        </div>
+    <div className='py-4 px-4 justify-content-center'>
+        <Swiper
+        freeMode={true} 
+        grabCursor={true} 
+        modules={[FreeMode]}
+        className='mySwiper'
+        breakpoints={{
+            0:{
+                slidesPerView:1,
+                spaceBetween:10
+            },
+            480:{
+                slidesPerView:2,
+                spaceBetween:10
+            },
+            768:{
+                slidesPerView:3,
+                spaceBetween:10
+            },
+            1024:{
+                slidesPerView:4,
+                spaceBetween:10
+            },
+            1280:{
+                slidesPerView:5,
+                spaceBetween:10
+            }
+        }}
+        >
+            {
+                cards.map(card => (
+                    <SwiperSlide key={card.id}>
+                        {/* <div key={card.id}>  */}
+                        <TarjetaCurso titulo={card.titulo} imageSource={card.image} url={card.url} descripcion={card.descripcion} nombreDocente={card.nombreDocente} precio={card.precio}/>
+                        {/* </div> */}
+                    </SwiperSlide>
+                ))
+            }
+            
+        </Swiper>
     </div>
+
+
+    // </div>
   )
 }
 
