@@ -7,7 +7,7 @@ import '../css/cards.css'
 const TarjetaCurso = ({titulo, imageSource, descripcion, url, nombreDocente, precio}) => {
   
   return (
-    <div className='card text-center bg-dark' >
+    <div className='card text-center bg-dark m-3' >
       <img src={imageSource} alt="" height={150} className='card-img-top' />
       <div className='card-body text-light'>
         <h4 className='card-title'>{titulo}</h4>

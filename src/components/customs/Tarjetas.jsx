@@ -95,8 +95,24 @@ const Tarjetas = () => {
     console.log('+++++++++')
 
   return (
-    <div className='py-4 px-4 justify-content-center'>
-        <Swiper
+    <div className='container d-flex justify-content-center align-items-center h-100'>
+        <div className='row'>
+            {
+                cards.map(card => (
+                    <div className='col-md-4' key={card.id}>
+                        <TarjetaCurso titulo={card.titulo} imageSource={card.image} url={card.url} descripcion={card.descripcion} nombreDocente={card.nombreDocente} precio={card.precio}/>
+                    </div>
+                ))
+            }
+        </div>   
+    </div>
+  )
+}
+
+export default Tarjetas
+// -------------------------- Tarjetas tipo slide -----------------------------
+{/*    <div className='py-4 px-4 justify-content-center'>   AUMENTAR DIV AL FINAL LUEGO DE </SWIPER>
+<Swiper
         freeMode={true} 
         grabCursor={true} 
         modules={[FreeMode]}
@@ -128,18 +144,10 @@ const Tarjetas = () => {
                 cards.map(card => (
                     <SwiperSlide key={card.id}>
                         {/* <div key={card.id}>  */}
-                        <TarjetaCurso titulo={card.titulo} imageSource={card.image} url={card.url} descripcion={card.descripcion} nombreDocente={card.nombreDocente} precio={card.precio}/>
+                        // <TarjetaCurso titulo={card.titulo} imageSource={card.image} url={card.url} descripcion={card.descripcion} nombreDocente={card.nombreDocente} precio={card.precio}/>
                         {/* </div> */}
-                    </SwiperSlide>
-                ))
-            }
+        //             </SwiperSlide>
+        //         ))
+        //     }
             
-        </Swiper>
-    </div>
-
-
-    // </div>
-  )
-}
-
-export default Tarjetas
+        // </Swiper> */}

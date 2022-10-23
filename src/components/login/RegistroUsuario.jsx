@@ -164,8 +164,8 @@ const Login = () => {
 						    </div>
 
                             {/* -----------------departamento */}
-                            <div class="form-group">
-                                <label for="sel1">Departamento:</label>
+                            <div className="form-group">
+                                <label>Departamento:</label>
                                 <select className="form-control" onChange={e=>setDepto(e.target.value)} value={depto}>
                                     <option>La Paz</option>
                                     <option>Oruro</option>
@@ -185,7 +185,7 @@ const Login = () => {
 						<div className="form-group">
 							<div className="custom-control custom-checkbox">
 								<input type="checkbox" className="custom-control-input" id="customControlInline"/>
-								<label className="custom-control-label" for="customControlInline">Recuerdame</label>
+								<label className="custom-control-label" >Recuerdame</label>
 							</div>
 						</div>
 							<div className="d-flex justify-content-center mt-3 login_container">
