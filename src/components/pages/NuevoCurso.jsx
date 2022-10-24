@@ -7,6 +7,8 @@ const NuevoCurso = () => {
 
   const [progress, setProgress] = useState(0)
 
+  // SETCONTEXT FORMULARIO
+
   const { register, formState:{ errors},handleSubmit} = useForm(); 
 
   const onSubmit = (data, e) => {
@@ -36,7 +38,7 @@ const NuevoCurso = () => {
   }
   
   return (
-    <div>
+    <div className="container">
         <h1>Nuevo Curso</h1>
 
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -83,6 +85,7 @@ const NuevoCurso = () => {
           {...register('categoria')  } 
           name='categoria' className="form-control">
           
+          <option>Elige una Categoria</option>
           <option>Informatica</option>
           <option>Matematica</option>
           <option>Biologia</option>
@@ -91,17 +94,29 @@ const NuevoCurso = () => {
           <option>Estadistica</option>
         </select>
       </div>
-      
-      <div className='form-group'>
-        <input type="file" className='form-control-file' name='video' onChange={onChange}/>
-        {/* //// SOLUCIONAR EL MENSAJE DE ALERTA******
-        { ...register('video',{ 
-          required:{value:true, message:'El video es requerido'}})
-        }
-        
-        {errors.video&& <div className='alert alert-danger mt-1 p-1'>{errors.video.message}</div>} */}
-        <h3>Upload{progress}%</h3>
+      {/******************* SECCION ************/}
+      <div class="card">
+        <div class="card-body">
+        <label>Seccion 1</label>
+        <input 
+          type="text" 
+          { ...register('tituloCurso',{ 
+            required:{value:true, message:'El titulo es requerido'}})
+          } 
+          name='tituloCurso' className="form-control" placeholder="Ingresa titulo del curso"
+        />
+          <div className='form-group'>
+            <input type="file" className='form-control-file' name='video' onChange={onChange}/>
+            {/* //// SOLUCIONAR EL MENSAJE DE ALERTA******
+            { ...register('video',{ 
+              required:{value:true, message:'El video es requerido'}})
+            }
+            {errors.video&& <div className='alert alert-danger mt-1 p-1'>{errors.video.message}</div>} */}
+            <h3>Progreso de carga...{progress}%</h3>
+          </div>
+        </div>
       </div>
+      
 
       <div className="form-group">
         <button type="button" className="btn btn-light">+ Seccion</button>

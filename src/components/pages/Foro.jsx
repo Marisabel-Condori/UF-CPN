@@ -5,7 +5,7 @@ import TarjetasForo from '../customs/TarjetasForo'
 const Foro = () => {
 
   return (
-    <div>
+    <div className='mx-5 px-5'>
         <h1>Foro</h1>
         <p>si no tiene cursos mostrara: AUN NO TIENES CURSOS, CREA UN CURSO EN LA SECCION NUEVO CURSO</p>
         <div className='row'>

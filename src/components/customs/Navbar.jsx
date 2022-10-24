@@ -39,7 +39,6 @@ const Navbar = () => {
               :    <NavLink to="/Login" className="btn btn-dark mr-2  "> Login </NavLink>
               }
               <NavLink to="/Alumnos" className="btn btn-dark mr-2"> Alumnos </NavLink>
-        
           </div>
           
           </div>
@@ -50,8 +49,7 @@ const Navbar = () => {
             <Route path="/NuevoCurso" element={<NuevoCurso/>}/>
             <Route path="/Foro" element={<Foro/>}/> 
             <Route path="/Alumnos" element={<Alumnos/>}/> 
-            <Route path="*" element={<MisCursos/>}/>
-            
+            <Route path="*" element={<MisCursos/>}/>  
           </Routes> 
         </div>
     </Router>

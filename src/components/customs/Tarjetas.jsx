@@ -19,7 +19,7 @@ const Tarjetas = () => {
             titulo:'Java Avanzado',
             image: img1,
             url: 'https://youtube.com',
-            descripcion:'desc pruebaaaa aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaa aaaaa aaaaa',
+            descripcion:'desc pruebaaaa aaaaaaa aaaa aaa aaa aaaa aaa aa aaaaaaaaa aaaaaa aaaaaaaaa aaaaa aaaaa',
             nombreDocente:'aaaa',
             precio:'50'
         },
