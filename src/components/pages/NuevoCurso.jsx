@@ -95,7 +95,7 @@ const NuevoCurso = () => {
         </select>
       </div>
       {/******************* SECCION ************/}
-      <div class="card">
+      <div class="card mb-3">
         <div class="card-body">
         <label>Seccion 1</label>
         <input 
@@ -105,14 +105,14 @@ const NuevoCurso = () => {
           } 
           name='tituloCurso' className="form-control" placeholder="Ingresa titulo del curso"
         />
-          <div className='form-group'>
+          <div className='form-group mt-3'>
             <input type="file" className='form-control-file' name='video' onChange={onChange}/>
             {/* //// SOLUCIONAR EL MENSAJE DE ALERTA******
             { ...register('video',{ 
               required:{value:true, message:'El video es requerido'}})
             }
             {errors.video&& <div className='alert alert-danger mt-1 p-1'>{errors.video.message}</div>} */}
-            <h3>Progreso de carga...{progress}%</h3>
+            <h5>Progreso de carga... {progress}%</h5>
           </div>
         </div>
       </div>

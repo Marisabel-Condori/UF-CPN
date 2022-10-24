@@ -5,6 +5,7 @@ import '../css/Login.css'
 import {Apiurl} from '../../api/UsuariosApi'
 
 import axios from 'axios'
+import Profile from './Profile'
 
 const Login = () => {
     const [nombre, setNombre] = useState('')
@@ -15,6 +16,8 @@ const Login = () => {
 
     const [error, setError] = useState(null)
     const [esRegistro, setEsRegistro] = useState(true)
+
+    const [estaLogueado, setEstaLogueado] = useState(false)
 
     const procesarDatos = async (e) =>{
         e.preventDefault()
@@ -50,7 +53,9 @@ const Login = () => {
         console.log('pasando validaciones')
         if (esRegistro) {
             registrar()
+            guardarDato()
         }else {login()}
+
         
         setNombre('')
         setApellidos('')
@@ -93,6 +98,7 @@ const Login = () => {
         return obtEmail.data
     }
 
+    /********** INGRESA DATOS PERSONA A BD *******/
     const adicionaPersonaBD= ()=>{
         console.log('///ENVIADOOOOO///')
         let url =Apiurl + "persona"
@@ -104,7 +110,11 @@ const Login = () => {
             console.log(response)
             }).catch(err => console.log(err))
     }
-
+    /************ SE GUARDO EL DATO LOCALMENTE****** */
+    const guardarDato =() => {
+        localStorage.setItem('email', email)
+        setEstaLogueado(true)
+    }
 
 
   return (
@@ -183,6 +193,9 @@ const Login = () => {
                         }
                         
 						<div className="form-group">
+                            {/* mostrando profile prueba */}
+                            {/* { (!!estaLogueado) &&<Profile/> } */}
+                            { <Profile/> }
 							<div className="custom-control custom-checkbox">
 								<input type="checkbox" className="custom-control-input" id="customControlInline"/>
 								<label className="custom-control-label" >Recuerdame</label>
@@ -192,7 +205,7 @@ const Login = () => {
 				 	{/* ------------------------------button */}
                     
                      {/* <button type="submit" className="btn login_btn" onClick={()=>manejaBoton()} > */}
-                     <button type="submit" className="btn login_btn" >
+                     <button type="submit" className="btn login_btn">
                         {
                             esRegistro? 'Registrarse':'Ingresar'
                         }    
