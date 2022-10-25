@@ -53,7 +53,6 @@ const Login = () => {
         console.log('pasando validaciones')
         if (esRegistro) {
             registrar()
-            guardarDato()
         }else {login()}
 
         
@@ -75,6 +74,11 @@ const Login = () => {
             setError('Datos incorrectos')
         }
     })
+    /************ SE GUARDO EL DATO LOCALMENTE****** */
+    const guardarDato =() => {
+        localStorage.setItem('email', email)
+        setEstaLogueado(true)
+    }
 
     /************** REGISTRO POST****************/
         const registrar = useCallback(async ()=>{
@@ -110,11 +114,7 @@ const Login = () => {
             console.log(response)
             }).catch(err => console.log(err))
     }
-    /************ SE GUARDO EL DATO LOCALMENTE****** */
-    const guardarDato =() => {
-        localStorage.setItem('email', email)
-        setEstaLogueado(true)
-    }
+    
 
 
   return (
