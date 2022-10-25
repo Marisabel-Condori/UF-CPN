@@ -17,8 +17,6 @@ const Login = () => {
     const [error, setError] = useState(null)
     const [esRegistro, setEsRegistro] = useState(true)
 
-    const [estaLogueado, setEstaLogueado] = useState(false)
-
     const procesarDatos = async (e) =>{
         e.preventDefault()
         if (!email.trim()) {
@@ -70,15 +68,13 @@ const Login = () => {
         // console.log(dato.length)
         if (dato.length>0 && dato[0].correo==email && dato[0].password==pass) {
             console.log('ingresado con exito')
+        /************ SE GUARDO EL DATO LOCALMENTE****** */
+        localStorage.setItem('email', email)
+        window.location.reload()
         } else {
             setError('Datos incorrectos')
         }
     })
-    /************ SE GUARDO EL DATO LOCALMENTE****** */
-    const guardarDato =() => {
-        localStorage.setItem('email', email)
-        setEstaLogueado(true)
-    }
 
     /************** REGISTRO POST****************/
         const registrar = useCallback(async ()=>{
