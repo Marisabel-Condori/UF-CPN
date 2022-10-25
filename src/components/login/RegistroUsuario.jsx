@@ -68,7 +68,7 @@ const Login = () => {
         // console.log(dato.length)
         if (dato.length>0 && dato[0].correo==email && dato[0].password==pass) {
             console.log('ingresado con exito')
-        /************ SE GUARDO EL DATO LOCALMENTE****** */
+        /************ GUARDANDO DATOS LOCALMENTE SINGIN****** */
         localStorage.setItem('email', email)
         window.location.reload()
         } else {
@@ -84,6 +84,9 @@ const Login = () => {
             else  
                 {console.log('no reg') 
                 adicionaPersonaBD()
+                /*********GUARDANDO DATOS LOCALMENTE REGISTRO********** */
+                localStorage.setItem('email', email)
+                window.location.reload()
             }    
         }, [nombre, apellidos, email, pass, depto])
 

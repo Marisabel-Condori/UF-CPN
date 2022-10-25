@@ -18,7 +18,6 @@ const Navbar = () => {
   console.log(isAuthenticated)
   console.log('NAVBAR cierra')
 
-
   return (
     <Router>
       <div className="mt-2">
