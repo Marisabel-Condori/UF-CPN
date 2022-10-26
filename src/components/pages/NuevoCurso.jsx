@@ -1,12 +1,8 @@
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import {useForm} from 'react-hook-form'
-import {React, useState} from 'react'
-import { storage } from "../Firebase";
+
+import SeccionCurso from "../customs/SeccionCurso";
 
 const NuevoCurso = () => {
-
-  const [progress, setProgress] = useState(0)
-
   // SETCONTEXT FORMULARIO
 
   const { register, formState:{ errors},handleSubmit} = useForm(); 
@@ -16,26 +12,9 @@ const NuevoCurso = () => {
     e.target.reset()
   }
 
-  const onChange = (e) => {
-    const file = e.target.files[0]
-    console.log('*******************')
-    uploadFiles(file)
-  }
+  
 
-  const uploadFiles = (file)=>{
-    if(!file) return;
-    const storageRef = ref(storage, `/files/${file.name}`)
-    const uploadTask = uploadBytesResumable(storageRef, file)
-
-    uploadTask.on("state_changed", (snapshot)=>{
-      const prog = Math.round((snapshot.bytesTransferred*100)/snapshot.totalBytes)
-      setProgress(prog)
-    },
-    (err) => console.log(err),
-    () => {
-      getDownloadURL(uploadTask.snapshot.ref).then((url)=> console.log(url))
-    })
-  }
+  
   
   return (
     <div className="container">
@@ -95,35 +74,15 @@ const NuevoCurso = () => {
         </select>
       </div>
       {/******************* SECCION ************/}
-      <div class="card mb-3">
-        <div class="card-body">
-        <label>Seccion 1</label>
-        <input 
-          type="text" 
-          { ...register('tituloCurso',{ 
-            required:{value:true, message:'El titulo es requerido'}})
-          } 
-          name='tituloCurso' className="form-control" placeholder="Ingresa titulo del curso"
-        />
-          <div className='form-group mt-3'>
-            <input type="file" className='form-control-file' name='video' onChange={onChange}/>
-            {/* //// SOLUCIONAR EL MENSAJE DE ALERTA******
-            { ...register('video',{ 
-              required:{value:true, message:'El video es requerido'}})
-            }
-            {errors.video&& <div className='alert alert-danger mt-1 p-1'>{errors.video.message}</div>} */}
-            <h5>Progreso de carga... {progress}%</h5>
-          </div>
-        </div>
-      </div>
+      <SeccionCurso/>
       
 
       <div className="form-group">
         <button type="button" className="btn btn-light">+ Seccion</button>
       </div>
-        
-        
-      <input type="submit" value={"enviar"} />
+
+      <input type="submit" value={"enviar"} className='mx-4'/>
+      <input type="submit" value={"Vista Previa"} />
 
 
   
