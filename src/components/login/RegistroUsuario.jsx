@@ -76,7 +76,7 @@ const Login = () => {
         }
     })
 
-    /************** REGISTRO POST****************/
+    /************** REGISTRO PERSONA - POST****************/
         const registrar = useCallback(async ()=>{
             const dato = await existeEmail()
             if( dato.length>0 && dato[0].correo==email)

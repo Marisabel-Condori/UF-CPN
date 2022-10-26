@@ -1,4 +1,8 @@
+import { useCallback } from 'react';
 import {useForm} from 'react-hook-form'
+
+import {Apiurl} from '../../api/UsuariosApi'
+import axios from 'axios'
 
 import SeccionCurso from "../customs/SeccionCurso";
 
@@ -7,15 +11,31 @@ const NuevoCurso = () => {
 
   const { register, formState:{ errors},handleSubmit} = useForm(); 
 
+
   const onSubmit = (data, e) => {
     console.log(data);
     e.target.reset()
+    registraCurso(data)
   }
 
-  
+  /************** REGISTRO CURSO - POST****************/
+  const registraCurso = useCallback( async (data)=>{
+        adicionaCurso(data)   
+  }, [])
+  /********** INGRESA DATOS CURSO A BD *******/
+  const adicionaCurso= (data)=>{
+    console.log('///ENVIADOOOOO CURSOOOOO///')
+    let url = Apiurl + "curso"
+    axios.post(url, null, {
+        params:{titulo_curso:data.tituloCurso, descripcion_curso: data.descripcion, requisitos: data.requisitos}
+    },)
+    .then((response) =>{
+        console.log('++++++++++++ response')
+        console.log(response)
+        }).catch(err => console.log(err))
+}
 
-  
-  
+
   return (
     <div className="container">
         <h1>Nuevo Curso</h1>

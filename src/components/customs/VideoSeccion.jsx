@@ -26,8 +26,8 @@ const VideoSeccion = () => {
     })
   }
   return (
-    <div class="card m-3">
-        <div class="card-body">
+    <div className="card m-3">
+        <div className="card-body">
             <label>Titulo del video: </label>
             <input 
                 type="text" 

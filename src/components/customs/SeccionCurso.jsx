@@ -5,8 +5,8 @@ import VideoSeccion from './VideoSeccion'
 const SeccionCurso = () => {
 
   return (
-    <div class="card mb-3">
-        <div class="card-body">
+    <div className="card mb-3">
+        <div className="card-body">
           <label>Seccion 1</label>
           <input 
             type="text" 
