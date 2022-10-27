@@ -1,8 +1,8 @@
 import React from 'react'
-import Tarjetas from '../customs/Tarjetas'
 import VideoPlayer from '../video/VideoPlayer'
 
 import '../../App.css'
+import TarjetasEstudiante from '../customs/TarjetasEstudiante'
 
 const Alumnos = () => {
   return (
@@ -10,7 +10,7 @@ const Alumnos = () => {
         <h1>alumnos</h1>
         <VideoPlayer/>
         <h2>prueba cards</h2>
-        <Tarjetas/>
+        <TarjetasEstudiante/>
         <h2>***************</h2>
     </div>
   )

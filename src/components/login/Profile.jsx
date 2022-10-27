@@ -1,28 +1,25 @@
 import React, {useEffect} from "react";
-import { useAuth0 } from "@auth0/auth0-react";
-import { usersApi } from "../../api/UserApi";
 import { useState } from "react";
+import { Apiurl } from "../../api/UsuariosApi";
+import axios from "axios";
 
 const Profile = () => {
 
-/////// USEEFECT DE API
-    // useEffect(() => {
-    //     getUsers(); 
-    //   }, []);
-//////////
-    // const {user, isAuthenticated, isLoading} = useAuth0();
-
-    // if(isLoading) return <h1>Cargando...</h1>
-
-    ///////////// API ///////////
-    const getUsers = () => {
-        usersApi.get('http://localhost:8000/persona') 
-            .then(resp => {
-                console.log(resp.data)
-            });
+    useEffect(()=>{
+        getPersonas()
+    },[])
+    ///////////// obtiene personas bd ///////////
+    const getPersonas = async() => {
+        let url = Apiurl + "persona"
+        let personasLista = await axios.get(url)
+            .then(response => {
+                console.log('+++++ response - lista de personas')
+                console.log(response.data)
+            }).catch(err => console.log(err));
+        return personasLista;
     }
-    ////////////
 
+    //////////// obtiene Storage
     const [datoEmail, setDatoEmail] = useState('')
     useEffect(()=>{
         setDatoEmail(getData())

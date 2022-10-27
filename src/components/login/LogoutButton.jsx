@@ -7,7 +7,7 @@ const LogoutButton = () => {
     }
     return (
         <button className="btn btn-dark float-right ml-2" onClick={logout}>
-            Salir
+            Cerrar Sesion
         </button>
     )
 }

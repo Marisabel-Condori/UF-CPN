@@ -1,15 +1,11 @@
-import {useAuth0} from '@auth0/auth0-react'
-
 import { Routes, Route, Link }from "react-router-dom";
 
 import NuevoCurso from "./NuevoCurso";
 import Profile from "../login/Profile";
-import Tarjetas from '../customs/Tarjetas';
+import Tarjetas from '../customs/TarjetasInstructor';
 
 
 const MisCursos = () => {   
-
-  const {isAuthenticated} = useAuth0()
 
   return (
     <div>
