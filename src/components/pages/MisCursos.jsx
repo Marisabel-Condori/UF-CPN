@@ -23,6 +23,7 @@ const MisCursos = () => {
             <Route path="/NuevoCurso" element={<NuevoCurso/>}/>
           </Routes> 
         </div>
+        
         <Tarjetas/>
         
         

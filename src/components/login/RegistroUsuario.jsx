@@ -99,7 +99,7 @@ const Login = () => {
         console.log('!!!!! OBTIENE EMAIL !!!!!!')
         console.log(obtEmail.data)
         return obtEmail.data
-    }
+    }  
 
     /********** INGRESA DATOS PERSONA A BD *******/
     const adicionaPersonaBD= ()=>{
@@ -145,8 +145,10 @@ const Login = () => {
 								<span className="input-group-text"><i className="fas fa-user">E</i></span>
 							</div>
                             {/* --------------------email */}
-							<input type="email" className="form-control"  placeholder="Email" onChange={e=>setEmail(e.target.value)} value={email}/>
-						</div>
+							<input type="email" className="form-control"  placeholder="Email" onChange={e=>setEmail(e.target.value)} value={email}  />
+                        {/* ...register('email',{pattern: /^[^\s@]+@[^\s@]+\.[^\s@+$/i]}) 
+                                {errors.email?.type==='pattern'&&<P>formato incorrecto</P>}*/}
+                        </div>
 						<div className="input-group mb-2">
 							<div className="input-group-append">
 								<span className="input-group-text"><i className="fas fa-key">P</i></span>

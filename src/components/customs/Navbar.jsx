@@ -1,14 +1,8 @@
 import React from "react";
 
-import { BrowserRouter as Router, Routes, Route, Link, NavLink }from "react-router-dom";
-
-import MisCursos from "../pages/MisCursos";
-import Foro from "../pages/Foro";
-import NuevoCurso from "../pages/NuevoCurso"
-import Alumnos from "../pages/Alumnos";
+import { Link, NavLink } from "react-router-dom";
 
 import LogoutButton from "../login/LogoutButton";
-import RegistroUsuario from "../login/RegistroUsuario";
 
 
 const Navbar = () => {
@@ -19,33 +13,21 @@ const Navbar = () => {
   console.log('NAVBAR cierra')
 
   return (
-    <Router>
-      <div className="mt-2">
-        <div className="navbar navbar-dark bg-dark">
-          <Link className="navbar-brand" to="/">FCPN</Link>
-          <div>
-              <NavLink to="/NuevoCurso" className="btn btn-dark mr-2"> Nuevo Curso </NavLink>
-              <NavLink to="/Foro" className="btn btn-dark mr-2"> Foro </NavLink>
-              <NavLink to="/Alumnos" className="btn btn-dark mr-2"> Alumnos </NavLink>
-              {isAuthenticated? <LogoutButton/>
-              :    <NavLink to="/Login" className="btn btn-dark mr-2  "> Iniciar Sesion </NavLink>
-              }
-              <NavLink exact to="/" className="btn btn-dark mr-2"> Mis Cursos </NavLink>
-          </div>
-          
-          </div>
-          <hr/>
-          <Routes>
-            {/* <Route path="/Login" element={<RegistroUsuario/>}/> */}
-            <Route path="/Login" element={<RegistroUsuario/>}/>
-            <Route path="/NuevoCurso" element={<NuevoCurso/>}/>
-            <Route path="/Foro" element={<Foro/>}/> 
-            <Route path="/Alumnos" element={<Alumnos/>}/> 
-            <Route path="/" element={<MisCursos/>}/>  
-            <Route path="*" element={<MisCursos/>}/>  
-          </Routes> 
+    <div className="mt-2">
+      <div className="navbar navbar-dark bg-dark">
+        <Link className="navbar-brand" to="/">FCPN</Link>
+        <div>
+          <Link to="/" className="btn btn-dark mr-2"> Mis Cursos </Link>
+          <NavLink to="/NuevoCurso" className="btn btn-dark mr-2"> Nuevo Curso </NavLink>
+          <NavLink to="/Foro" className="btn btn-dark mr-2"> Foro </NavLink>
+          <NavLink to="/Alumnos" className="btn btn-dark mr-2"> Alumnos </NavLink>
+          {isAuthenticated ? <LogoutButton />
+            : <NavLink to="/Login" className="btn btn-dark mr-2  "> Iniciar Sesion </NavLink>
+          }
         </div>
-    </Router>
+      </div>
+      <hr />
+    </div>
   )
 }
 
