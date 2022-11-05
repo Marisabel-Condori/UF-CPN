@@ -34,10 +34,6 @@ const NuevoCursoDatos = () => {
     // }
 
     return (
-        // <div className="row">
-        //     <div className="col-sm-8">col-sm-8</div>
-        //     <div className="col-sm-4">col-sm-4</div>
-        // </div>
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="form-group">
@@ -47,8 +43,7 @@ const NuevoCursoDatos = () => {
                             <input
                                 type="text"
                                 {...register('tituloCurso', {
-                                    required: { value: true, message: 'El titulo es requerido' }
-                                })
+                                    required: { value: true, message: 'El titulo es requerido' }})
                                 }
                                 name='tituloCurso' className="form-control" placeholder="Ingresa titulo del curso"
                             />
