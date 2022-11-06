@@ -60,20 +60,24 @@ const SeccionCurso = (props) => {
                 </div>
               </div>
             </div>
-            <center> <h3>Agregar Recursos</h3> </center>
-            <div className='row'>
-              <div className='col-md-6'><VideoSeccion /></div>
-              <div className='col-md-6'><Recurso /></div>
-            </div>
+            <center>
+                <h3>Agregar Recurso o Video</h3>
+              <div className='col-md-6'>
+                <VideoSeccion />
 
-
+              </div>
+             
+            </center>
+            {/* <div className='row'>
+              {/* <div className='col-md-6'><Recurso /></div> 
+            </div> */}
 
             <center>
               <button type='submit' className='btn btn-success mb-4'> Guardar Datos Seccion</button>
             </center>
 
-            <input type="submit" value={"+ video"} className='m-2' />
-            <input type="submit" value={"+ recurso"} />
+            {/* <input type="submit" value={"+ video"} className='m-2' />
+            <input type="submit" value={"+ recurso"} /> */}
           </div>
         </div>
       </form>

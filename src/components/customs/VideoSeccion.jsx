@@ -4,6 +4,9 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from "../Firebase";
 
 const VideoSeccion = () => {
+
+  const agregarRecurso = async (e) => {
+  }
   const [progress, setProgress] = useState(0)
 
   const onChange = (e) => {
@@ -28,9 +31,9 @@ const VideoSeccion = () => {
   return (
     <div className="card m-3">
       <div className="card-body">
-        
+        <form onSubmit={agregarRecurso}></form>
         <div className='row'>
-          <div className='col-md-3'>  <label>Titulo del video: </label> </div>
+          <div className='col-md-3'>  <label>Titulo: </label> </div>
           <div className='col-md-9'>
             <input
               type="text"
@@ -40,9 +43,9 @@ const VideoSeccion = () => {
         </div>
 
         <div className='row'>
-          <div className='col-md-3'>  <label className='mt-2'>Video: </label> </div>
-          <div className='form-group mt-3'>
-            <div className='col-md-12'>
+          <div className='col-md-3'>  <label className='mt-2'>Archivo: </label> </div>
+            <div className='col-md-9 mt-3'>
+          <div className='form-group'>
               <input type="file" className='form-control-file' name='video' onChange={onChange} />
             </div>
             {/* //// SOLUCIONAR EL MENSAJE DE ALERTA****** */}
