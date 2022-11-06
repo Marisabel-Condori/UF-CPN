@@ -3,7 +3,7 @@ import shortid from 'shortid'
 
 import SeccionCurso from './SeccionCurso'
 
-const SeccionesCurso = () => {
+const SeccionesCurso = (props) => {
 
    const [seccionLista, setSeccionLista] = useState([<SeccionCurso />])
   //const [seccionLista, setSeccionLista] = useState([])
@@ -28,7 +28,7 @@ const SeccionesCurso = () => {
             <h3>index: {index}</h3>
             <h2>seccion.lenght: {seccionLista.length}</h2>
             {/* <h2>{seccion.id}</h2> */} 
-            <SeccionCurso />
+            <SeccionCurso idCurso={props.idCurso} />
             {
               seccionLista.length > 1 && (
                 <button type='button' className='btn btn-danger my-2' onClick={() => eliminarSeccion(seccion.id)}>Eliminar seccion</button>

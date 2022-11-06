@@ -10,7 +10,7 @@ const NuevoCurso = () => {
       <div className="container">
         <center><h1>Nuevo Curso</h1></center>
           <NuevoCursoDatos /> 
-          <SeccionesCurso />
+          <SeccionesCurso idCurso={1}/>
         
         {/*       
       <form>

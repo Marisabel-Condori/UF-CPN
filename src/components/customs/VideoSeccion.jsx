@@ -28,6 +28,7 @@ const VideoSeccion = () => {
   return (
     <div className="card m-3">
       <div className="card-body">
+        
         <div className='row'>
           <div className='col-md-3'>  <label>Titulo del video: </label> </div>
           <div className='col-md-9'>
@@ -44,11 +45,7 @@ const VideoSeccion = () => {
             <div className='col-md-12'>
               <input type="file" className='form-control-file' name='video' onChange={onChange} />
             </div>
-            {/* //// SOLUCIONAR EL MENSAJE DE ALERTA******
-                { ...register('video',{ 
-                required:{value:true, message:'El video es requerido'}})
-                }
-                {errors.video&& <div className='alert alert-danger mt-1 p-1'>{errors.video.message}</div>} */}
+            {/* //// SOLUCIONAR EL MENSAJE DE ALERTA****** */}
           </div>
         </div>
           <h5>Progreso de carga... {progress}%</h5>

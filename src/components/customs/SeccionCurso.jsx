@@ -1,8 +1,11 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import Recurso from './Recurso'
 import VideoSeccion from './VideoSeccion'
+import { Apiurl } from '../../api/UsuariosApi'
+import axios from 'axios'
 
-const SeccionCurso = () => {
+const SeccionCurso = (props) => {
+  const idCurso = props.idCurso //ENVIAR A LA BD con este dato
 
   const [nombreSeccion, setNombreSeccion] = useState('')
   const [error, setError] = useState(null)
@@ -18,10 +21,29 @@ const SeccionCurso = () => {
     console.log('pasando validaciones')
     setNombreSeccion('')
     setError('')
-  }
 
+    registraSeccion(idCurso, nombreSeccion)
+  }
+  /************** REGISTRO SECCION - POST****************/
+  const registraSeccion = useCallback(async (idCur, nombreSec) => {
+    adicionaSeccion(idCur, nombreSec)
+  }, [])
+  /********** INGRESA DATOS CURSO A BD *******/
+  const adicionaSeccion = (idCur, nombreSec) => {
+    console.log('///ENVIADOOOOO CURSOOOOO///')
+    let url = Apiurl + "seccion"
+    axios.post(url, null, {
+      params: { idcurso: idCur, nombre_seccion: nombreSec }
+    },)
+      .then((response) => {
+        console.log('++++++++++++ response')
+        console.log(response)
+      }).catch(err => console.log(err))
+  }
   return (
     <>
+      <h6>props ultimo {props.idCurso}</h6>
+
       <form onSubmit={procesarDatos}>
         <div className="card" >
           <div className="card-body">
@@ -38,9 +60,13 @@ const SeccionCurso = () => {
                 </div>
               </div>
             </div>
+            <center> <h3>Agregar Recursos</h3> </center>
+            <div className='row'>
+              <div className='col-md-6'><VideoSeccion /></div>
+              <div className='col-md-6'><Recurso /></div>
+            </div>
 
-            <VideoSeccion />
-            <Recurso />
+
 
             <center>
               <button type='submit' className='btn btn-success mb-4'> Guardar Datos Seccion</button>
