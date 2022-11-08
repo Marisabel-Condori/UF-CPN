@@ -1,43 +1,50 @@
 import React, { useCallback } from 'react'
 
 import { useForm } from 'react-hook-form'
+import { Apiurl } from '../../api/UsuariosApi'
+import axios from 'axios'
+import { useState } from 'react'
 
-// import { Apiurl } from '../../api/UsuariosApi'
-// import axios from 'axios'
-// import SeccionCurso from './SeccionCurso'
+const NuevoCursoDatos = ( ) => {
 
-const NuevoCursoDatos = () => {
+    const [id, setId] = useState(null)
+    const datoIDCurso = useCallback( (valor) =>{
+        console.log('idCurso antes de editar=> '+id)
+        setId(valor)
+        enviaPadre( id)
+    },[])
+    const enviaPadre=(data)=>{
+        console.log('idCurso despues de editar=> '+data)
+    }
 
     const { register, formState: { errors }, handleSubmit } = useForm();
 
     const onSubmit = (data, e) => {
         console.log(data);
         e.target.reset()
-        // registraCurso(data)
+        registraCurso(data)
     }
 
-    //   /************** REGISTRO CURSO - POST****************/
-    //   const registraCurso = useCallback( async (data)=>{
-    //         adicionaCurso(data)   
-    //   }, [])
-    //   /********** INGRESA DATOS CURSO A BD *******/
-    //   const adicionaCurso= (data)=>{
-    //     console.log('///ENVIADOOOOO CURSOOOOO///')
-    //     let url = Apiurl + "curso"
-    //     axios.post(url, null, {
-    //         params:{titulo_curso:data.tituloCurso, descripcion_curso: data.descripcion, requisitos: data.requisitos}
-    //     },)
-    //     .then((response) =>{
-    //         console.log('++++++++++++ response')
-    //         console.log(response)
-    //         }).catch(err => console.log(err))
-    // }
+      /************** REGISTRO CURSO - POST****************/
+      const registraCurso = useCallback( async (data)=>{
+            adicionaCurso(data)   
+      }, [])   
+      /********** INGRESA DATOS CURSO A BD *******/
+      const adicionaCurso= (data)=>{
+        console.log('///ENVIADOOOOO CURSOOOOO///')
+        let url = Apiurl + "curso"
+        axios.post(url, null, {
+            params:{titulo_curso:data.tituloCurso, descripcion_curso: data.descripcion, requisitos: data.requisitos}
+        },)
+        .then((response) =>{
+            console.log('++++++++++++ response')
+            console.log(response)
+            console.log('id => '+response.data.insertId)
+            datoIDCurso(response.data.insertId)
+            }).catch(err => console.log(err))
+    }
 
     return (
-        // <div className="row">
-        //     <div className="col-sm-8">col-sm-8</div>
-        //     <div className="col-sm-4">col-sm-4</div>
-        // </div>
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="form-group">

@@ -1,11 +1,12 @@
 import React, { useCallback, useState } from 'react'
-import Recurso from './Recurso'
 import VideoSeccion from './VideoSeccion'
 import { Apiurl } from '../../api/UsuariosApi'
 import axios from 'axios'
 
 const SeccionCurso = (props) => {
   const idCurso = props.idCurso //ENVIAR A LA BD con este dato
+  // const idCurso = props.idCursoNuevo //ENVIAR A LA BD con este dato
+  //console.log('idCursoNuevo ====>> '+props.idCursoNuevo)
 
   const [nombreSeccion, setNombreSeccion] = useState('')
   const [error, setError] = useState(null)
@@ -42,9 +43,7 @@ const SeccionCurso = (props) => {
   }
   return (
     <>
-      <h6>props ultimo {props.idCurso}</h6>
-
-      <form onSubmit={procesarDatos}>
+      <h6>props ultimo idCurso {props.idCurso}</h6>
         <div className="card" >
           <div className="card-body">
             <div className='form-group'>
@@ -62,25 +61,19 @@ const SeccionCurso = (props) => {
             </div>
             <center>
                 <h3>Agregar Recurso o Video</h3>
-              <div className='col-md-6'>
-                <VideoSeccion />
-
-              </div>
-             
+              <div className='col-md-7'>
+                <VideoSeccion/>
+              </div> 
             </center>
-            {/* <div className='row'>
-              {/* <div className='col-md-6'><Recurso /></div> 
-            </div> */}
 
             <center>
-              <button type='submit' className='btn btn-success mb-4'> Guardar Datos Seccion</button>
+              <button type='submit' className='btn btn-success mb-4' onClick={procesarDatos}> Guardar Datos Seccion</button>
             </center>
 
             {/* <input type="submit" value={"+ video"} className='m-2' />
             <input type="submit" value={"+ recurso"} /> */}
           </div>
         </div>
-      </form>
     </>
   )
 }

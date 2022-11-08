@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from 'react'
 
 import NuevoCursoDatos from '../customs/NuevoCursoDatos';
 import SeccionesCurso from '../customs/SeccionesCurso';
@@ -9,8 +9,9 @@ const NuevoCurso = () => {
     <>
       <div className="container">
         <center><h1>Nuevo Curso</h1></center>
-          <NuevoCursoDatos /> 
+          <NuevoCursoDatos/> 
           <SeccionesCurso idCurso={1}/>
+          {/* <SeccionesCurso datoIDcurso={idCurso} */}
         
         {/*       
       <form>
