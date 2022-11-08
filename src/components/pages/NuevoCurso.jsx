@@ -14,10 +14,11 @@ const NuevoCurso = () => {
 
   return (
     <>
+    <h2>valor recibido desde el hijo: {idCurso}</h2>
       <div className="container">
         <center><h1>Nuevo Curso</h1></center>
           <NuevoCursoDatos idCursoP={idCurso} functionP={modificaID}/> 
-          <SeccionesCurso idCurso={1}/>
+          <SeccionesCurso idCursoP={idCurso}/>
           {/* <SeccionesCurso datoIDcurso={idCurso} */}
         
         {/*       

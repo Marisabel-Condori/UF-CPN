@@ -10,8 +10,11 @@ const NuevoCursoDatos = ({functionP} ) => {
     const [idChild, setIdChild] = useState(null)
 
     useEffect(()=>{
-        functionP(idChild)
-    }, [functionP, idChild])
+        if (idChild) {
+            console.log('mostrnado idchild useEfect: '+idChild);
+            functionP(idChild)
+        }
+    }, [idChild])
 
     const { register, formState: { errors }, handleSubmit } = useForm();
 

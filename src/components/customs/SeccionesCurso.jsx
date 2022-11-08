@@ -3,10 +3,10 @@ import shortid from 'shortid'
 
 import SeccionCurso from './SeccionCurso'
 
-const SeccionesCurso = (props) => {
+const SeccionesCurso = ({idCursoP}) => {
+  console.log('dato recibido desde el padre: '+idCursoP);
 
    const [seccionLista, setSeccionLista] = useState([<SeccionCurso />])
-  //const [seccionLista, setSeccionLista] = useState([])
 
   const agregaNuevaSeccion = () => {
     console.log('adicionando seccioooooooon a la lista')
@@ -22,13 +22,14 @@ const SeccionesCurso = (props) => {
 
   return (
     <div>
+      <h1>dato recibido desde el padre {idCursoP}</h1>
       {
         seccionLista.map((seccion, index) => (
           <div key={index}>
             <h3>index: {index}</h3>
             <h2>seccion.lenght: {seccionLista.length}</h2>
             {/* <h2>{seccion.id}</h2> */} 
-            <SeccionCurso idCurso={props.idCurso} />
+            <SeccionCurso idCurso={idCursoP} />
             {
               seccionLista.length > 1 && (
                 <button type='button' className='btn btn-danger my-2' onClick={() => eliminarSeccion(seccion.id)}>Eliminar seccion</button>
