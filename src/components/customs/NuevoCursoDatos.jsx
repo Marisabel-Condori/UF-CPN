@@ -4,18 +4,14 @@ import { useForm } from 'react-hook-form'
 import { Apiurl } from '../../api/UsuariosApi'
 import axios from 'axios'
 import { useState } from 'react'
+import { useEffect } from 'react'
 
-const NuevoCursoDatos = ( ) => {
+const NuevoCursoDatos = ({functionP} ) => {
+    const [idChild, setIdChild] = useState(null)
 
-    const [id, setId] = useState(null)
-    const datoIDCurso = useCallback( (valor) =>{
-        console.log('idCurso antes de editar=> '+id)
-        setId(valor)
-        enviaPadre( id)
-    },[])
-    const enviaPadre=(data)=>{
-        console.log('idCurso despues de editar=> '+data)
-    }
+    useEffect(()=>{
+        functionP(idChild)
+    }, [functionP, idChild])
 
     const { register, formState: { errors }, handleSubmit } = useForm();
 
@@ -40,12 +36,14 @@ const NuevoCursoDatos = ( ) => {
             console.log('++++++++++++ response')
             console.log(response)
             console.log('id => '+response.data.insertId)
-            datoIDCurso(response.data.insertId)
+            // --------------------- AQUI QUIERO ENVIAR EL DATO AL PADRE------------
+            setIdChild(response.data.insertId)
+
             }).catch(err => console.log(err))
     }
 
     return (
-        <>
+        <>   
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="form-group">
                     <div className="row">
