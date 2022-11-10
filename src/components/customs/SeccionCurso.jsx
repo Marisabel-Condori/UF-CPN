@@ -31,7 +31,7 @@ const SeccionCurso = (props) => {
   }, [])
   /********** INGRESA DATOS CURSO A BD *******/
   const adicionaSeccion = (idCur, nombreSec) => {
-    console.log('///ENVIADOOOOO CURSOOOOO///')
+    console.log('///ENVIADOOOOO SECCION///')
     let url = Apiurl + "seccion"
     axios.post(url, null, {
       params: { idcurso: idCur, nombre_seccion: nombreSec }
@@ -66,9 +66,9 @@ const SeccionCurso = (props) => {
               </div> 
             </center>
 
-            <center>
-              <button type='submit' className='btn btn-success mb-4' onClick={procesarDatos}> Guardar Datos Seccion</button>
-            </center>
+            {/* <center>
+              <button type='submit' className='btn btn-success mt-4' onClick={procesarDatos}> Guardar Datos Seccion</button>
+            </center> */}
 
             {/* <input type="submit" value={"+ video"} className='m-2' />
             <input type="submit" value={"+ recurso"} /> */}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import shortid from "shortid";
 
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -6,17 +6,18 @@ import { storage } from "../Firebase";
 
 const VideoSeccion = () => {
 
-  const [video, setVideo] = React.useState('')
-  const [listaVideos, setListaVideos] = React.useState([])
+  const [video, setVideo] = useState('')
+  const [link, setLink] = useState('')
+  const [listaVideos, setListaVideos] = useState([])
 
   const [progress, setProgress] = useState(0)
 
-  const onChange = (e) => {
+  const onChange = async e => {
     const file = e.target.files[0]
     console.log('*******************')
-    uploadFiles(file)
+    await uploadFiles(file)
   }
-  const uploadFiles = (file) => {
+  const uploadFiles = async file => {
     if (!file) return;
     const storageRef = ref(storage, `/files/${file.name}`)
     const uploadTask = uploadBytesResumable(storageRef, file)
@@ -27,21 +28,32 @@ const VideoSeccion = () => {
     },
       (err) => console.log(err),
       () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((url) => console.log(url))
+        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+          console.log(url)
+          setLink(url)
+        })
       })
   }
   const agregarRecurso = e => {
     e.preventDefault()
     if (!video.trim()) {
-      console.log('elemento vacio')
+      console.log('titulo video vacio')
       return
     }
-    console.log(video)
-    setListaVideos([
-      ...listaVideos, { id: shortid.generate(), nombreVideo: video }
-    ])
+    if (link) {
+      console.log('tiene datos... a;adir ' + link)
+      console.log('imprimiendo nombre video ' + video);
+      setListaVideos([
+        //...listaVideos, { id: shortid.generate(), nombreVideo: video }
+        ...listaVideos, { id: shortid.generate(), nombreVideo: video, linkVideo: link }
+      ])
+      console.log('imprimiendo lista de videos completa')
+      console.log(listaVideos)
+    } else { console.log('no hay archivo') }
     setVideo('')
+    setLink('')
   }
+
   const eliminarTarea = id => {
     console.log(id)
     const arrayFiltrado = listaVideos.filter(item => item.id !== id)
@@ -67,6 +79,7 @@ const VideoSeccion = () => {
               <div className='col-md-2'>  <label className='mt-2'>Archivo: </label> </div>
               <div className='col-md-9 mt-3'>
                 <div className='form-group'>
+                {/* <input type="file" className='form-control-file' onChange={onChange} /> */}
                   <input type="file" className='form-control-file' onChange={onChange} />
                 </div>
                 {/* //// SOLUCIONAR EL MENSAJE DE ALERTA****** */}
@@ -94,6 +107,13 @@ const VideoSeccion = () => {
           ))
         }
       </ul>
+
+      {/* <center>
+        <button type='submit' className='btn btn-success mt-4' onClick={procesarDatos}> Guardar Datos Seccion</button>
+      </center> */}
+      <center>
+        <button type='submit' className='btn btn-success mt-4' > Guardar Datos Seccion</button>
+      </center>
     </>
   )
 }
