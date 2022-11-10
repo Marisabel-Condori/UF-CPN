@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import shortid from "shortid";
 
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -52,6 +52,7 @@ const VideoSeccion = () => {
     } else { console.log('no hay archivo') }
     setVideo('')
     setLink('')
+    setProgress(0)
   }
 
   const eliminarTarea = id => {
@@ -79,13 +80,15 @@ const VideoSeccion = () => {
               <div className='col-md-2'>  <label className='mt-2'>Archivo: </label> </div>
               <div className='col-md-9 mt-3'>
                 <div className='form-group'>
-                {/* <input type="file" className='form-control-file' onChange={onChange} /> */}
+                  {/* <input type="file" className='form-control-file' onChange={onChange} /> */}
                   <input type="file" className='form-control-file' onChange={onChange} />
                 </div>
                 {/* //// SOLUCIONAR EL MENSAJE DE ALERTA****** */}
               </div>
             </div>
-            <h5>Progreso de carga... {progress}%</h5>
+            <div className="progress mb-2">
+              <div className="progress-bar progress-bar-striped progress-bar-animated " style={{width:`${progress}%`}}>{progress}%</div>
+            </div>
             <button className="btn btn-info btn-block" type="submit">Agregar archivo</button>
           </form>
         </div>
