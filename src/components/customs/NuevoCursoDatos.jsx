@@ -6,12 +6,12 @@ import axios from 'axios'
 import { useState } from 'react'
 import { useEffect } from 'react'
 
-const NuevoCursoDatos = ({functionP} ) => {
+const NuevoCursoDatos = ({ functionP }) => {
     const [idChild, setIdChild] = useState(null)
 
-    useEffect(()=>{
+    useEffect(() => {
         if (idChild) {
-            console.log('mostrnado idchild useEfect: '+idChild);
+            console.log('mostrnado idchild useEfect: ' + idChild);
             functionP(idChild)
         }
     }, [idChild])
@@ -24,29 +24,29 @@ const NuevoCursoDatos = ({functionP} ) => {
         registraCurso(data)
     }
 
-      /************** REGISTRO CURSO - POST****************/
-      const registraCurso = useCallback( async (data)=>{
-            adicionaCurso(data)   
-      }, [])   
-      /********** INGRESA DATOS CURSO A BD *******/
-      const adicionaCurso= (data)=>{
+    /************** REGISTRO CURSO - POST****************/
+    const registraCurso = useCallback(async (data) => {
+        adicionaCurso(data)
+    }, [])
+    /********** INGRESA DATOS CURSO A BD *******/
+    const adicionaCurso = (data) => {
         console.log('///ENVIADOOOOO CURSOOOOO///')
         let url = Apiurl + "curso"
         axios.post(url, null, {
-            params:{titulo_curso:data.tituloCurso, descripcion_curso: data.descripcion, requisitos: data.requisitos}
+            params: { titulo_curso: data.tituloCurso, descripcion_curso: data.descripcion, requisitos: data.requisitos }
         },)
-        .then((response) =>{
-            console.log('++++++++++++ response')
-            console.log(response)
-            console.log('id => '+response.data.insertId)
-            // --------------------- AQUI QUIERO ENVIAR EL DATO AL PADRE------------
-            setIdChild(response.data.insertId)
+            .then((response) => {
+                console.log('++++++++++++ response')
+                console.log(response)
+                console.log('id => ' + response.data.insertId)
+                // --------------------- AQUI QUIERO ENVIAR EL DATO AL PADRE------------
+                setIdChild(response.data.insertId)
 
             }).catch(err => console.log(err))
     }
 
     return (
-        <>   
+        <>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="form-group">
                     <div className="row">
