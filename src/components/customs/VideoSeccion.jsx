@@ -1,23 +1,31 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import shortid from "shortid";
 
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from "../Firebase";
 
-const VideoSeccion = () => {
+import { Apiurl } from '../../api/UsuariosApi'
+import axios from 'axios'
+
+const VideoSeccion = ({ idCurso, nomSeccion }) => {
+
+  const IDcurso = idCurso
+  const NOMBREseccion = nomSeccion
 
   const [video, setVideo] = useState('')
   const [link, setLink] = useState('')
   const [listaVideos, setListaVideos] = useState([])
-
   const [progress, setProgress] = useState(0)
+  const [idSeccion, setIdSeccion] = useState(-1)
 
-  const onChange = async e => {
+  const onChange = e => {
     const file = e.target.files[0]
     console.log('*******************')
-    await uploadFiles(file)
+    console.log(file.name);
+    uploadFiles(file)
   }
-  const uploadFiles = async file => {
+
+  const uploadFiles = file => {
     if (!file) return;
     const storageRef = ref(storage, `/files/${file.name}`)
     const uploadTask = uploadBytesResumable(storageRef, file)
@@ -34,6 +42,7 @@ const VideoSeccion = () => {
         })
       })
   }
+
   const agregarRecurso = e => {
     e.preventDefault()
     if (!video.trim()) {
@@ -44,22 +53,95 @@ const VideoSeccion = () => {
       console.log('tiene datos... a;adir ' + link)
       console.log('imprimiendo nombre video ' + video);
       setListaVideos([
-        //...listaVideos, { id: shortid.generate(), nombreVideo: video }
         ...listaVideos, { id: shortid.generate(), nombreVideo: video, linkVideo: link }
       ])
-      console.log('imprimiendo lista de videos completa')
-      console.log(listaVideos)
     } else { console.log('no hay archivo') }
     setVideo('')
     setLink('')
     setProgress(0)
   }
-
   const eliminarTarea = id => {
     console.log(id)
     const arrayFiltrado = listaVideos.filter(item => item.id !== id)
     setListaVideos(arrayFiltrado)
   }
+
+  const enviaBD = () => {
+    console.log('lista de videos y enviar a la bd ')
+    console.log(listaVideos)
+    //const dato = await existeIdSeccion()
+    if (idSeccion == -1) {
+      console.log('NO existe id Seccion POST')
+      registraSeccion(IDcurso, NOMBREseccion)
+      console.log('enviando videos bd '+idSeccion);
+      for (let index = 0; index < listaVideos.length; index++) {
+        const item = listaVideos[index];
+        console.log('video for '+index)
+        console.log('nombre video: '+item.nombreVideo+' link video: '+item.linkVideo)
+        registraVideo(item.nombreVideo, item.linkVideo, idSeccion)
+      }
+    } else {
+      /*****************PUT***************** */
+      console.log('...PUT SECCION....' + idSeccion)
+      console.log('enviando videos bd '+idSeccion);
+      for (let index = 0; index < listaVideos.length; index++) {
+        const item = listaVideos[index];
+        console.log('video for '+index)
+        console.log('nombre video: '+item.nombreVideo+' link video: '+item.linkVideo)
+        registraVideo(item.nombreVideo, item.linkVideo, idSeccion)
+      }
+    }
+  }
+  /*****************REGISTRO VIDEO - POST***************** */
+  const registraVideo = useCallback(async (nomVid, link, idSec) => {
+    adicionaVideo(nomVid, link, idSec)
+  }, [])
+  /********** INGRESA DATOS VIDEO A BD *******/
+  const adicionaVideo = (nomVid, link, idSec) => {
+    console.log('///ENVIADOOOOO VIDEO///')
+    let url = Apiurl + "video"
+    axios.post(url, null, {
+      params: { titulo: nomVid, urlvideo: link, idseccion:idSec }
+    },)
+      .then((response) => {
+        console.log('++++++++++++ response VIDEO')
+        console.log(response)
+        console.log('id => ' + response.data.insertId)
+        //setIdSeccion(response.data.insertId)
+      }).catch(err => console.log(err))
+  }
+  /*****************REGISTRO SECCION - POST***************** */
+  const registraSeccion = useCallback(async (idCur, nombreSec) => {
+    adicionaSeccion(idCur, nombreSec)
+  }, [])
+  /********** INGRESA DATOS SECCION A BD *******/
+  const adicionaSeccion = (idCur, nombreSec) => {
+    console.log('///ENVIADOOOOO SECCION///')
+    let url = Apiurl + "seccion"
+    axios.post(url, null, {
+      params: { idcurso: idCur, nombre_seccion: nombreSec }
+    },)
+      .then((response) => {
+        console.log('++++++++++++ response SECCION')
+        console.log(response)
+        console.log('id => ' + response.data.insertId)
+        setIdSeccion(response.data.insertId)
+      }).catch(err => console.log(err))
+  }
+
+
+  /**************EXISTE ID SECCION**********************/
+  const existeIdSeccion = async () => {
+    let url = Apiurl + "seccionbyid"
+    let obtID = await axios.get(url, {
+      params: { idseccion: idSeccion }
+    })
+    console.log('!!!!! OBTIENE ID SECCION !!!!!!')
+    console.log(obtID.data)
+    return obtID.data
+  }
+
+
   return (
     <>
       {/**********************PETICION DE DATOS***********************/}
@@ -80,14 +162,13 @@ const VideoSeccion = () => {
               <div className='col-md-2'>  <label className='mt-2'>Archivo: </label> </div>
               <div className='col-md-9 mt-3'>
                 <div className='form-group'>
-                  {/* <input type="file" className='form-control-file' onChange={onChange} /> */}
                   <input type="file" className='form-control-file' onChange={onChange} />
                 </div>
                 {/* //// SOLUCIONAR EL MENSAJE DE ALERTA****** */}
               </div>
             </div>
             <div className="progress mb-2">
-              <div className="progress-bar progress-bar-striped progress-bar-animated " style={{width:`${progress}%`}}>{progress}%</div>
+              <div className="progress-bar progress-bar-striped progress-bar-animated " style={{ width: `${progress}%` }}>{progress}%</div>
             </div>
             <button className="btn btn-info btn-block" type="submit">Agregar archivo</button>
           </form>
@@ -110,12 +191,8 @@ const VideoSeccion = () => {
           ))
         }
       </ul>
-
-      {/* <center>
-        <button type='submit' className='btn btn-success mt-4' onClick={procesarDatos}> Guardar Datos Seccion</button>
-      </center> */}
       <center>
-        <button type='submit' className='btn btn-success mt-4' > Guardar Datos Seccion</button>
+        <button disabled={IDcurso && listaVideos.length > 0 ? false : true} type='button' className='btn btn-success mt-4' onClick={enviaBD}> Guardar Datos Seccion</button>
       </center>
     </>
   )

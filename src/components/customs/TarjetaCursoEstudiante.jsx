@@ -14,7 +14,7 @@ const TarjetaCursoEstudiante = ({titulo, imageSource, descripcion, url, nombreDo
   const esFavorito = true
 
   return (
-    <div className='card card-c-hover text-center bg-dark ml-3 mt-5' >
+    <div className='card card-con-hover text-center bg-dark ml-3 mt-5' >
       <img src={imageSource? imageSource: imgProvisional} 
             alt="Responsive image" className='card-img-top img-fuid' style = {imgStyles} />
       <div className='card-body text-light'>

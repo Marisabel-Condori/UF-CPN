@@ -8,7 +8,7 @@ const TarjetaCursoInstructor = ({titulo, imageSource, descripcion, url, nombreDo
   const imgProvisional = 'https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg'
   
   return (
-    <div className='card card-c-hover text-center bg-dark m-3' >
+    <div className='card card-con-hover text-center bg-dark m-3' >
       <img src={imageSource? imageSource: imgProvisional} 
             alt="" height={150} className='card-img-top' />
       <div className='card-body text-light'>

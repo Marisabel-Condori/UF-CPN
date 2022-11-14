@@ -3,8 +3,7 @@ import React, { useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 import { Apiurl } from '../../api/UsuariosApi'
 import axios from 'axios'
-import { useState } from 'react'
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
 const NuevoCursoDatos = ({ functionP }) => {
     const [idChild, setIdChild] = useState(null)
@@ -39,9 +38,7 @@ const NuevoCursoDatos = ({ functionP }) => {
                 console.log('++++++++++++ response')
                 console.log(response)
                 console.log('id => ' + response.data.insertId)
-                // --------------------- AQUI QUIERO ENVIAR EL DATO AL PADRE------------
                 setIdChild(response.data.insertId)
-
             }).catch(err => console.log(err))
     }
 
