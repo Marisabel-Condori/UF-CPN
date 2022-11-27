@@ -17,6 +17,7 @@ const NuevoCurso = () => {
         <center><h1>Nuevo Curso</h1></center>
         <NuevoCursoDatos idCursoP={idCurso} functionP={modificaID} />
         <SeccionesCurso idCursoP={idCurso} />
+        {/* <SeccionesCurso idCursoP={111} /> */}
 
         {/*       
       <form>
