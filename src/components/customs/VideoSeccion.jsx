@@ -6,9 +6,8 @@ import { storage } from "../Firebase";
 
 import { Apiurl } from '../../api/UsuariosApi'
 import axios from 'axios'
-import { useEffect } from 'react';
 
-const VideoSeccion = ({ idCurso, nomSeccion }) => {
+const VideoSeccion = ({ idCurso, nomSeccion, functionCambiaIdSec }) => {
 
   const IDcurso = idCurso
   const NOMBREseccion = nomSeccion
@@ -17,10 +16,8 @@ const VideoSeccion = ({ idCurso, nomSeccion }) => {
   const [link, setLink] = useState('')
   const [listaVideos, setListaVideos] = useState([])
   const [progress, setProgress] = useState(0)
-  const [idSeccion, setIdSeccion] = useState(-1)
 
-  useEffect(()=>console.log('prueba 1 USEEFFECT => ' + idSeccion), [idSeccion])
- 
+  const [idSeccion, setIdSeccion] = useState(-1)  
 
   const onChange = e => {
     const file = e.target.files[0]
@@ -63,8 +60,7 @@ const VideoSeccion = ({ idCurso, nomSeccion }) => {
     setVideo('')
     setLink('')
     setProgress(0)
-  console.log('prueba 2 => '+idSeccion);
-
+    console.log('prueba 2 => ' + idSeccion);
   }
   const eliminarTarea = id => {
     console.log(id)
@@ -72,7 +68,7 @@ const VideoSeccion = ({ idCurso, nomSeccion }) => {
     setListaVideos(arrayFiltrado)
   }
 
-  const enviaBD = async() => {
+  const enviaBD = async () => {
     console.log('lista de videos y enviar a la bd ')
     console.log(listaVideos)
     if (idSeccion === -1) {
@@ -81,22 +77,15 @@ const VideoSeccion = ({ idCurso, nomSeccion }) => {
     } else {
       /*****************PUT***************** */
       console.log('...PUT SECCION....' + idSeccion)
-      console.log('enviando videos bd ' + idSeccion);
     }
     if (idSeccion !== -1) {
-      console.log('condicion seccion dist -1, muestra idseccion CORRECTO '+idSeccion);
+      console.log('condicion seccion dist -1, muestra idseccion CORRECTO ' + idSeccion);
     }
-  console.log('prueba 3 => '+idSeccion);
+    console.log('prueba 4. => ' + idSeccion);
   }
-  /*****************REGISTRO VIDEO - POST***************** */
-  const registraVideo = async (nomVid, link, idSec) => {
-  console.log('prueba 4 => '+idSeccion);
-    adicionaVideo(nomVid, link, idSec)
-  }
+  /************************************************************************************************************ */
   /********** INGRESA DATOS VIDEO A BD *******/
   const adicionaVideo = (nomVid, link, idSec) => {
-  console.log('prueba 5 => '+idSeccion);
-
     console.log('///ENVIADOOOOO VIDEO///')
     let url = Apiurl + "video"
     axios.post(url, null, {
@@ -105,34 +94,38 @@ const VideoSeccion = ({ idCurso, nomSeccion }) => {
       .then((response) => {
         console.log('++++++++++++ response VIDEO')
         console.log(response)
-        console.log('id => ' + response.data.insertId)
+        console.log('id video bd=> ' + response.data.insertId)
         //setIdSeccion(response.data.insertId)
       }).catch(err => console.log(err))
   }
+  /*****************REGISTRO VIDEO - POST***************** */
+  const registraVideo = async (nomVid, link, idSec) => {
+    adicionaVideo(nomVid, link, idSec)
+  }
   /********** INGRESA DATOS VIDEO A BD CONDICION PARA ID CORRECTO *******/
-  const enviaVIDEObd =()=>{
-    if (idSeccion!==-1) {
-      console.log('id correcto => '+idSeccion);
+  const enviaVIDEObd = () => {
+    if (idSeccion !== -1) {
+      console.log('id correcto => ' + idSeccion);
       for (let index = 0; index < listaVideos.length; index++) {
-      const item = listaVideos[index];
-      console.log('video for ' + index)
-      console.log('nombre video: ' + item.nombreVideo + ' link video: ' + item.linkVideo)
-      registraVideo(item.nombreVideo, item.linkVideo, idSeccion)
-    }
+        const item = listaVideos[index];
+        console.log('video for ' + index)
+        console.log('nombre video: ' + item.nombreVideo + ' link video: ' + item.linkVideo)
+        registraVideo(item.nombreVideo, item.linkVideo, idSeccion)
+      }
     }
   }
-  useEffect(()=>{
-    enviaVIDEObd()
-  },[enviaVIDEObd])
-  //enviaVIDEObd()
+  
+  enviaVIDEObd()
+  
+  /************************************************************************************************** */
   /*****************REGISTRO SECCION - POST***************** */
   const registraSeccion = async (idCur, nombreSec) => {
-    
+    console.log('prueba 3. => ' + idSeccion);
     await adicionaSeccion(idCur, nombreSec)
-    console.log('prueba 6 => '+idSeccion);
+    console.log('prueba 2. => ' + idSeccion);
   }
   /********** INGRESA DATOS SECCION A BD *******/
-  const adicionaSeccion = async(idCur, nombreSec) => {
+  const adicionaSeccion = async (idCur, nombreSec) => {
     console.log('///ENVIADOOOOO SECCION///')
     let url = Apiurl + "seccion"
     await axios.post(url, null, {
@@ -141,12 +134,10 @@ const VideoSeccion = ({ idCurso, nomSeccion }) => {
       .then((response) => {
         console.log('++++++++++++ response SECCION')
         console.log(response)
-        console.log('id => ' + response.data.insertId)
+        console.log('id sec bd => ' + response.data.insertId)
         setIdSeccion(response.data.insertId)
       }).catch(err => console.log(err))
-
-  console.log('prueba 7 => '+idSeccion);
-      
+    console.log('prueba 1. => ' + idSeccion);
   }
 
 
