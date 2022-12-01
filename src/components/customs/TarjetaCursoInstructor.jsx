@@ -1,10 +1,12 @@
 import React from 'react'
 
 import PropTypes from 'prop-types'
+import { Link }from "react-router-dom";
+
 
 import '../css/cards.css'
 
-const TarjetaCursoInstructor = ({titulo, imageSource, descripcion, url, nombreDocente, precio}) => {
+const TarjetaCursoInstructor = ({objCursoBD, idCurso, titulo, imageSource, descripcion, url, nombreDocente, precio}) => {
   const imgProvisional = 'https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg'
   
   return (
@@ -24,7 +26,9 @@ const TarjetaCursoInstructor = ({titulo, imageSource, descripcion, url, nombreDo
         </p>
         <h6 className='text-justify'>{nombreDocente}</h6>
         <h6 className='text-justify'>{precio} Bs</h6>
-        <a href={url} className='btn btn-outline-secondary rounded-0'>Ir al curso</a>
+        {/* boton vista previa curso .................*/}
+        <Link to= "/CursoCompletoInst" state={{data:objCursoBD}} className="btn btn-outline-secondary rounded-0"> Ir al Curso </Link>
+        
       </div>
     </div>
   )
