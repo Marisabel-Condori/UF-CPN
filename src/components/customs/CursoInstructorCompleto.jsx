@@ -7,63 +7,96 @@ import axios from 'axios'
 
 import { useLocation } from 'react-router-dom'
 import VideoPlayer from '../video/VideoPlayer';
-import { array } from 'prop-types'
 
 const CursoInstructorCompleto = () => {
 
   const [seccionesdelCurso, setSeccionesdelCurso] = useState([])
   const [videosdelaSeccion, setvideosdelaSeccion] = useState([])
 
+  // seccion[
+  //   {
+  //     id:ddd
+  //     nom:ddd
+  //       videos: [
+  //         {id:id, url:...}
+  //         {id:id, url:...}
+  //         {id:id, url:...}
+  //       ]
+
+  //   },
+  //   {
+  //     id:ddd
+  //     nom:ddd
+  //       videos: [
+  //         {id:id, url:...}
+  //         {id:id, url:...}
+  //         {id:id, url:...}
+  //       ]
+
+  //   }
+  // ]
+
+
   const location = useLocation()
   // console.log(location, "useLocation hoook");
   const dataCurso = location.state?.data
-  // console.log("++++++++++++++++ ya casi: ")
-  // console.log(dataCurso);
-  // console.log("++++++++++++++++")
 
   //------------------------------------------------
   useEffect(() => {
-    getSeccionesByIdCurso(dataCurso.idcurso)
+    adicionaListaSecciones()
   }, [])
+  //////////////////////////////////
+  const adicionaListaSecciones= async()=>{
+    const listaSec = await getSeccionesByIdCurso(dataCurso.idcurso)
+    setSeccionesdelCurso(listaSec)
+    adicionaListaVideos()
+  }
   //////// obtiene secciones del curso
   const getSeccionesByIdCurso = async (idcursoBD) => {
     let url = Apiurl + "seccionbyidCurso"
     let obtSecciones = await axios.get(url, {
       params: { idcurso: idcursoBD }
     })
-    // console.log('!!!!! OBTIENE SECCION para vista previa !!!!!!')
-    // console.log(obtSecciones.data)
-    setSeccionesdelCurso(obtSecciones.data)
+    console.log('!!!!! OBTIENE SECCION para vista previa !!!!!!') 
+    console.log(obtSecciones.data)
+    //setSeccionesdelCurso( obtSecciones.data)
     return obtSecciones.data
   }
-  //-----------------------------------------------------------
-
-  // console.log('impriendo secciones del curso - nombre seccion');
-  // console.log(seccionesdelCurso);   
-  // console.log('impriendo secciones del curso - nombre seccion');
-
-  useEffect(() => {
-    console.log('FOOOOOOOOOOOOORrrr');
+  
+  //////////////////////////////////
+  const adicionaListaVideos = async () => {
+    console.log('verificando datos de secciones curso');
+    console.log(seccionesdelCurso);
+    const listaVidCompleta = []
     for (let index = 0; index < seccionesdelCurso.length; index++) {
       const idSeccion = seccionesdelCurso[index].idseccion;
-      // console.log("+++++++++++++++++++++*************************++++++++++++++++"); 
-      // console.log(seccionesdelCurso[index]); 
-      getVideosByIdSeccion(idSeccion)
-      // console.log("+++++++++++++++++++++*************************++++++++++++++++"); 
+      console.log("*************************++++++++++++++++");
+      console.log(idSeccion);
+      const listaVid = await getVideosByIdSeccion(idSeccion)
+      listaVidCompleta.push(...listaVid)
     }
-  }, [])
-  ////////// obtiene videos de las secciones //////////////////
+    // console.log('COMPLETO.............');
+    // console.log(listaVidCompleta);
+    setvideosdelaSeccion(listaVidCompleta)
+  }
+  //////// obtiene videos de la seccion
   const getVideosByIdSeccion = async (idSeccion) => {
     let url = Apiurl + "videosbyidSeccion"
     let obtVideos = await axios.get(url, {
       params: { idseccion: idSeccion }
     })
-    console.log('!!!!! OBTIENE VIDEOS de cada seccion !!!!!!')
-    console.log(obtVideos.data)
-    setvideosdelaSeccion(obtVideos.data)
-    //return obtVideos.data
-  }   
-
+    // console.log('!!!!! OBTIENE VIDEOS de cada seccion !!!!!!')
+    // console.log(obtVideos.data)
+    return await obtVideos.data
+  }
+  const mostrarListaVid = () => {
+    console.log('desde BOTONNNNNNNNNN....');
+    console.log(videosdelaSeccion);
+  }
+  // useEffect(() => {
+  //   adicionaListaVideos()
+  // }, [])
+  
 
   return (
     <div>
@@ -76,13 +109,21 @@ const CursoInstructorCompleto = () => {
         {
           seccionesdelCurso.map(item => (
             <li className="list-group-item" key={item.idseccion}>
-              <span className="float-left">{item.nombre_seccion}  ...  {item.idseccion}</span>
-
+              <span>{item.nombre_seccion}  ...  {item.idseccion}</span>
+              <ul className="list-group">  
+              {
+                videosdelaSeccion.map(vid => (
+                  item.idseccion===vid.idseccion&&
+                    <li className="list-group-item" key={vid.idvideo}>
+                      <span className="float-left">{vid.titulo}  ...  {vid.idseccion}</span>
+                    </li>
+                ))
+              }
+              </ul>
             </li>
           ))
         }
       </ul>
-
     </div>
   )
 }
