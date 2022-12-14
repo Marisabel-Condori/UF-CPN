@@ -13,59 +13,30 @@ const CursoInstructorCompleto = () => {
   const [seccionesdelCurso, setSeccionesdelCurso] = useState([])
   const [videosdelaSeccion, setvideosdelaSeccion] = useState([])
 
-  // seccion[
-  //   {
-  //     id:ddd
-  //     nom:ddd
-  //       videos: [
-  //         {id:id, url:...}
-  //         {id:id, url:...}
-  //         {id:id, url:...}
-  //       ]
-
-  //   },
-  //   {
-  //     id:ddd
-  //     nom:ddd
-  //       videos: [
-  //         {id:id, url:...}
-  //         {id:id, url:...}
-  //         {id:id, url:...}
-  //       ]
-
-  //   }
-  // ]
-
-
   const location = useLocation()
   // console.log(location, "useLocation hoook");
   const dataCurso = location.state?.data
+  // console.log('location state.data.....-*-*-*-*-*-*--*-*');
+  // console.log(dataCurso);
 
   //------------------------------------------------
   useEffect(() => {
-    adicionaListaSecciones()
+    getSeccionesByIdCurso(dataCurso.idcurso)
   }, [])
-  //////////////////////////////////
-  const adicionaListaSecciones= async()=>{
-    const listaSec = await getSeccionesByIdCurso(dataCurso.idcurso)
-    setSeccionesdelCurso(listaSec)
-    adicionaListaVideos()
-  }
   //////// obtiene secciones del curso
   const getSeccionesByIdCurso = async (idcursoBD) => {
     let url = Apiurl + "seccionbyidCurso"
     let obtSecciones = await axios.get(url, {
       params: { idcurso: idcursoBD }
     })
-    console.log('!!!!! OBTIENE SECCION para vista previa !!!!!!') 
+    console.log('!!!!! OBTIENE SECCION para vista previa !!!!!!')
     console.log(obtSecciones.data)
-    //setSeccionesdelCurso( obtSecciones.data)
-    return obtSecciones.data
+    setSeccionesdelCurso(obtSecciones.data)
   }
-  
+
   //////////////////////////////////
   const adicionaListaVideos = async () => {
-    console.log('verificando datos de secciones curso');
+    console.log('verificando datos de secciones curso ++++');
     console.log(seccionesdelCurso);
     const listaVidCompleta = []
     for (let index = 0; index < seccionesdelCurso.length; index++) {
@@ -76,9 +47,14 @@ const CursoInstructorCompleto = () => {
       listaVidCompleta.push(...listaVid)
     }
     // console.log('COMPLETO.............');
-    // console.log(listaVidCompleta);
     setvideosdelaSeccion(listaVidCompleta)
   }
+  useEffect(() => {
+    if (seccionesdelCurso.length > 0) {
+      adicionaListaVideos()
+    }
+  }, [seccionesdelCurso])
+
   //////// obtiene videos de la seccion
   const getVideosByIdSeccion = async (idSeccion) => {
     let url = Apiurl + "videosbyidSeccion"
@@ -89,41 +65,49 @@ const CursoInstructorCompleto = () => {
     // console.log(obtVideos.data)
     return await obtVideos.data
   }
-  const mostrarListaVid = () => {
-    console.log('desde BOTONNNNNNNNNN....');
+  const muestra = () => {
+    console.log(' BOTON +++ videos de la seccion.......------');
     console.log(videosdelaSeccion);
   }
-  // useEffect(() => {
-  //   adicionaListaVideos()
-  // }, [])
-  
 
   return (
     <div>
-      <h3>VISTA PREVIA CURSOOOOO: {dataCurso.idcurso} titulooo: {dataCurso.titulo_curso} ---</h3>
-      <VideoPlayer />
-      <h4>secciones ....</h4>
+      <div className='row'>
+        <div className="col-md-8">
+          <button onClick={() => muestra()}>muestra lista videos</button>
+          <h3>VISTA PREVIA CURSOOOOO: {dataCurso.idcurso} titulooo: {dataCurso.titulo_curso} ---</h3>
+          <VideoPlayer />
+        </div>
+        {/* /-------------------------------------- */}
 
-      {/* /-------------------------------------- */}
-      <ul className="list-group">
-        {
-          seccionesdelCurso.map(item => (
-            <li className="list-group-item" key={item.idseccion}>
-              <span>{item.nombre_seccion}  ...  {item.idseccion}</span>
-              <ul className="list-group">  
-              {
-                videosdelaSeccion.map(vid => (
-                  item.idseccion===vid.idseccion&&
-                    <li className="list-group-item" key={vid.idvideo}>
-                      <span className="float-left">{vid.titulo}  ...  {vid.idseccion}</span>
-                    </li>
-                ))
-              }
-              </ul>
-            </li>
-          ))
-        }
-      </ul>
+        <div className="col-md-4">
+
+          
+                    
+          <ul className="list-group">
+            {
+              seccionesdelCurso.map(item => (
+                <li className="list-group-item" key={item.idseccion}>
+                  <span>{item.nombre_seccion}  ...  {item.idseccion}</span>
+                  <ul className="list-group">
+                    {videosdelaSeccion.map(vid => (
+                      item.idseccion === vid.idseccion &&
+                      <li className="list-group-item" key={vid.idvideo}>
+                        <span className="float-left">{vid.titulo}  ...  {vid.idseccion}</span>
+                      </li>
+                    ))
+                    }
+
+                  </ul>
+                </li>
+              ))
+            }
+          </ul>
+
+        </div>
+
+      </div>
+
     </div>
   )
 }
