@@ -1,6 +1,9 @@
 import React from 'react'
-import { useEffect, useState } from 'react'
 
+import { ExpandMore } from '@material-ui/icons';
+import { Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core';
+
+import { useEffect, useState } from 'react'
 
 import { Apiurl } from '../../api/UsuariosApi'
 import axios from 'axios'
@@ -80,11 +83,35 @@ const CursoInstructorCompleto = () => {
         </div>
         {/* /-------------------------------------- */}
 
-        <div className="col-md-4">
+        {/* <div className="col-md-4"> */}
 
-          
-                    
-          <ul className="list-group">
+        {/* <div className="card">
+            <Collapsible trigger="1 Start here">
+              <p>
+                This is the collapsible content. It can be any element or React
+                component you like.
+              </p>
+              <p>
+                It can even be another Collapsible component. Check out the next
+                section!
+              </p>
+            </Collapsible>
+          </div>
+
+          <div className="card">
+            <Collapsible trigger="2 Start here">
+              <p>
+                This is the collapsible content. It can be any element or React
+                component you like.
+              </p>
+              <p>
+                It can even be another Collapsible component. Check out the next
+                section!
+              </p>
+            </Collapsible>
+          </div> */}
+
+        {/* <ul className="list-group">
             {
               seccionesdelCurso.map(item => (
                 <li className="list-group-item" key={item.idseccion}>
@@ -102,12 +129,38 @@ const CursoInstructorCompleto = () => {
                 </li>
               ))
             }
-          </ul>
+          </ul> */}
+        {/* </div> */}
 
+        <div className="col-md-4">
+          {
+            seccionesdelCurso.map(item => (
+              
+                <Accordion key={item.idseccion}>
+                  <AccordionSummary  expandIcon={<ExpandMore />}>
+                    {item.nombre_seccion}
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+                    sit amet blandit leo lobortis eget.
+                  </AccordionDetails>
+                </Accordion>
+                ))
+              
+          }
+
+          {/* <Accordion>   
+            <AccordionSummary expandIcon={<ExpandMore />}>
+              Accordion 2
+            </AccordionSummary>
+            <AccordionDetails>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+              sit amet blandit leo lobortis eget.
+            </AccordionDetails>
+          </Accordion> */}
         </div>
 
       </div>
-
     </div>
   )
 }

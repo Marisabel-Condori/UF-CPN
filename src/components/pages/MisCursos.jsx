@@ -1,6 +1,5 @@
-import { Routes, Route, Link }from "react-router-dom";
+import { Link }from "react-router-dom";
 
-import NuevoCurso from "./NuevoCurso";
 import Profile from "../login/Profile";
 import Tarjetas from '../customs/TarjetasInstructor';
 

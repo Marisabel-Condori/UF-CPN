@@ -9,8 +9,6 @@ import Alumnos from "../pages/Alumnos";
 import RegistroUsuario from "../login/RegistroUsuario";
 import CursoInstructorCompleto from './CursoInstructorCompleto';
 
-import Prueba from './Prueba';
-
 const Cuerpo = () => {
     return (
         <>
