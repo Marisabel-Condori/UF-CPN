@@ -10,6 +10,7 @@ import axios from 'axios'
 
 import { useLocation } from 'react-router-dom'
 import VideoPlayer from '../video/VideoPlayer';
+import { Button } from 'bootstrap';
 
 const CursoInstructorCompleto = () => {
 
@@ -74,7 +75,7 @@ const CursoInstructorCompleto = () => {
   }
 
   return (
-    <div>
+    <div className='container'>
       <div className='row'>
         <div className="col-md-8">
           <button onClick={() => muestra()}>muestra lista videos</button>
@@ -83,70 +84,30 @@ const CursoInstructorCompleto = () => {
         </div>
         {/* /-------------------------------------- */}
 
-        {/* <div className="col-md-4"> */}
-
-        {/* <div className="card">
-            <Collapsible trigger="1 Start here">
-              <p>
-                This is the collapsible content. It can be any element or React
-                component you like.
-              </p>
-              <p>
-                It can even be another Collapsible component. Check out the next
-                section!
-              </p>
-            </Collapsible>
-          </div>
-
-          <div className="card">
-            <Collapsible trigger="2 Start here">
-              <p>
-                This is the collapsible content. It can be any element or React
-                component you like.
-              </p>
-              <p>
-                It can even be another Collapsible component. Check out the next
-                section!
-              </p>
-            </Collapsible>
-          </div> */}
-
-        {/* <ul className="list-group">
-            {
-              seccionesdelCurso.map(item => (
-                <li className="list-group-item" key={item.idseccion}>
-                  <span>{item.nombre_seccion}  ...  {item.idseccion}</span>
-                  <ul className="list-group">
-                    {videosdelaSeccion.map(vid => (
-                      item.idseccion === vid.idseccion &&
-                      <li className="list-group-item" key={vid.idvideo}>
-                        <span className="float-left">{vid.titulo}  ...  {vid.idseccion}</span>
-                      </li>
-                    ))
-                    }
-
-                  </ul>
-                </li>
-              ))
-            }
-          </ul> */}
-        {/* </div> */}
-
         <div className="col-md-4">
           {
             seccionesdelCurso.map(item => (
-              
-                <Accordion key={item.idseccion}>
-                  <AccordionSummary  expandIcon={<ExpandMore />}>
-                    {item.nombre_seccion}
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                    sit amet blandit leo lobortis eget.
-                  </AccordionDetails>
-                </Accordion>
-                ))
-              
+
+              <Accordion key={item.idseccion}>
+                <AccordionSummary expandIcon={<ExpandMore />}>
+                  {item.nombre_seccion}
+                </AccordionSummary>
+                <AccordionDetails className='pt-0' >
+                  <ul className="list-group w-100">
+                    {
+                      videosdelaSeccion.map(vid => (
+                        item.idseccion === vid.idseccion &&
+                        <li className="list-group-item py-0" key={vid.idvideo}>
+                          <button className='btn btn-link btn-sm ' >{vid.titulo}  ...  {vid.idseccion}</button>
+                        </li>
+                      ))
+                    }
+                  </ul>
+                </AccordionDetails>
+
+              </Accordion>
+            ))
+
           }
 
           {/* <Accordion>   
