@@ -10,12 +10,13 @@ import axios from 'axios'
 
 import { useLocation } from 'react-router-dom'
 import VideoPlayer from '../video/VideoPlayer';
-import { Button } from 'bootstrap';
+import CajaComentario from './CajaComentario';
 
 const CursoInstructorCompleto = () => {
 
   const [seccionesdelCurso, setSeccionesdelCurso] = useState([])
   const [videosdelaSeccion, setvideosdelaSeccion] = useState([])
+  const [videoLink, setVideoLink] = useState('')
 
   const location = useLocation()
   // console.log(location, "useLocation hoook");
@@ -69,20 +70,16 @@ const CursoInstructorCompleto = () => {
     // console.log(obtVideos.data)
     return await obtVideos.data
   }
-  const muestra = () => {
-    console.log(' BOTON +++ videos de la seccion.......------');
-    console.log(videosdelaSeccion);
-  }
 
   return (
     <div className='container'>
       <div className='row'>
         <div className="col-md-8">
-          <button onClick={() => muestra()}>muestra lista videos</button>
-          <h3>VISTA PREVIA CURSOOOOO: {dataCurso.idcurso} titulooo: {dataCurso.titulo_curso} ---</h3>
-          <VideoPlayer />
+          {/* <h3>VISTA PREVIA CURSOOOOO: {dataCurso.idcurso} titulooo: {dataCurso.titulo_curso} ---</h3> */}
+          <VideoPlayer urlVideo={videoLink} />
+          <CajaComentario/>
         </div>
-        {/* /-------------------------------------- */}
+        {/* /---------------------------------------------------------- */}
 
         <div className="col-md-4">
           {
@@ -98,7 +95,7 @@ const CursoInstructorCompleto = () => {
                       videosdelaSeccion.map(vid => (
                         item.idseccion === vid.idseccion &&
                         <li className="list-group-item py-0" key={vid.idvideo}>
-                          <button className='btn btn-link btn-sm ' >{vid.titulo}  ...  {vid.idseccion}</button>
+                          <button className='btn btn-link btn-sm ' onClick={() => setVideoLink(vid.urlvideo)}>{vid.titulo}  ...  {vid.idseccion}</button>
                         </li>
                       ))
                     }
@@ -107,21 +104,10 @@ const CursoInstructorCompleto = () => {
 
               </Accordion>
             ))
-
           }
-
-          {/* <Accordion>   
-            <AccordionSummary expandIcon={<ExpandMore />}>
-              Accordion 2
-            </AccordionSummary>
-            <AccordionDetails>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-              sit amet blandit leo lobortis eget.
-            </AccordionDetails>
-          </Accordion> */}
         </div>
-
       </div>
+
     </div>
   )
 }
