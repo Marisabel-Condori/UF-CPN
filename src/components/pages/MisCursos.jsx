@@ -10,7 +10,7 @@ const MisCursos = () => {
     <div>
       <h6>mostrando profile</h6>
       <Profile/>
-        <h1>MisCursos</h1>
+        <h1>MisCursos</h1>  
         <h3>Mostrando Cursos del Instructor</h3>
         <p>si no tiene cursos mostrara: AUN NO TIENES CURSOS, CREA UN CURSO</p>
         

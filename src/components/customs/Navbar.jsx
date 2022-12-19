@@ -4,7 +4,6 @@ import { Link, NavLink } from "react-router-dom";
 
 import LogoutButton from "../login/LogoutButton";
 
-
 const Navbar = () => {
 
   const isAuthenticated = localStorage.getItem('email')
@@ -17,12 +16,20 @@ const Navbar = () => {
       <div className="navbar navbar-dark bg-dark">
         <Link className="navbar-brand" to="/">FCPN</Link>
         <div>
-          <Link to="/" className="btn btn-dark mr-2"> Mis Cursos </Link>
           <NavLink to="/NuevoCurso" className="btn btn-dark mr-2"> Nuevo Curso </NavLink>
           <NavLink to="/Foro" className="btn btn-dark mr-2"> Foro </NavLink>
           <NavLink to="/Alumnos" className="btn btn-dark mr-2"> Alumnos </NavLink>
-          {isAuthenticated ? <LogoutButton />
-            : <NavLink to="/Login" className="btn btn-dark mr-2  "> Iniciar Sesion </NavLink>
+          {isAuthenticated ?
+            <>
+              <Link to="/" className="btn btn-dark mr-2"> Cursos </Link>
+              <Link to="/" className="btn btn-dark mr-2"> Mis Cursos </Link>
+              <LogoutButton />
+            </>
+            :
+            <>
+              <Link to="/" className="btn btn-dark mr-2"> Cursos </Link>
+              <NavLink to="/Login" className="btn btn-dark mr-2  "> Iniciar Sesion </NavLink>
+            </>
           }
         </div>
       </div>
