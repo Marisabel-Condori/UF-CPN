@@ -1,5 +1,4 @@
 import React from 'react'
-import VideoPlayer from '../video/VideoPlayer'
 
 import '../../App.css'
 import TarjetasEstudiante from '../customs/TarjetasEstudiante'
