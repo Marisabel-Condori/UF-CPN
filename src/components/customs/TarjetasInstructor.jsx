@@ -37,7 +37,7 @@ const TarjetasInstructor = () => {
     //     }]
 
   return (  
-    <div className='container d-flex justify-content-center align-items-center h-100'>
+    <div className='d-flex justify-content-center align-items-center h-100'>
         <div className='row'>
             {
                 cursosInst.map(card => (

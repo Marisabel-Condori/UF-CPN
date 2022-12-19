@@ -9,7 +9,7 @@ const MisCursos = () => {
   const {isAuthenticated} = useAuth0()
 
   return (
-    <div>
+    <div className="container mt-5">
       {/* <h6>mostrando profile</h6> */}
       {/* <Profile/> */}
       {isAuthenticated? <Profile/>
@@ -20,7 +20,7 @@ const MisCursos = () => {
         <p>si no tiene cursos mostrara: AUN NO TIENES CURSOS, CREA UN CURSO</p>
         
       {/* boton para crear nuevo curso .................*/}
-        <div className="container mt-5">
+        <div >
           <Link to="/NuevoCurso" className="btn btn-info"> Crear Nuevo Curso </Link>
         </div>
         

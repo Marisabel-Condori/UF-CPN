@@ -5,7 +5,7 @@ import Navbar from "./components/customs/Navbar";
 function App() {
 
   return (
-    <div className="mx-2">
+    <div className="container">
       <Navbar/> 
       <Cuerpo/>
     </div>

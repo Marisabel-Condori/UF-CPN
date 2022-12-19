@@ -1,5 +1,4 @@
-import React, {useEffect} from "react";
-import { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { Apiurl } from "../../api/UsuariosApi";
 import axios from "axios";
 
@@ -32,6 +31,22 @@ const Profile = () => {
     //     return localStorage.getItem('email')
     // }
 
+    const nombre = user.given_name
+    const apellidos = user.family_name
+    const email = user.email
+
+    /********** INGRESA DATOS PERSONA A BD *******/
+    const adicionaPersonaBD = () => {
+        console.log('///ENVIADOOOOO///')
+        let url = Apiurl + "persona"
+        axios.post(url, null, {
+            params: { nombre: nombre, ap_paterno: apellidos, correo: email}
+        },)
+            .then((response) => {
+                console.log('++++++++++++ response')
+                console.log(response)
+            }).catch(err => console.log(err))
+    } 
     return( 
         //<h2>hola {datoEmail}</h2>
         isAuthenticated && (
@@ -43,6 +58,9 @@ const Profile = () => {
                 
                 {/* <JSONPretty data={user}/> */}
                 <pre>{JSON.stringify(user)}</pre>
+
+                <h2>Bienvenid@  {user.given_name}</h2>
+
             </div>
         )
     );
