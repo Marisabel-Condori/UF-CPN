@@ -1,17 +1,15 @@
 import React from 'react'
-import VideoPlayer from '../video/VideoPlayer'
 
 import '../../App.css'
 import TarjetasEstudiante from '../customs/TarjetasEstudiante'
 
 const Alumnos = () => {
   return (
-    <div className='App'>  
+    <div >  
         <h1>alumnos</h1>
-        <VideoPlayer/>
-        <h2>prueba cards</h2>
+        <h2>tarjetas estudiante</h2>
+        <p>si no tiene cursos inscritos VACIO</p>
         <TarjetasEstudiante/>
-        <h2>***************</h2>
     </div>
   )
 }
