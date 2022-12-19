@@ -17,7 +17,7 @@ const Login = () => {
     const [error, setError] = useState(null)
     const [esRegistro, setEsRegistro] = useState(true)
 
-    const procesarDatos = async (e) => {
+    const procesarDatos = async e => {
         e.preventDefault()
         if (!email.trim()) {
             console.log('**** AQUI VALIDAR email@gmail.com *****IF***')
@@ -51,8 +51,7 @@ const Login = () => {
         console.log('pasando validaciones')
         if (esRegistro) {
             registrar()
-        } else { login() }
-
+        } else { login(email, pass) }
 
         setNombre('')
         setApellidos('')
@@ -62,10 +61,11 @@ const Login = () => {
     }
 
     /************* LOGIN GET************* */
-    const login = useCallback(async () => {
-        const dato = await existeEmail()
-        // console.log("dato lenght...")
-        // console.log(dato.length)
+    const login = useCallback( async(email, pass) => {
+        console.log('email... '+email+' pass '+pass);
+        const dato = await existeEmail(email)
+        console.log("dato lenght...")
+        console.log(dato.length)
         if (dato.length > 0 && dato[0].correo === email && dato[0].password === pass) {
             console.log('ingresado con exito')
             /************ GUARDANDO DATOS LOCALMENTE SINGIN****** */
@@ -74,11 +74,11 @@ const Login = () => {
         } else {
             setError('Datos incorrectos')
         }
-    },[])
+    },[email, pass])
 
     /************** REGISTRO PERSONA - POST****************/
     const registrar = useCallback(async () => {
-        const dato = await existeEmail()
+        const dato = await existeEmail(email)
         if (dato.length > 0 && dato[0].correo === email)
             setError('ya existe el email')
         else {
@@ -88,17 +88,22 @@ const Login = () => {
             localStorage.setItem('email', email)
             window.location.reload()
         }
-    }, [nombre, apellidos, email, pass, depto])
+    }, [email])
 
     /**************EXISTE EMAIL**********************/
-    const existeEmail = async () => {
-        let url = Apiurl + "personabyemail"
-        let obtEmail = await axios.get(url, {
+    const existeEmail = async (email) => {  
+        let url = Apiurl + "personabyEmail"
+        let obtEmail = await axios.get(url,{
             params: { correo: email }
         })
+        // si habilito esto, da error....
+        // .then(response=>{
+        //     console.log('response EMAIL');
+        //     console.log(response.data);
+        // }).catch(err => console.log(err))
         console.log('!!!!! OBTIENE EMAIL !!!!!!')
-        console.log(obtEmail.data)
-        return obtEmail.data
+        //console.log( obtEmail.data)
+        return await obtEmail.data
     }
 
     /********** INGRESA DATOS PERSONA A BD *******/

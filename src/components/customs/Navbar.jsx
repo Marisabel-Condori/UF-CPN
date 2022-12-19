@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import React, {useState } from "react";
 
 import { Link, NavLink } from "react-router-dom";
 
@@ -26,32 +26,32 @@ const Navbar = () => {
       <div className="navbar navbar-dark bg-dark">
         <Link className="navbar-brand" to="/">FCPN</Link>
         <div>
-          {isAuthenticated ?
+          {/* {isAuthenticated ?
             <>
               {esEstudiante ?
-                <>
+                <> */}
                   <Link to="/" className="btn btn-dark mr-2"> Cursos </Link>
                   <NavLink to="/CursoEstudiante" className="btn btn-dark mr-2"> Mis Cursos </NavLink>
                   <LogoutButton />
-                </>
+                {/* </>
                 :
-                <>
+                <> */}
                   <Link to="/CursoInstructor" className="btn btn-dark mr-2"> Mis Cursos </Link>
                   <NavLink to="/NuevoCurso" className="btn btn-dark mr-2"> Nuevo Curso</NavLink>
                   <NavLink to="/Foro" className="btn btn-dark mr-2"> Foro </NavLink>
-                </>
+                {/* </>
 
               }
             </>
             :
-            <>
+            <> */}
               <Link to="/" className="btn btn-dark mr-2"> Cursos </Link>
               <NavLink to="/Login" className="btn btn-dark mr-2  "> Iniciar Sesion </NavLink>
               {/* AUTH0 */}
               {/* <LoginButton /> */}
 
-            </>
-          }
+            {/* </> */}
+          {/* } */}
         </div>
       </div>
       <hr />
