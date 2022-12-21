@@ -8,13 +8,14 @@ import { Link, NavLink } from "react-router-dom";
 
 import LogoutButton from "../login/LogoutButton";
 
-
 const Navbar = () => {
 
   //AUTH0
   //const { isAuthenticated, isLoading } = useAuth0()
   //if (isLoading) return <h1>Cargando...</h1>
   const [esEstudiante, setEsEstudiante] = useState(true)
+  const [experiencia, setExperiencia] = useState('')
+  const [especialidad, setEspecialidad] = useState('')
 
   const isAuthenticated = localStorage.getItem('email')
   console.log('mostrando valor local desde NAVBAR')
@@ -25,6 +26,23 @@ const Navbar = () => {
   const abrirModal = () => {
     setIsOpen(!isOpen)
     { isOpen && <Modal /> }
+  }
+
+  const procesarDatos = e => {
+    e.preventDefault()
+    if (!especialidad.trim()) {
+      console.log('especialidad vacio')
+      //setError('email vacio')
+      return
+    }
+    if (!experiencia.trim()) {
+      console.log('experiencia vacio')
+      //setError('password vacio')
+      return
+    }
+    console.log('mostrando datos modal ----------------')
+    console.log(experiencia);
+    console.log(especialidad)
   }
   return (
     <div className="mt-2">
@@ -38,26 +56,7 @@ const Navbar = () => {
                   <Link to="/" className="btn btn-dark mr-2"> Cursos </Link>
                   <NavLink to="/CursoEstudiante" className="btn btn-dark mr-2"> Mis Cursos </NavLink>
                   <Button className="btn btn-dark mr-2" onClick={abrirModal}>Docente</Button>
-                  <Modal isOpen={isOpen}>
-                    <ModalHeader>Forma parte de nuestro equipo de docentes!</ModalHeader>
-                    <ModalBody>
-                      <Form>
-                        <p>Por favor cuentamos un poco mas de ti</p>
-                      </Form>
-                      <FormGroup>
-                        <Label for="experiencia">Experiencia</Label>
-                        <Input type="text" id="experiencia" />
-                      </FormGroup>
-                      <FormGroup>
-                        <Label for="especialidad">Especialidad</Label>
-                        <Input type="text" id="especialidad" />
-                      </FormGroup>
-                    </ModalBody>
-                    <ModalFooter>
-                      <Button color="primary">Docente</Button>
-                      <Button color="secondary" onClick={abrirModal}>Cerrar</Button>
-                    </ModalFooter>
-                  </Modal>
+
                   <LogoutButton />
                 </>
                 :
@@ -80,10 +79,39 @@ const Navbar = () => {
         </div>
       </div>
       <hr />
+      <Modal isOpen={isOpen}>
+        <ModalHeader>Forma parte de nuestro equipo de docentes!</ModalHeader>
+        <ModalBody>
+          <Form>
+            <p>Por favor cuentamos un poco mas de ti</p>
+          </Form>
+          <FormGroup>
+            <Label for="experiencia">Experiencia</Label>
+            <Input type="text" id="experiencia" onChange={e => setExperiencia(e.target.value)}/>
+          </FormGroup>
+          <FormGroup>
+            <Label for="especialidad">Especialidad</Label>
+            <Input type="text" id="especialidad" onChange={e => setEspecialidad(e.target.value)}/>
+          </FormGroup>
+          {/* <form onSubmit={procesarDatos}>
+            <div className="form-group">
+              <label>Experiencia</label>
+              <textarea className="form-control" onChange={e => setExperiencia(e.target.value)} />
+            </div>
+            <div className="form-group">
+              <label>Especialidad</label>
+              <textarea className="form-control" onChange={e => setEspecialidad(e.target.value)} />
+            </div>
+          </form> */}
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={procesarDatos}>Docente</Button>
+          {/* <button type="submit" className="btn btn-primary">Docente</button> */}
+          <Button color="secondary" onClick={abrirModal}>Cerrar</Button>
+        </ModalFooter>
+      </Modal>
     </div>
   )
 }
-
-
 
 export default Navbar
