@@ -9,17 +9,20 @@ import Alumnos from "../pages/Alumnos";
 import CursoInstructorCompleto from './CursoInstructorCompleto';
 import TodosCursos from '../pages/TodosCursos';
 import RegistroUsuario from "../login/RegistroUsuario";
+//import MainDocente from './MainDocente';
 
 const Cuerpo = () => {
     return (
         <>
             <Routes>
                 <Route exact path="/Login" element={<RegistroUsuario/>} />
+
                 <Route exact path="/NuevoCurso/*" element={<NuevoCurso />} />
                 <Route exact path="/Foro" element={<Foro />} />
-                <Route exact path="/CursoEstudiante" element={<Alumnos />} />
                 <Route exact path="/CursoCompletoInst" element={<CursoInstructorCompleto />} />
                 <Route exact path="/CursoInstructor" element={<MisCursos />} />
+
+                <Route exact path="/CursoEstudiante" element={<Alumnos />} />
                 <Route exact path="/*" element={<TodosCursos/>} />
                 {/* <Route path="*" element={<h1>not found</h1>} /> */}
             </Routes>

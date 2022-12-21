@@ -15,7 +15,7 @@ const LogoutButton = () => {
         //     Salir
         // </button>
 
-        <button className="btn btn-dark float-right mt-1 ml-2" onClick={() => logout()}>
+        <button className="btn btn-dark float-right " onClick={() => logout()}>
             Salir
         </button>
     )
