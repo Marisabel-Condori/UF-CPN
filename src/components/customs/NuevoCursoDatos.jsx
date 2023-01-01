@@ -5,7 +5,7 @@ import { Apiurl } from '../../api/UsuariosApi'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 
-const NuevoCursoDatos = ({ functionP }) => {
+const NuevoCursoDatos = ({ functionP }) => { 
     const [idChild, setIdChild] = useState(null)
 
     useEffect(() => {

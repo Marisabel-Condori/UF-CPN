@@ -22,16 +22,16 @@ const CajaComentario = () => {
   }
   return (
     <div className='my-5'>
-      <p>Responder</p>
+      {/* <p>Responder</p> */}
       <hr />
-      <form className="form-group" style={{ display: 'flex' }} onSubmit={procesarComentario} >
         {
           error && (
             <div className="alert alet-danger">{error}</div>
           )
         }
+      <form className="form-group" style={{ display: 'flex' }} onSubmit={procesarComentario} >
         <textarea className="form-control" onChange={e => setComentario(e.target.value)} placeholder='Ingresa tu comentario' style={{ width: '100%' }}></textarea>
-        <button type="button" className="btn btn-outline-secondary" style={{ width: '15%', height: '33px' }}>Enviar</button>
+        <button type="submit" className="btn btn-outline-secondary" style={{ width: '15%', height: '33px' }}>Enviar</button>
       </form>
     </div>
   )
