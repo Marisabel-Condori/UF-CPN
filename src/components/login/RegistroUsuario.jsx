@@ -9,11 +9,6 @@
 // import { useEffect } from 'react'
 
 // const Login = () => {
-//     const [nombre, setNombre] = useState('')
-//     const [apellidos, setApellidos] = useState('')
-//     const [email, setEmail] = useState('')
-//     const [pass, setPass] = useState('')
-//     const [depto, setDepto] = useState('')
 
 //     const [error, setError] = useState(null)
 //     const [esRegistro, setEsRegistro] = useState(true)
@@ -25,27 +20,11 @@
 //           params: { idpersona: idPerEstudiante }
 //         })
 //     }
-//     useEffect(()=>{
-//         if (idPersona) {
-//             console.log('id persona en registro usuario');
-//             console.log(idPersona);
-//             enviaIdEstudiante(idPersona)
-//         }
-//     })
+//     
 
 //     const procesarDatos = async e => {
 //         e.preventDefault()
-//         if (!email.trim()) {
-//             console.log('**** AQUI VALIDAR email@gmail.com *****IF***')
-//             console.log('email vacio')
-//             setError('email vacio')
-//             return
-//         }
-//         if (!pass.trim()) {
-//             console.log('password vacio')
-//             setError('password vacio')
-//             return
-//         }
+//        
 //         if (esRegistro) {
 //             if (!nombre.trim()) {
 //                 console.log('nombre vacio')
@@ -195,12 +174,14 @@
 // export default Login
 
 
-import React, { useCallback, useEffect, useState } from "react"
+import React, { useCallback, useState } from "react"
 import { Alert, Button, Form, FormFeedback, FormGroup, Input, Label, Modal, ModalBody } from "reactstrap"
 
 import axios from "axios"
 import { Apiurl } from '../../api/UsuariosApi'
-const Login = ({ functionIDpersona }) => {
+import { Link } from "react-router-dom"
+
+const Login = () => {
 
     const [email, setEmail] = useState('')
     const [pass, setPass] = useState('')
@@ -217,25 +198,14 @@ const Login = ({ functionIDpersona }) => {
 
     const [esRegistro, setEsRegistro] = useState(true)
 
-    const [idChildPersona, setIdChildPersona] = useState(null)
-    useEffect(() => {
-        if (idChildPersona) {
-            //console.log('mostrnado idchildPersona useEfect: ' + idChildPersona);
-            functionIDpersona(idChildPersona)
-        }
-    }, [idChildPersona])
-
     //*************** VALIDA CAMPOS - email password******************** */
     const emailRex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    // const validateEmailFun = (e) => {
-    //     if (emailRex.test(e.target.value)) {
-    //         setValidate(true)
-    //     } else {
-    //         setValidate(false)
-    //     }
-    // }
     const validateEmailFun = (e) => {
-        setValidate(true)
+        if (emailRex.test(e.target.value)) {
+            setValidate(true)
+        } else {
+            setValidate(false)
+        }
     }
     const validatePassFun = (e) => {
         if (e.target.value.length > 7) {
@@ -287,71 +257,48 @@ const Login = ({ functionIDpersona }) => {
         setError('')
         console.log('procesando datosssssssss ....');
     }
-    /************* LOGIN - GET************* */
+    /************* LOGIN - GET ************* */
     const login = useCallback(async (emailU, passU) => {
-        console.log('email... ' + emailU + ' pass ' + passU);
-        const dato = await existeEmail()
-        // console.log("dato lenght...")
-        // console.log(dato)
-        if (dato.length > 0 && dato[0].correo === emailU && dato[0].password === passU) {
-            console.log('ingresado con exito')
-            setIdChildPersona(dato[0].idpersona)
-            /************ GUARDANDO DATOS LOCALMENTE SINGIN****** */
-            localStorage.setItem('email', emailU)
-            window.location.pathname = '/'
-          
-            abrirModal()
+        // console.log('email... ' + emailU + ' pass ' + passU);
+        let url = Apiurl + 'login'
+        let res = await axios.get(url, { params: { correo: email, password: passU } },)
+        console.log('LOGIN.......');
+        console.log(res.data);
+        if (res.data.status === 'error') {
+            setError(res.data.message)
+            setTimeout(() => {
+                setError(null)
+            }, 3000);
         } else {
-            setError('Datos incorrectos')
+            localStorage.setItem('token', res.data.token)
+            localStorage.setItem('id', res.data.id)
+            window.location.pathname = '/'
+            abrirModal()
         }
+        //     /************ GUARDANDO DATOS LOCALMENTE SINGIN****** */
     }, [email, pass])
     /************** REGISTRO PERSONA - POST****************/
     const registrar = useCallback(async (nomU, passU, apeU, emaU) => {
-        const dato = await existeEmail()
-        console.log('REGISTRAR........DATO');
-        console.log(dato);
-        if (dato.length > 0 && dato[0].correo === email)
-            setError('ya existe el email')
-        else {
-            console.log('no reg..........')
-            adicionaPersonaBD(nomU, passU, apeU, emaU)
-            /*********GUARDANDO DATOS LOCALMENTE REGISTRO********** */
-            localStorage.setItem('email', emaU)
+        console.log('///ENVIADOOOOO///')
+        let url = Apiurl + "auth"
+        let res = await axios.post(url, null, {
+            // params: { nombre: nomU, ap_paterno: apeU, correo: emaU, password: passU, departamento: depto }
+            params: { nombre: nomU, ap_paterno: apeU, correo: emaU, password: passU, departamento: '??' }
+        })
+        console.log('++++++++++++ response registro de usuario')
+        console.log(res);
+        if (res.data.status === 'error') {
+            setError(res.data.message)
+            setTimeout(() => {
+                setError(null)
+            }, 3000);
+        } else {
+            localStorage.setItem(res.data)
             // window.location.href = '/'
             window.location.pathname = '/'
             abrirModal()
         }
     }, [email])
-    /**************EXISTE EMAIL**********************/
-    const existeEmail = useCallback(async () => {
-        let url = Apiurl + "personabyEmail"
-        let obtEmail = await axios.get(url, {
-            params: { correo: email }
-        },)
-        // si habilito esto, da error....
-        // .then(response=>{
-        //     console.log('response EMAIL');
-        //     console.log(response);
-        // }).catch(err => console.log(err))
-        // console.log('!!!!! OBTIENE EMAIL !!!!!!')
-        // console.log( obtEmail.data)
-        return await obtEmail.data
-    }, [email])
-    /********** INGRESA DATOS PERSONA A BD *******/
-    const adicionaPersonaBD = useCallback((nomU, passU, apeU, emaU) => {
-        console.log('///ENVIADOOOOO///')
-        let url = Apiurl + "persona"
-        axios.post(url, null, {
-            // params: { nombre: nomU, ap_paterno: apeU, correo: emaU, password: passU, departamento: depto }
-            params: { nombre: nomU, ap_paterno: apeU, correo: emaU, password: passU, departamento: '??' }
-        },)
-            .then((response) => {
-                console.log('++++++++++++ response registro de usuario')
-                console.log(response)
-                setIdChildPersona(response.data.insertId)
-            }).catch(err => console.log(err))
-    }, [])
-
 
     return (
         <div className="my-5">
@@ -387,6 +334,9 @@ const Login = ({ functionIDpersona }) => {
                                 }} />
                             {validatePassword === false && pass !== '' && <FormFeedback > Password MENOR 8</FormFeedback>}
                         </FormGroup>
+                        {!esRegistro && (
+                            <Link to="/Forgot" className="btn btn btn-link rounded-0"> Olvidaste tu contraseña </Link>
+                        )}
                         {
                             esRegistro && (
                                 <>

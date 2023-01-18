@@ -1,4 +1,4 @@
-import Cuerpo from "./components/customs/Cuerpo";
+import Rutas from "./components/customs/Rutas";
 import Navbar from "./components/customs/Navbar";
 
 function App() {
@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="container">
       <Navbar/> 
-      <Cuerpo/>       
+      <Rutas/>       
     </div>
   );
 }

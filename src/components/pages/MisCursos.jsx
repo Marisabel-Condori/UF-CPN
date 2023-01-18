@@ -6,7 +6,11 @@ import Tarjetas from '../customs/TarjetasInstructor';
 import {useAuth0} from '@auth0/auth0-react'
 
 const MisCursos = () => {   
-  const {isAuthenticated} = useAuth0()
+  //const {isAuthenticated} = useAuth0()
+  let isAuthenticated=''
+  if (localStorage.getItem('id')) {
+    isAuthenticated = localStorage.getItem('id')
+  }
 
   return (
     <div className="container mt-5">

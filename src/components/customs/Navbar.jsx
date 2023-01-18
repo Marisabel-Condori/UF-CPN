@@ -7,6 +7,7 @@ import { Link, NavLink } from "react-router-dom";
 //import { useAuth0 } from '@auth0/auth0-react'
 
 import LogoutButton from "../login/LogoutButton";
+import Categorias from "./Categorias";
 
 const Navbar = () => {
 
@@ -19,10 +20,12 @@ const Navbar = () => {
   const [error, setError] = useState(null)
   const [dataInstructor, setDataInstructor] = useState([])
 
-  const isAuthenticated = localStorage.getItem('email')
-  // console.log('mostrando valor local desde NAVBAR')
-  // console.log(isAuthenticated)
-  // console.log('NAVBAR cierra')
+  let isAuthenticated=''
+  if (localStorage.getItem('token')) {
+    isAuthenticated = localStorage.getItem('token')
+    console.log('mostrando valor local desde NAVBAR')
+    console.log(isAuthenticated) 
+  }
 
   //********** MODAL **********/
   const [isOpen, setIsOpen] = useState(false)
@@ -137,7 +140,7 @@ const Navbar = () => {
             <>
               {esEstudiante ?
                 <>
-                  <Link to="/" className="btn btn-dark mr-2"> Cursos </Link>
+                  <Categorias/>
                   <NavLink to="/CursoEstudiante" className="btn btn-dark mr-2"> Mis Cursos </NavLink>
                   <Button className="btn btn-dark mr-2" onClick={abrirModal}>Docente</Button>
                   <LogoutButton />
@@ -155,7 +158,7 @@ const Navbar = () => {
             </>
             :
             <>
-              <Link to="/" className="btn btn-dark mr-2"> Cursos </Link>
+              <Categorias/>
               <NavLink to="/Login" className="btn btn-dark mr-2"> Iniciar Sesion </NavLink>
               {/* AUTH0 */}
               {/* <LoginButton /> */}

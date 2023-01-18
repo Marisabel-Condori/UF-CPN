@@ -29,7 +29,7 @@ const Profile = () => {
         setDatoEmail(getData())
     },[])
     const getData =() =>{
-        return localStorage.getItem('email')
+        return localStorage.getItem('id')
     }
 
     //AUTH0
