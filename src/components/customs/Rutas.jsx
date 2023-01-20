@@ -41,14 +41,15 @@ const Rutas = () => {
                 <Route exact path="/CursoEstudiante" element={<Alumnos />} />
                 <Route exact path="/Categorias" element={<Categorias />} />
                 <Route exact path="/" element={<TodosCursos />} />
+                <Route exact path="/:categoria" element={<TodosCursos />} />
                 
                 <Route exact path="/Informatica" element={<Informatica />} />
                 <Route exact path="/Matematica" element={<Matematica />} />
                 <Route exact path="/Fisica" element={<Fisica/>} />
                 <Route exact path="/Biologia" element={<Biologia />} />
                 <Route exact path="/Quimica" element={<Quimica />} />
-                <Route exact path="/Estadistica" element={<Estadistica />} />
-                {/* <Route path="*" element={<h1>not found</h1>} /> */}
+                <Route exact path="/Estadistica" element={<Estadistica />} /> 
+                <Route path="*" element={<h1>not found</h1>} />
             </Routes>
         </>
     )

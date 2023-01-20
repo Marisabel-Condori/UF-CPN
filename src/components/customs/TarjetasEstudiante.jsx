@@ -1,21 +1,25 @@
 import React, { useEffect } from 'react'
-
-import 'swiper/css'
-import 'swiper/css/free-mode'
+// import 'swiper/css'
+// import 'swiper/css/free-mode'
 import { Apiurl } from '../../api/UsuariosApi'
 import axios from 'axios'
 import { useState } from 'react'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import TarjetaCursoEstudiante from './TarjetaCursoEstudiante'
 
 const TarjetasEstudiante = () => {
 
     const [cursosInst, setCursosInst] = useState([])
+    const [tablaBusqueda, setTablaBusqueda] = useState([])
+    const [busqueda, setBusqueda] = useState('')
+    const [esBusqueda, setEsBusqueda] = useState(false)
 
-    useEffect(()=>{
+    useEffect(() => {
         getCursosInst()
-    },[])
-    ///////////// obtiene personas bd ///////////
-    const getCursosInst = async() => {
+    }, [])
+    ///////////// obtiene cursos bd ///////////
+    const getCursosInst = async () => {
         let url = Apiurl + "curso"
         let cursosLista = await axios.get(url)
             .then(response => {
@@ -27,60 +31,55 @@ const TarjetasEstudiante = () => {
     }
     const url = 'https://youtube.com'
 
-  return (  
-    <div className='container d-flex justify-content-center align-items-center h-100'>
-        <div className='row'>
-            {
-                cursosInst.map(card => (
-                    <div className='col-md-4' key={card.idcurso}>
-                        <TarjetaCursoEstudiante titulo={card.titulo_curso} imageSource={card.portada_curso} descripcion={card.descripcion_curso} url={url} nombreDocente={"Mari...."} precio={"50"}/>
-                    </div>
-                ))
+    /**************** BUSQUEDA ********** */
+    const procesarDatos = (e) => {
+        // e.preventDefault()
+
+        setBusqueda(e.target.value)
+        console.log('busqueda ' + e.target.value);
+        filtrar(e.target.value)
+        // filtrar(busqueda)
+    }
+    const filtrar = (terminoBusqueda) => {
+        if (terminoBusqueda) setEsBusqueda(true)
+        else setEsBusqueda(false)
+
+        var resultadosBusqueda = cursosInst.filter((elem) => {
+            if (elem.titulo_curso.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())) {
+                return elem
             }
-        </div>   
-    </div>
-  )
+        })
+        setTablaBusqueda(resultadosBusqueda)
+    }
+
+    return (
+        <>
+            <button className="btn btn-outline-dark float-right">  <FontAwesomeIcon icon={faSearch} /> </button>
+            <div className='float-right'>
+                <input className='form-control inputBuscar' value={busqueda} placeholder='Buscar titulo curso' onChange={procesarDatos} />
+            </div>
+            <br /><br />
+            {
+                <div className='d-flex justify-content-center align-items-center h-100'>
+                    <div className='row'>
+                        {esBusqueda ?
+                            tablaBusqueda.length === 0 ? <h3>No se han encontrado resultados</h3>
+                                : tablaBusqueda.map(card => (
+                                    <div key={card.idcurso} className=''>
+                                        <TarjetaCursoEstudiante objCursoBD={card} url={url} nombreDocente={"Mari...."} precio={"50"} />
+                                    </div>
+                                ))
+                            :
+                            cursosInst.map(card => (
+                                <div className='col-md-4' key={card.idcurso}>
+                                    <TarjetaCursoEstudiante objCursoBD={card} url={url} nombreDocente={"Mari...."} precio={"50"} />
+                                </div>
+                            ))}
+                    </div>
+                </div>
+            }
+        </>
+    )
 }
 
 export default TarjetasEstudiante
-// -------------------------- Tarjetas tipo slide -----------------------------
-{/*    <div className='py-4 px-4 justify-content-center'>   AUMENTAR DIV AL FINAL LUEGO DE </SWIPER>
-<Swiper
-        freeMode={true} 
-        grabCursor={true} 
-        modules={[FreeMode]}
-        className='mySwiper'
-        breakpoints={{
-            0:{
-                slidesPerView:1,
-                spaceBetween:10
-            },
-            480:{
-                slidesPerView:2,
-                spaceBetween:10
-            },
-            768:{
-                slidesPerView:3,
-                spaceBetween:10
-            },
-            1024:{
-                slidesPerView:4,
-                spaceBetween:10
-            },
-            1280:{
-                slidesPerView:5,
-                spaceBetween:10
-            }
-        }}
-        >
-            {
-                cards.map(card => (
-                    <SwiperSlide key={card.id}>
-                        {/* <div key={card.id}>  */}
-                        // <TarjetaCurso titulo={card.titulo} imageSource={card.image} url={card.url} descripcion={card.descripcion} nombreDocente={card.nombreDocente} precio={card.precio}/>
-                        {/* </div> */}
-        //             </SwiperSlide>
-        //         ))
-        //     }
-            
-        // </Swiper> */}

@@ -20,11 +20,11 @@ const Navbar = () => {
   const [error, setError] = useState(null)
   const [dataInstructor, setDataInstructor] = useState([])
 
-  let isAuthenticated=''
+  let isAuthenticated = ''
   if (localStorage.getItem('token')) {
     isAuthenticated = localStorage.getItem('token')
     console.log('mostrando valor local desde NAVBAR')
-    console.log(isAuthenticated) 
+    console.log(isAuthenticated)
   }
 
   //********** MODAL **********/
@@ -41,57 +41,7 @@ const Navbar = () => {
   const irEstudiante = () => {
     setEsEstudiante(true)
   }
-  //-------------------obtiene datos instructor-----------------
-  // useEffect(() => {
-  //   datosPersona()
-  // }, [])
-  // const datosPersona = async () => {
-  //   const dataPersona = await obtieneIDpersona()
-  //   setIdPersona(dataPersona[0].idpersona)
-  //   setIdChildPersona(dataPersona[0].idpersona)
-  //   const dataInstructor = await existeIdInstructor(dataPersona.idpersona)
-  //   //const dataInstructor = await existeIdInstructor(1)
-  //   setDataInstructor(dataInstructor)
-  // }
-  // const existeIdInstructor = async (idPer) => {
-  //   let url = Apiurl + "instructorbyID"
-  //   let obtID = await axios.get(url, {
-  //     params: { idpersona: idPer }
-  //   })
-  //   return await obtID.data
-  // }
-  // const obtieneIDpersona = async () => {
-  //   let url = Apiurl + "personabyEmail"
-  //   let obtID = await axios.get(url, {
-  //     params: { correo: isAuthenticated }
-  //   })
-  //   return await obtID.data
-  // }
-  //-------------- envia idEstudiante -----------
-  // useEffect(() => {
-  //   datosEstudiante()
-  // }, [])
-  // const datosEstudiante = async () => {
-  //   if (isAuthenticated && idPersona) {
-  //     const datoEstudiante = await existeIdEstudiante(idPersona)
-  //     console.log(datoEstudiante);
-  //     console.log(datoEstudiante.length);
-  //     if (datoEstudiante.length === 0) {
-  //       let url = Apiurl + "estudiante"
-  //       axios.post(url, null, {
-  //         params: { idpersona: idPersona }
-  //       })
-  //     }
-  //   }
-  // }
-  // const existeIdEstudiante = async (idPer) => {
-  //   let url = Apiurl + "estudiantebyID"
-  //   let obtID = await axios.get(url, {
-  //     params: { idpersona: idPer }
-  //   })
-  //   return await obtID.data
-  // }
-
+  
   const procesarDatos = e => {
     e.preventDefault()
     if (!experiencia.trim()) {
@@ -140,7 +90,7 @@ const Navbar = () => {
             <>
               {esEstudiante ?
                 <>
-                  <Categorias/>
+                  <Categorias />
                   <NavLink to="/CursoEstudiante" className="btn btn-dark mr-2"> Mis Cursos </NavLink>
                   <Button className="btn btn-dark mr-2" onClick={abrirModal}>Docente</Button>
                   <LogoutButton />
@@ -158,7 +108,7 @@ const Navbar = () => {
             </>
             :
             <>
-              <Categorias/>
+              <Categorias />
               <NavLink to="/Login" className="btn btn-dark mr-2"> Iniciar Sesion </NavLink>
               {/* AUTH0 */}
               {/* <LoginButton /> */}
