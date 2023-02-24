@@ -6,12 +6,12 @@ import { Link } from "react-router-dom";
 import '../css/cards.css'
 
 const TarjetaCursoInstructor = ({ objCursoBD, url, nombreDocente, precio }) => {
-const imgProvisional = 'https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg'
-  const imgStyles = {  height:'150px'}
+  const imgProvisional = 'https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg'
+  const imgStyles = { height: '150px' }
 
   return (
     <div className='card card-con-hover text-center bg-dark ml-3 mt-5' >
-      <img src={objCursoBD.portada_curso ? objCursoBD.portada_curso : imgProvisional} className='card-img-top' style = {imgStyles}/>
+      <img src={objCursoBD.portada_curso ? objCursoBD.portada_curso : imgProvisional} className='card-img-top' style={imgStyles} />
       <div className='card-body text-light'>
         <h4 className='card-title'>{objCursoBD.titulo_curso}</h4>
         <p className='card-text text-secondary text-justify' >

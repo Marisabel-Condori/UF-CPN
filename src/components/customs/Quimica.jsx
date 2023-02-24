@@ -58,9 +58,8 @@ const Quimica = () => {
         <input className='form-control inputBuscar' value={busqueda} placeholder='Buscar titulo curso' onChange={procesarDatos} />
       </div>
 
-      <center>
-        <br /><br />
-        <h1>QUI</h1>
+      <center>  <br /><br />
+        <h1>Quimica</h1>
       </center>
       {
         <div className='d-flex justify-content-center align-items-center h-100'>

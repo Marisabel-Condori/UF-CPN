@@ -58,9 +58,8 @@ const Matematica = () => {
         <input className='form-control inputBuscar' value={busqueda} placeholder='Buscar titulo curso' onChange={procesarDatos} />
       </div>
 
-      <center>
-        <br /><br />
-      <h1>MATE</h1>
+      <center>  <br /><br />
+      <h1>Matematica</h1>
       </center>
       {
         <div className='d-flex justify-content-center align-items-center h-100'>
