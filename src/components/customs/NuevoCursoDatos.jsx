@@ -32,13 +32,13 @@ const NuevoCursoDatos = ({ functionP }) => {
         console.log('///ENVIADOOOOO CURSOOOOO///')
         let url = Apiurl + "curso"
         axios.post(url, null, {
-            params: { titulo_curso: data.tituloCurso, descripcion_curso: data.descripcion, requisitos: data.requisitos }
+            params: { titulo_curso: data.tituloCurso, descripcion_curso: data.descripcion, requisitos: data.requisitos, categoria: data.categoria }
         },)
             .then((response) => {
                 console.log('++++++++++++ response')
                 console.log(response)
-                console.log('id => ' + response.data.insertId)
-                setIdChild(response.data.insertId)
+                console.log('id => ' + response.data.idC)
+                setIdChild(response.data.idC)
             }).catch(err => console.log(err))
     }
 

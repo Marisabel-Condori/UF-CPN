@@ -9,7 +9,7 @@ const Categorias = () => {
     }
 
     return (
-        <Dropdown className='float-left' isOpen={dropdown} toggle={abrirDropdown}>
+        <Dropdown className='float-left mt-1 mr-2' isOpen={dropdown} toggle={abrirDropdown}>
             <DropdownToggle color='dark'>
                 Categoria
             </DropdownToggle>

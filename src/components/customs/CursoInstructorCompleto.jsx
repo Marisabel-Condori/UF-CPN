@@ -17,6 +17,10 @@ const CursoInstructorCompleto = () => {
   const [seccionesdelCurso, setSeccionesdelCurso] = useState([])
   const [videosdelaSeccion, setvideosdelaSeccion] = useState([])
   const [videoLink, setVideoLink] = useState('')
+  const [idvideo, setIdVideo] = useState('')
+
+  let idPersona=''
+  if (localStorage.getItem('id')) { idPersona = localStorage.getItem('id') }
 
   const location = useLocation()
   // console.log(location, "useLocation hoook");
@@ -70,6 +74,11 @@ const CursoInstructorCompleto = () => {
     // console.log(obtVideos.data)
     return await obtVideos.data
   }
+  ////////////////
+  const enviarDatosVideo = (vid)=>{
+    setVideoLink(vid.urlvideo)
+    setIdVideo(vid.idvideo)
+  }
 
   return (
     <div className='container'>
@@ -77,14 +86,15 @@ const CursoInstructorCompleto = () => {
         <div className="col-md-8">
           {/* <h3>VISTA PREVIA CURSOOOOO: {dataCurso.idcurso} titulooo: {dataCurso.titulo_curso} ---</h3> */}
           <VideoPlayer urlVideo={videoLink} />
-          <CajaComentario/>
+          <h4>idvideo = {idvideo}</h4>
+          <h4>..{idPersona}.....</h4>
+          <CajaComentario  idvideo = {idvideo} idper = {idPersona}/> 
         </div>
         {/* /---------------------------------------------------------- */}
 
         <div className="col-md-4">
           {
             seccionesdelCurso.map(item => (
-
               <Accordion key={item.idseccion}>
                 <AccordionSummary expandIcon={<ExpandMore />}>
                   {item.nombre_seccion}
@@ -95,7 +105,8 @@ const CursoInstructorCompleto = () => {
                       videosdelaSeccion.map(vid => (
                         item.idseccion === vid.idseccion &&
                         <li className="list-group-item py-0" key={vid.idvideo}>
-                          <button className='btn btn-link btn-sm ' onClick={() => setVideoLink(vid.urlvideo)}>{vid.titulo}  ...  {vid.idseccion}</button>
+                          {/* <button className='btn btn-link btn-sm ' onClick={() => setVideoLink(vid.urlvideo) }>{vid.titulo}  ...  {vid.idseccion}</button> */}
+                          <button className='btn btn-link btn-sm ' onClick={() => enviarDatosVideo(vid)}>{vid.titulo}  ...  {vid.idseccion}</button>
                         </li>
                       ))
                     }

@@ -8,7 +8,7 @@ const NuevoCurso = () => {
   const [idCurso, setIdCurso] = useState(null)
   const modificaID = useCallback(valor => {
     setIdCurso(valor)
-  }, [setIdCurso])
+  }, [])
 
   return (
     <>

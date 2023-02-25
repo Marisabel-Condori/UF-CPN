@@ -8,6 +8,7 @@ import { Link, NavLink } from "react-router-dom";
 
 import LogoutButton from "../login/LogoutButton";
 import Categorias from "./Categorias";
+import DropdownDocente from "./DropdownDocente";
 
 const Navbar = () => {
 
@@ -68,18 +69,6 @@ const Navbar = () => {
     setEspecialidad('')
     setError('')
   }
-  /********** INGRESA DATOS INSTRUCTOR A BD *******/
-  // const enviaDatosInstructorBD = () => {
-  //   let url = Apiurl + "instructor"
-  //   axios.post(url, null, {
-  //     params: { idpersona: idPersona, experiencia: experiencia, especialidad: especialidad }
-  //   },)
-  //     // .then((response) => {
-  //     //   console.log('++++++++++++ response')
-  //     //   console.log(response)
-  //     //   console.log('id INST POST=> ' + response.data.insertId)
-  //     // }).catch(err => console.log(err))
-  // }
 
   return (
     <div className="mt-2">
@@ -91,8 +80,9 @@ const Navbar = () => {
               {esEstudiante ?
                 <>
                   <Categorias />
-                  <NavLink to="/CursoEstudiante" className="btn btn-dark mr-2"> Mis Cursos </NavLink>
-                  <Button className="btn btn-dark mr-2" onClick={abrirModal}>Docente</Button>
+                  <NavLink to="/CursoEstudiante" className="btn btn-dark"> Mis Cursos </NavLink>
+                  {/* <Button className="btn btn-dark mr-2" onClick={abrirModal}>Docente</Button> */}
+                  <DropdownDocente/>
                   <LogoutButton />
                 </>
                 :

@@ -1,14 +1,16 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useCallback } from 'react'
 import { useState } from 'react'
+import { Apiurl } from '../../api/UsuariosApi'
 
-const CajaComentario = () => {
+const CajaComentario = ({ idvideo, idper }) => {
 
   const [comentario, setComentario] = useState('')
   const [respuesta, setRespuesta] = useState('')
   const [listaComentarios, setListaComentarios] = useState([])
   const [error, setError] = useState(null)
 
-  const procesarComentario = async (e) => {
+  const procesarComentario = (e) => {
     e.preventDefault()
     if (!comentario.trim()) {
       console.log('comentario vacio')
@@ -16,13 +18,35 @@ const CajaComentario = () => {
       return
     }
     console.log('pasando validaciones')
-    // ENVIAR BD (id) usuario que hace comentario, comentario, (id) titulo curso, (id) seccion, (id)link video
-    // youtube clone 14 => 9:10
-    //****************** POST ********************* */
+    // crea un nuevo objeto `Date`
+    var today = new Date();
+    // obtener la fecha y la hora
+    var now = today.toLocaleString();
+    registraComentario(idvideo, idper, comentario, now)
     setListaComentarios([...listaComentarios, comentario])
     setError(null)
-    setComentario('')
+    setComentario(null)
   }
+  /************** REGISTRO COMENTARIO - POST****************/
+  const registraComentario = useCallback(async (idVIDEO, idPER, COMEN, NOW) => {
+    adicionaComentario(idVIDEO, idPER, COMEN, NOW )
+  }, [])
+  /********** INGRESA DATOS COMENTARIO A BD *******/
+  const adicionaComentario = (idv, idp, comen, now) => {
+    console.log('{ idvideo: ' + idv + ' idpersona: ' + idp + ' comentario ' + comen + ' fecha: ' + now + ' }');
+    console.log('///ENVIADOOOOO COMENTARIO///')
+    let url = Apiurl + "comentario"
+    axios.post(url, null, {
+      params: { idvideo: idv, idpersona: idp, comentario: comen, fecha: now }
+    },)
+      .then((response) => {
+        console.log('++++++++++++ response')
+        console.log(response)
+        console.log('idComentario => ' + response.data.id)
+      //  setIdChild(response.data.insertId)
+      }).catch(err => console.log(err))
+  }
+
   const procesarRespuesta = async (e) => {
     e.preventDefault()
     if (!respuesta.trim()) {
@@ -33,8 +57,9 @@ const CajaComentario = () => {
   }
   return (
     <div className='my-5'>
-      {/* <p>Responder</p> */}
       <hr />
+      <p>Seccion comentarios</p>
+      <p>idvideo: {idvideo} idpersona: {idper}</p>
       {
         error && (
           <div className="alert alet-danger">{error}</div>
