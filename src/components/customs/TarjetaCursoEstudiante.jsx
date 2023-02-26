@@ -8,12 +8,13 @@ import { Button, Modal, ModalHeader, ModalFooter} from 'reactstrap'
 import axios from 'axios'
 import { Apiurl } from '../../api/UsuariosApi'
 
-const TarjetaCursoEstudiante = ({ objCursoBD, url, nombreDocente, precio, idPersona, inscrito}) => {
+const TarjetaCursoEstudiante = ({ objCursoBD, url, nombreDocente, precio, idPersona, estaInscrito}) => {
   const imgProvisional = 'https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg'
   const imgStyles = { height: '150px' }
 
   const esFavorito = true
-  
+  console.log('esta inscrito');
+  console.log('SI '+estaInscrito+ ' NO '+!estaInscrito);
 
   //------------------ MODAL -------------
   const [isOpen, setIsOpen] = useState(false)
@@ -67,7 +68,10 @@ const TarjetaCursoEstudiante = ({ objCursoBD, url, nombreDocente, precio, idPers
         <h6 className='text-justify'>{nombreDocente}</h6>
         <h6 className='text-justify'>{precio} Bs</h6>
         <Link to="/CursoCompletoInst" state={{ data: objCursoBD }} className="btn btn-outline-secondary rounded-0"> Ir al Curso </Link>
-        <button className={`btn ${esFavorito ? 'btn-success' : 'btn-outline-primary'} rounded-0 m-2`} type='button' onClick={() => abrirModalInscribirseAlCurso()} >Inscribirse</button>
+      {
+        !estaInscrito&&
+        <button disabled={idPersona?false:true} className={`btn ${esFavorito ? 'btn-success' : 'btn-outline-primary'} rounded-0 m-2`} type='button' onClick={() => abrirModalInscribirseAlCurso()} >Inscribirse</button>
+      }
       </div>
 
       <Modal isOpen={isOpen}>

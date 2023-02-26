@@ -5,7 +5,7 @@ import { Apiurl } from '../../api/UsuariosApi'
 import '../../App.css'
 import TarjetasEstudiante from '../customs/TarjetasEstudiante'
 
-const Alumnos = ({ idPer }) => {
+const MisCursosEstudiante = ({ idPer }) => {
 
   const [cursosInscritos, setCursosInscritos] = useState([])
 
@@ -40,4 +40,4 @@ const Alumnos = ({ idPer }) => {
   )
 }
 
-export default Alumnos
+export default MisCursosEstudiante

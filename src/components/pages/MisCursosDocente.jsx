@@ -3,7 +3,7 @@ import { Link }from "react-router-dom";
 import Profile from "../login/Profile";
 import TarjetasInstructor from "../customs/TarjetasInstructor";
 
-const MisCursos = ({idPer}) => {   
+const MisCursosDocente = ({idPer}) => {   
   //const {isAuthenticated} = useAuth0()
   let isAuthenticated=''
   if (localStorage.getItem('id')) {
@@ -28,4 +28,4 @@ const MisCursos = ({idPer}) => {
   )
 }
 
-export default MisCursos
+export default MisCursosDocente

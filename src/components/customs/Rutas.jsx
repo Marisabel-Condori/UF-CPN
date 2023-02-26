@@ -1,10 +1,10 @@
 import React from 'react'
 import { Routes, Route } from "react-router-dom";
 
-import MisCursos from "../pages/MisCursos";
+import MisCursosDocente from "../pages/MisCursosDocente";
 import Foro from "../pages/Foro";
 import NuevoCurso from "../pages/NuevoCurso"
-import Alumnos from "../pages/Alumnos";
+import MisCursosEstudiante from "../pages/MisCursosEstudiante";
 import CursoInstructorCompleto from './CursoInstructorCompleto';
 import TodosCursos from '../pages/TodosCursos';
 import RegistroUsuario from "../login/RegistroUsuario";
@@ -41,9 +41,9 @@ const Rutas = () => {
                 <Route exact path="/NuevoCurso/*" element={<NuevoCurso idPer = {idPersona}/>} />
                 <Route exact path="/Foro" element={<Foro />} /> 
                 <Route exact path="/CursoCompletoInst" element={<CursoInstructorCompleto />} />
-                <Route exact path="/CursoInstructor" element={<MisCursos idPer = {idPersona}/>} />
+                <Route exact path="/CursoInstructor" element={<MisCursosDocente idPer = {idPersona}/>} />
 
-                <Route exact path="/CursoEstudiante" element={<Alumnos idPer = {idPersona} />} />
+                <Route exact path="/CursoEstudiante" element={<MisCursosEstudiante idPer = {idPersona} />} />
                 <Route exact path="/Categorias" element={<Categorias />} />
                 <Route exact path="/" element={<TarjetasEstudianteTodos idPer = {idPersona} />} /> 
                 {/* <Route exact path="/:categoria" element={<TodosCursos />} /> */}

@@ -71,13 +71,13 @@ const TarjetasEstudiante = ({dataCursosInscritos, idPersona}) => {
                             tablaBusqueda.length === 0 ? <h3>No se han encontrado resultados</h3>
                                 : tablaBusqueda.map(card => (
                                     <div key={card.idcurso} className=''>
-                                        <TarjetaCursoEstudiante objCursoBD={card} url={url} nombreDocente={idPersona} precio={"50"} />
+                                        <TarjetaCursoEstudiante objCursoBD={card} url={url} nombreDocente={idPersona} precio={"50"} estaInscrito={true}/>
                                     </div> 
                                 )) 
                             :
                             cursosInst.map(card => (
                                 <div className='col-md-4' key={card.idcurso}>
-                                    <TarjetaCursoEstudiante objCursoBD={card} url={url} nombreDocente={idPersona} precio={"50"} />
+                                    <TarjetaCursoEstudiante objCursoBD={card} url={url} nombreDocente={idPersona} precio={"50"} estaInscrito={true}/>
                                 </div>
                             ))}
                     </div>
