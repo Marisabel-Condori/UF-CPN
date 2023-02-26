@@ -12,7 +12,7 @@ const TodosCursos = () => {
           :<h3>no inicio sesion aun</h3>
           } */}
       <center> <h3> Todos los cursos</h3>  </center>
-      <TarjetasEstudiante />
+      <TarjetasEstudiante /> 
     </div>
   )
 }

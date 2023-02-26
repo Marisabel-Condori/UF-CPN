@@ -11,7 +11,7 @@ const DropdownDocente = () => {
                 color="dark"
             >  Docente
             </DropdownToggle>
-            <DropdownMenu className='bg-dark'>
+            <DropdownMenu >
                 <DropdownItem>
                     <Link to="/CursoInstructor" className="btn"> Mis Cursos </Link>
                 </DropdownItem>

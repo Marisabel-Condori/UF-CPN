@@ -27,7 +27,7 @@ const Navbar = () => {
     console.log('mostrando valor local desde NAVBAR')
     console.log(isAuthenticated)
   }
-
+ 
   //********** MODAL **********/
   const [isOpen, setIsOpen] = useState(false)
   const abrirModal = () => {

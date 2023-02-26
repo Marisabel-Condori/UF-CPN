@@ -7,7 +7,7 @@ import axios from 'axios'
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from "../Firebase";
 
-const SeccionesCurso = ({ idCursoP }) => { 
+const SeccionesCurso = ({ idCursoP }) => {
   console.log('dato recibido desde el padre: ' + idCursoP);
 
   const [idSeccion, setIdSeccion] = useState(null)
@@ -196,25 +196,25 @@ const SeccionesCurso = ({ idCursoP }) => {
                       <div className="progress mb-2">
                         <div className="progress-bar progress-bar-striped progress-bar-animated " style={{ width: `${progress}%` }}>{progress}%</div>
                       </div>
-                      <button disabled={link ? false : true} className={link?'btn btn-info btn-block': 'btn btn-secondary btn-block'} type="button" onClick={agregarRecurso}>Agregar archivo</button>
+                      <button disabled={link ? false : true} className={link ? 'btn btn-info btn-block' : 'btn btn-secondary btn-block'} type="button" onClick={agregarRecurso}>Agregar archivo</button>
                     </form>
                   </div>
                 </div>
                 {/*************************************************************** */}
 
                 <ul className="list-group">
-                  { listaVideos.map(item => (
+                  {listaVideos.map(item => (
                     <li className="list-group-item" key={item.id}>
-                        <span className="float-left">{item.nombreVideo}</span>
-                        <button className="btn btn-warning btn-sm float-right ml-2">Editar</button>
-                        <button className="btn btn-danger btn-sm float-right mx-2"
-                          onClick={() => eliminarTarea(item.id)}>
-                          Eliminar
-                        </button>
-                      </li>
+                      <span className="float-left">{item.nombreVideo}</span>
+                      <button className="btn btn-warning btn-sm float-right ml-2">Editar</button>
+                      <button className="btn btn-danger btn-sm float-right mx-2"
+                        onClick={() => eliminarTarea(item.id)}>
+                        Eliminar
+                      </button>
+                    </li>
 
 
-                    ))
+                  ))
                   }
                 </ul>
               </>
@@ -222,7 +222,7 @@ const SeccionesCurso = ({ idCursoP }) => {
           </center>
 
           <center>
-          <button disabled={idCursoP && listaVideos.length > 0 ? false : true} className='btn btn-success mt-4' onClick={agregarSeccion}> Guardar Seccion</button>
+            <button disabled={idCursoP && listaVideos.length > 0 ? false : true} className='btn btn-success mt-4' onClick={agregarSeccion}> Guardar Seccion</button>
             {/* <button  className='btn btn-success mt-4' onClick={agregarSeccion}> Guardar Seccion</button> */}
             {/* <button disabled={idCursoP && listaVideos.length > 0 ? false : true} type='button' className='btn btn-success mt-4' onClick={enviaBD}> Guardar Datos Seccion</button> */}
           </center>
@@ -231,7 +231,6 @@ const SeccionesCurso = ({ idCursoP }) => {
         </div>
       </div>
       {/*************************************************************** */}
-<h4>ddddddddddddddd</h4>
 
       <ul className=" list-group">
         {

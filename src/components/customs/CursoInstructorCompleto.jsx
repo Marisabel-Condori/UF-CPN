@@ -88,11 +88,13 @@ const CursoInstructorCompleto = () => {
           <VideoPlayer urlVideo={videoLink} />
           <h4>idvideo = {idvideo}</h4>
           <h4>..{idPersona}.....</h4>
-          <CajaComentario  idvideo = {idvideo} idper = {idPersona}/> 
+          {
+            idvideo&& <CajaComentario  idvideo = {idvideo} idper = {idPersona}/> 
+          }
         </div>
         {/* /---------------------------------------------------------- */}
 
-        <div className="col-md-4">
+        <div className="col-md-4"> 
           {
             seccionesdelCurso.map(item => (
               <Accordion key={item.idseccion}>

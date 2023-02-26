@@ -1,14 +1,41 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import { Apiurl } from '../../api/UsuariosApi'
 
 import '../../App.css'
 import TarjetasEstudiante from '../customs/TarjetasEstudiante'
 
-const Alumnos = () => {
+const Alumnos = ({ idPer }) => {
+
+  const [cursosInscritos, setCursosInscritos] = useState([])
+
+  useEffect(() => {
+    getCursosInscritos()
+  }, [])
+  ///////////// obtiene cursos de estudiante X ///////////
+  const getCursosInscritos = async () => {
+    try {
+      let url = Apiurl + "inscritosByEstudiante"
+      let cursosLista = await axios.get(url, {
+        params: { idestudiante: idPer }
+      })
+      setCursosInscritos(cursosLista.data)
+      return cursosLista;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  // console.log('++++++++++CURSOS INSCRITOS++++++++++++');
+  // console.log(cursosInscritos);
+
   return (
-    <div >  
-        <h2>tarjetas estudiante</h2>
-        <p>si no tiene cursos inscritos VACIO</p>
-        <TarjetasEstudiante/>
+    <div >
+      {cursosInscritos.length > 0
+        ? <TarjetasEstudiante dataCursosInscritos={cursosInscritos} idPersona={idPer} />
+        : <center> <h5> Aun no estas inscrito a ningun curso</h5> </center>
+      }
+
     </div>
   )
 }

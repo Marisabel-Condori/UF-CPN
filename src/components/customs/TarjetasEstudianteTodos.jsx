@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react'
-// import 'swiper/css'
-// import 'swiper/css/free-mode'
 import { Apiurl } from '../../api/UsuariosApi'
 import axios from 'axios'
 import { useState } from 'react'
@@ -8,26 +6,21 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import TarjetaCursoEstudiante from './TarjetaCursoEstudiante'
 
-const TarjetasEstudiante = ({dataCursosInscritos, idPersona}) => {
-
-    console.log('++++++++++CURSOS INSCRITOS TARJETA++++++++++++');
-    console.log(dataCursosInscritos); 
+const TarjetasEstudianteTodos = ({idPer}) => {
 
     const [cursosInst, setCursosInst] = useState([])
     const [tablaBusqueda, setTablaBusqueda] = useState([])
     const [busqueda, setBusqueda] = useState('')
     const [esBusqueda, setEsBusqueda] = useState(false)
- 
+
     useEffect(() => {
         getCursosEst()
     }, [])
     ///////////// obtiene cursos pors estudiante bd ///////////
     const getCursosEst = async () => {
         try {
-          let url = Apiurl + "cursoByEstudiante"
-          let cursosLista = await axios.get(url, {
-            params: { idestudiante: idPersona }
-          })
+          let url = Apiurl + "curso"
+          let cursosLista = await axios.get(url)
           setCursosInst(cursosLista.data)
           return cursosLista;
         } catch (error) {
@@ -71,13 +64,13 @@ const TarjetasEstudiante = ({dataCursosInscritos, idPersona}) => {
                             tablaBusqueda.length === 0 ? <h3>No se han encontrado resultados</h3>
                                 : tablaBusqueda.map(card => (
                                     <div key={card.idcurso} className=''>
-                                        <TarjetaCursoEstudiante objCursoBD={card} url={url} nombreDocente={idPersona} precio={"50"} />
-                                    </div> 
+                                        <TarjetaCursoEstudiante objCursoBD={card} url={url} nombreDocente={"Mari...."} precio={"50"} idPersona={idPer}/>
+                                    </div>
                                 )) 
                             :
                             cursosInst.map(card => (
                                 <div className='col-md-4' key={card.idcurso}>
-                                    <TarjetaCursoEstudiante objCursoBD={card} url={url} nombreDocente={idPersona} precio={"50"} />
+                                    <TarjetaCursoEstudiante objCursoBD={card} url={url} nombreDocente={"Mari...."} precio={"50"} idPersona={idPer}/>
                                 </div>
                             ))}
                     </div>
@@ -87,4 +80,4 @@ const TarjetasEstudiante = ({dataCursosInscritos, idPersona}) => {
     )
 }
 
-export default TarjetasEstudiante
+export default TarjetasEstudianteTodos

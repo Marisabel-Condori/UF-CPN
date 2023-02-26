@@ -3,7 +3,7 @@ import { useState,useCallback } from 'react';
 import NuevoCursoDatos from '../customs/NuevoCursoDatos';
 import SeccionesCurso from '../customs/SeccionesCurso';
 
-const NuevoCurso = () => {
+const NuevoCurso = ({idPer}) => {
   
   const [idCurso, setIdCurso] = useState(null)
   const modificaID = useCallback(valor => {
@@ -15,7 +15,7 @@ const NuevoCurso = () => {
       <h2>valor recibido desde el hijo: {idCurso}</h2>
       <div className="container">
         <center><h1>Nuevo Curso</h1></center>
-        <NuevoCursoDatos idCursoP={idCurso} functionP={modificaID} />
+        <NuevoCursoDatos idCursoP={idCurso} functionP={modificaID} idPersona={idPer}/>
         <SeccionesCurso idCursoP={idCurso} />
         {/* <SeccionesCurso idCursoP={111} /> */}
 

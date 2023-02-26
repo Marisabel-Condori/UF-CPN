@@ -272,6 +272,7 @@ const Login = () => {
         } else {
             localStorage.setItem('token', res.data.token)
             localStorage.setItem('id', res.data.id)
+            localStorage.setItem('nombre', res.data.nombre)
             window.location.pathname = '/'
             abrirModal()
         }
