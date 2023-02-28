@@ -1,21 +1,21 @@
-import React, { useState } from 'react'
-import TarjetaForo from '../customs/TarjetaForo';
+// import React, { useState } from 'react'
+// import TarjetaForo from '../customs/TarjetaForo';
 
-const TarjetasForo = ({dataComentarios}) => {
+// const TarjetasForo = ({dataComentarios}) => {
 
   
 
-  return (
-    <div>
-        {
-          dataComentarios.map(item =>(
-            <div key={item.idcomentario}>
-              <TarjetaForo dataComentario={item}/>
-            </div>
-          ))
-        }
-    </div>
-  )
-}
+//   return (
+//     <div>
+//         {
+//           dataComentarios.map(item =>(
+//             <div key={item.idcomentario}>
+//               <TarjetaForo dataComentario={item}/>
+//             </div>
+//           ))
+//         }
+//     </div>
+//   )
+// }
 
-export default TarjetasForo
+// export default TarjetasForo

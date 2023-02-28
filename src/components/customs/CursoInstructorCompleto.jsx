@@ -107,7 +107,6 @@ const CursoInstructorCompleto = () => {
                       videosdelaSeccion.map(vid => (
                         item.idseccion === vid.idseccion &&
                         <li className="list-group-item py-0" key={vid.idvideo}>
-                          {/* <button className='btn btn-link btn-sm ' onClick={() => setVideoLink(vid.urlvideo) }>{vid.titulo}  ...  {vid.idseccion}</button> */}
                           <button className='btn btn-link btn-sm ' onClick={() => enviarDatosVideo(vid)}>{vid.titulo}  ...  {vid.idseccion}</button>
                         </li>
                       ))

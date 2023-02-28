@@ -118,7 +118,6 @@ const CajaComentario = ({ idvideo, idper }) => {
                 {
                   item.idrespuesta === null &&
                   <>
-                  {/* className={` ${!item.idrespuesta && "card-header"} form-control`}  */}
                     <textarea className="form-control " onChange={e => setRespuesta(e.target.value)} placeholder='Responder comentario' style={{ width: '300%' }}></textarea>
                     <button type="button" onClick={() => procesarRespuesta(item.idcomentario)} className="btn btn-outline-secondary" style={{ width: '50%', height: '33px' }}>responder</button>
                   </>
