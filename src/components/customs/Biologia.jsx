@@ -32,12 +32,9 @@ const Biologia = ({idPer}) => {
 
   /**************** BUSQUEDA ********** */
   const procesarDatos = (e) => {
-    // e.preventDefault()
-
     setBusqueda(e.target.value)
     console.log('busqueda ' + e.target.value);
     filtrar(e.target.value)
-    // filtrar(busqueda)
   }
   const filtrar = (terminoBusqueda) => {
     if (terminoBusqueda) setEsBusqueda(true)

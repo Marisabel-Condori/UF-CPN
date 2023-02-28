@@ -58,8 +58,7 @@ const TarjetasInstructor = ({ idPersona }) => {
     return (
         <div>
             {cursosInst.length > 0
-                ?
-                <div>
+                ? <div>
                     <button className="btn btn-outline-dark float-right">  <FontAwesomeIcon icon={faSearch} /> </button>
                     <div className='float-right'>
                         <input className='form-control inputBuscar' value={busqueda} placeholder='Buscar titulo curso' onChange={procesarDatos} />
@@ -70,14 +69,14 @@ const TarjetasInstructor = ({ idPersona }) => {
                             {esBusqueda
                                 ? tablaBusqueda.length === 0 ? <h3>No se han encontrado resultados</h3>
                                     : tablaBusqueda.map(card => (
-                                        <div key={card.idcurso} className=''>
-                                            <TarjetaCursoInstructor objCursoBD={card} url={url} nombreDocente={"Mari...."} precio={"50"} />
+                                        <div key={card.idcurso} >
+                                            <TarjetaCursoInstructor objCursoBD={card} nombreDocente={"Mari...."} precio={"50"} />
                                         </div>
                                     ))
                                 :
                                 cursosInst.map(card => (
-                                    <div className='col-md-8' key={card.idcurso}>
-                                        <TarjetaCursoInstructor objCursoBD={card} url={url} nombreDocente={"Mari...."} precio={"50"} />
+                                    <div className='col-md-4' key={card.idcurso}>
+                                        <TarjetaCursoInstructor objCursoBD={card} nombreDocente={"Mari...."} precio={"50"} />
                                     </div>
                                 ))
                             }

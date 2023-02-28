@@ -1,16 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import TarjetaForo from '../customs/TarjetaForo';
 
-const TarjetasForo = () => {
+const TarjetasForo = ({dataComentarios}) => {
+
+  
+
   return (
     <div>
-        <TarjetaForo />
-        <TarjetaForo/>
-        <TarjetaForo/>
-        <TarjetaForo/>
-        <TarjetaForo/>
-        <TarjetaForo/>
-        <TarjetaForo/>
+        {
+          dataComentarios.map(item =>(
+            <div key={item.idcomentario}>
+              <TarjetaForo dataComentario={item}/>
+            </div>
+          ))
+        }
     </div>
   )
 }

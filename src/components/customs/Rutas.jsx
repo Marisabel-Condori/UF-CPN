@@ -27,19 +27,18 @@ const Rutas = () => {
         nombre=localStorage.getItem('nombre')
         console.log('mostrando valor local desde NAVBAR')
         console.log(idPersona)
-        console.log(nombre)
     }
 
     return (
         <>
             <h3>..{idPersona}</h3>
-            <h3>..{nombre}</h3>
+            {/* <h3>..{nombre}</h3> */}
             <Routes>
                 <Route exact path="/Login" element={<RegistroUsuario />} />
                 <Route exact path="/Forgot" element={<RecuperarContraseña/>} />
 
                 <Route exact path="/NuevoCurso/*" element={<NuevoCurso idPer = {idPersona}/>} />
-                <Route exact path="/Foro" element={<Foro />} /> 
+                <Route exact path="/Foro" element={<Foro idPer = {idPersona} />} /> 
                 <Route exact path="/CursoCompletoInst" element={<CursoInstructorCompleto />} />
                 <Route exact path="/CursoInstructor" element={<MisCursosDocente idPer = {idPersona}/>} />
 

@@ -1,4 +1,3 @@
-import { green } from '@material-ui/core/colors'
 import axios from 'axios'
 import React, { useCallback, useEffect } from 'react'
 import { useState } from 'react'
@@ -58,12 +57,14 @@ const CajaComentario = ({ idvideo, idper }) => {
       setError('comentario vacio')
       return
     }
-    console.log('pasando validaciones')
     // crea un nuevo objeto `Date`
     var today = new Date();
     // obtener la fecha y la hora
     var now = today.toLocaleString();
-    await registraComentario(idvideo, idper, comentario, now)
+    if (idvideo) {
+      await registraComentario(idvideo, idper, comentario, now)
+      console.log('pasando validaciones')
+    }else{ console.log('no hay idvideo'); }
     // setListaComentarios([...listaComentarios, comentario])
     setError(null)
     setComentario(null)
@@ -109,15 +110,16 @@ const CajaComentario = ({ idvideo, idper }) => {
         {
           listaComentarios.map((item, index) => (
             <div className={item.idrespuesta && 'pl-5 pr-2'} key={index} >
-              <div class={!item.idrespuesta && "card-header"}>
+              <div className={!item.idrespuesta && "card-header"}>
                 <h6>Mari C</h6>
-                <p>{item.comentario} idvideo = {item.idvideo} idcomentario = {item.idcomentario}</p>
+                <p>{item.comentario} idvideo = {item.idvideo} idcomentario = {item.idcomentario} idrespuesta = {item.idrespuesta}</p>
               </div>
               <form className=" form-group" style={{ display: 'flex' }}  >
                 {
                   item.idrespuesta === null &&
                   <>
-                    <textarea className="form-control" onChange={e => setRespuesta(e.target.value)} placeholder='Responder comentario' style={{ width: '300%' }}></textarea>
+                  {/* className={` ${!item.idrespuesta && "card-header"} form-control`}  */}
+                    <textarea className="form-control " onChange={e => setRespuesta(e.target.value)} placeholder='Responder comentario' style={{ width: '300%' }}></textarea>
                     <button type="button" onClick={() => procesarRespuesta(item.idcomentario)} className="btn btn-outline-secondary" style={{ width: '50%', height: '33px' }}>responder</button>
                   </>
                 }

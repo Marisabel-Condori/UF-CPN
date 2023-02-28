@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 import '../css/cards.css'
 import { Link } from 'react-router-dom'
 
-import { Button, Modal, ModalHeader, ModalFooter } from 'reactstrap'
+import { Button, Modal, ModalHeader, ModalFooter, ModalBody } from 'reactstrap'
 import axios from 'axios'
 import { Apiurl } from '../../api/UsuariosApi'
 
@@ -12,7 +12,7 @@ const TarjetaCursoEstudiante = ({ objCursoBD, nombreDocente, precio, idPersona, 
   const imgProvisional = 'https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg'
   const imgStyles = { height: '150px' }
 
-  const esFavorito = true
+  const [yaEstaInscrito, setYaEstaInscrito] = useState(false)
 
   //------------------ MODAL -------------
   const [isOpen, setIsOpen] = useState(false)
@@ -22,22 +22,20 @@ const TarjetaCursoEstudiante = ({ objCursoBD, nombreDocente, precio, idPersona, 
   }
 
   //-------------- Inscripcion al curso BD --------------
-  const inscribirse = async() => {
-    console.log('indcribirseseee BDDDDD');
-    console.log(idPersona);
-    console.log(objCursoBD.idcurso);
-    console.log('-------------------------');
-
+  const inscribirse = async () => {
     // crea un nuevo objeto `Date`
     var today = new Date();
     // obtener la fecha y la hora
     var now = today.toLocaleString();
-    const  verificaEstaInscrito = await getInscritos()
-    if (verificaEstaInscrito.length===0) inscripcionCurso(idPersona, objCursoBD.idcurso, now)
-    else console.log('ya estas inscrito en el curso');
-    
+    const verificaEstaInscrito = await getInscritos()
+    if (verificaEstaInscrito.length === 0) inscripcionCurso(idPersona, objCursoBD.idcurso, now)
+    else {
+      console.log('ya estas inscrito en el curso');
+      setYaEstaInscrito(true)
+    }
     abrirModalInscribirseAlCurso()
   }
+
   /********** INGRESA DATOS INSCRIPCION A BD *******/
   const inscripcionCurso = async (idPersona, idCurso, fecha) => {
     console.log('///ENVIADOOOOO INSCRIPCION///')
@@ -52,8 +50,9 @@ const TarjetaCursoEstudiante = ({ objCursoBD, nombreDocente, precio, idPersona, 
         //  setIdSeccion(response.data.insertId)
       }).catch(err => console.log(err))
   }
+
   /********** ESTA INSCRITO?? *******/
-  const getInscritos=async()=>{
+  const getInscritos = async () => {
     try {
       let url = Apiurl + "estaInscrito"
       let estaEnElCurso = await axios.get(url, {
@@ -72,7 +71,7 @@ const TarjetaCursoEstudiante = ({ objCursoBD, nombreDocente, precio, idPersona, 
       <img src={objCursoBD.portada_curso ? objCursoBD.portada_curso : imgProvisional}
         alt="Responsive image" className='card-img-top ' style={imgStyles} />
       <div className='card-body text-light'>
-        <h4 className='card-title'>{objCursoBD.titulo_curso}... {idPersona}</h4>
+        <h4 className='card-title'>{objCursoBD.titulo_curso}</h4>
         <p className='card-text text-secondary text-justify' >
           {
             objCursoBD.descripcion_curso ?
@@ -87,15 +86,16 @@ const TarjetaCursoEstudiante = ({ objCursoBD, nombreDocente, precio, idPersona, 
         <Link to="/CursoCompletoInst" state={{ data: objCursoBD }} className="btn btn-outline-secondary rounded-0"> Ir al Curso </Link>
         {
           !estaInscrito &&
-          <button disabled={idPersona ? false : true } className={`btn ${esFavorito ? 'btn-success' : 'btn-outline-primary'} rounded-0 m-2`} type='button' onClick={() => abrirModalInscribirseAlCurso()} >Inscribirse</button>
+          <button disabled={idPersona ? false : true} className={'btn btn-success rounded-0 m-2'} type='button' onClick={() => abrirModalInscribirseAlCurso()} >Inscribirse</button>
+          // <button disabled={idPersona ? false : true} className={`btn ${esFavorito ? 'btn-success' : 'btn-outline-primary'} rounded-0 m-2`} type='button' onClick={() => abrirModalInscribirseAlCurso()} >Inscribirse</button>
         }
       </div>
 
       <Modal isOpen={isOpen}>
-        <ModalHeader>{'Seguro que deseas Inscribirte al curso???'}
-        </ModalHeader>
+        <ModalHeader>{'Seguro que deseas Inscribirte al curso???'}  </ModalHeader>
+        {yaEstaInscrito && <ModalBody> {'Ya estas inscrito en el curso'} </ModalBody>}
         <ModalFooter>
-          <Button color="primary" onClick={() => inscribirse()} >SI</Button>
+          <Button color="primary" onClick={() => inscribirse()} disabled={yaEstaInscrito&&true}>SI</Button>
           <Button color="secondary" onClick={abrirModalInscribirseAlCurso}>Cerrar</Button>
         </ModalFooter>
       </Modal>

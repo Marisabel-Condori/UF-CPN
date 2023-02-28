@@ -148,9 +148,9 @@ const SeccionesCurso = ({ idCursoP }) => {
 
   return (
     <>
-      <h3>dato recibido desde el padre {idCursoP}</h3>
+      <h5>dato recibido desde el padre {idCursoP}</h5>
       {/**********************PETICION DE DATOS***********************/}
-      <div className="card m-3" >
+      <div className="card" >
         <div className="card-body">
           {/* <form onSubmit={agregarSeccion}> */}
           <div className='row'>
@@ -239,13 +239,11 @@ const SeccionesCurso = ({ idCursoP }) => {
               <h6>IDSECCION : {item.id}</h6>
               <span >Nombre Seccion: {item.nomSeccion}</span>
               <div className='ml-5'>
-                {/* mostrar videos mediante la bd */}
                 <ul className="list-group my-2">
                   {
                     item.objVideos.map(item => (
                       <li className="list-group-item mr-5" key={item.id}>
                         <span className="float-left">{item.nombreVideo}</span>
-                        {/* <button onClick={() => window.open( 'https://'+item.urlvideo)} >video</button> */}
                       </li>
                     ))
                   }

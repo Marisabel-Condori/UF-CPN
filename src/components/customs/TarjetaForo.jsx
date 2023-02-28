@@ -1,21 +1,28 @@
 import React from 'react'
 
 
-const TarjetaForo = () => {
+const TarjetaForo = ({ dataComentario }) => {
+
+  const muestra = () => {
+    console.log('*************** DATA TARHETA ');
+    console.log(dataComentario);
+  }
   return (
     <div>
-        <div className='container'>
-                <div className="card border-success mb-3">
-                    <div className="card-header bg-transparent border-success">Titulo del Curso</div>
-                    <div className="card-body text-success">
-                        <h5 className="card-title">Titulo del mensaje</h5>
-                        <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                    <div className="card-footer text-right bg-transparent border-success">Por: Nombre y Ape</div>
-                    
-                </div>
+      {/* <button onClick={muestra}>mostrar comentarios</button> */}
+
+      <div className='container'>
+        <div className="card border-success mb-3">
+          <div className="card-header bg-transparent border-success"><h5>{dataComentario.titulo_curso}</h5></div>
+          <div className="card-body text-success">
+            <h5 className="card-title">{dataComentario.titulo}</h5>
+            <p className="card-text">{dataComentario.comentario}</p>
+          </div>
+          <div className="card-footer text-right bg-transparent border-success">Por: {dataComentario.nombre} {dataComentario.ap_paterno }</div>
+
         </div>
-                         
+      </div>
+
     </div>
   )
 }

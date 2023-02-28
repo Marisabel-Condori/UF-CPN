@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import '../css/cards.css'
 
-const TarjetaCursoInstructor = ({ objCursoBD, url, nombreDocente, precio }) => {
+const TarjetaCursoInstructor = ({ objCursoBD, nombreDocente, precio }) => {
   const imgProvisional = 'https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg'
   const imgStyles = { height: '150px' }
 
