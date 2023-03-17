@@ -81,13 +81,12 @@ const CursoInstructorCompleto = () => {
   }
 
   return (
-    <div className='container'>
       <div className='row'>
         <div className="col-md-8">
           {/* <h3>VISTA PREVIA CURSOOOOO: {dataCurso.idcurso} titulooo: {dataCurso.titulo_curso} ---</h3> */}
           <VideoPlayer urlVideo={videoLink} />
-          <h4>idvideo = {idvideo}</h4>
-          <h4>..{idPersona}.....</h4>
+          {/* <h4>idvideo = {idvideo}</h4>
+          <h4>..{idPersona}.....</h4> */}
           {
             idvideo&& <CajaComentario  idvideo = {idvideo} idper = {idPersona}/> 
           }
@@ -113,14 +112,12 @@ const CursoInstructorCompleto = () => {
                     }
                   </ul>
                 </AccordionDetails>
-
               </Accordion>
             ))
           }
         </div>
       </div>
 
-    </div>
   )
 }
 

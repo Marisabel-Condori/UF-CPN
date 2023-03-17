@@ -95,7 +95,7 @@ const CajaComentario = ({ idvideo, idper }) => {
     <div className='my-5'>
       <hr />
       <p>Seccion comentarios</p>
-      <p>idvideo: {idvideo} idpersona: {idper}</p>
+      {/* <p>idvideo: {idvideo} idpersona: {idper}</p> */}
       {
         error && (
           <div className="alert alet-danger">{error}</div>

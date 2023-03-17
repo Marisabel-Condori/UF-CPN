@@ -31,7 +31,7 @@ const Rutas = () => {
 
     return (
         <>
-            <h3>..{idPersona}</h3>
+            {/* <h3>..{idPersona}</h3> */}
             {/* <h3>..{nombre}</h3> */}
             <Routes>
                 <Route exact path="/Login" element={<RegistroUsuario />} />

@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import CajaComentario from '../customs/CajaComentario'
-import TarjetasForo from '../customs/TarjetasForo'
-
 import { Apiurl } from '../../api/UsuariosApi'
 import axios from 'axios'
-import TarjetaForo from '../customs/TarjetaForo'
 import CajaRespuestaForo from '../customs/CajaRespuestaForo'
 
 const Foro = ({ idPer }) => {
 
-  // comentariosByIdInstructor
   const [comentariosInst, setComentariosInst] = useState([])
   const [idComentario, setIdComentario] = useState('')
   const [objComentario, setObjComentario] = useState({})
@@ -50,7 +45,7 @@ const Foro = ({ idPer }) => {
     <>
       {/* ------------------------ lista de comentarios------------------------- */}
       <h1>Foro </h1>
-      <p>si no tiene cursos mostrara: AUN NO TIENES CURSOS, CREA UN CURSO EN LA SECCION NUEVO CURSO....</p>
+      <center><p>AUN NO TIENES CURSOS, CREA UN CURSO EN LA SECCION NUEVO CURSO....</p> </center>
       <div className='row'>
         <div className='col-sm-5'>
           {

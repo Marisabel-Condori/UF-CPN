@@ -92,10 +92,11 @@ const TarjetaCursoEstudiante = ({ objCursoBD, nombreDocente, precio, idPersona, 
       </div>
 
       <Modal isOpen={isOpen}>
-        <ModalHeader>{'Seguro que deseas Inscribirte al curso???'}  </ModalHeader>
+        <ModalHeader>{'¿Seguro que deseas Inscribirte al curso?'}  </ModalHeader>
         {yaEstaInscrito && <ModalBody> {'Ya estas inscrito en el curso'} </ModalBody>}
+        <ModalBody>En este curso aprenderás paso a paso sobre procesos estocásticos</ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={() => inscribirse()} disabled={yaEstaInscrito&&true}>SI</Button>
+          <Button color="primary" onClick={() => inscribirse()} disabled={yaEstaInscrito&&true}>Inscribirse</Button>
           <Button color="secondary" onClick={abrirModalInscribirseAlCurso}>Cerrar</Button>
         </ModalFooter>
       </Modal>
