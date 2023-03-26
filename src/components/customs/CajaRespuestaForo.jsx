@@ -48,25 +48,26 @@ const CajaRespuestaForo = ({ objComentario }) => {
 
   return (
     <div className='col-sm-7' >
-      <div>
-        <div className=" border-success mb-2">
+      <div className=''>
+        {/* <div className=" border-success mb-3"> */}
           {/* <h4>{objComentario.idcomentario}...----</h4> */}
-          <div className="card-header bg-transparent border-success">{objComentario.titulo_curso}</div>
-          <div className="card-body text-success">
-            <h5 className="card-title">{objComentario.titulo}</h5>
+          <div className="card-header">
+
+            <h5 className="">{objComentario.titulo}</h5>
+          </div>
+          <div className="card-body text-success ">
             <p className="card-text">{objComentario.comentario}</p>
           </div>
           <div className="card-footer text-right bg-transparent border-success">Por: {objComentario.nombre}</div>
 
           <p>Seccion respuesta foro</p>
-          <p>idvideo: {objComentario.idvideo} idpersona: {objComentario.idpersona}</p>
           {error && <Alert color="danger"> {error} </Alert>}
           <form className=" form-group" style={{ display: 'flex' }}  >
             {/* className={` ${!item.idrespuesta && "card-header"} form-control`}  */}
             <textarea className="form-control " onChange={e => setRespuesta(e.target.value)} placeholder='Responder' style={{ width: '300%' }}></textarea>
             <button type="button" onClick={() => procesarRespuesta()} className="btn btn-outline-secondary" style={{ width: '50%', height: '33px' }}>responder</button>
           </form>
-        </div>
+        {/* </div> */}
       </div>
     </div>
 

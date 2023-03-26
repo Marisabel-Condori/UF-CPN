@@ -20,7 +20,7 @@ const Login = () => {
     const [validateNombre, setValidateNombre] = useState(false)
     const [validateApellido, setValidateApellido] = useState(false)
 
-    const [esRegistro, setEsRegistro] = useState(true)
+    const [esRegistro, setEsRegistro] = useState(false)
 
     //*************** VALIDA CAMPOS - email password******************** */
     const emailRex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -90,7 +90,7 @@ const Login = () => {
         console.log(res.data);
         if (res.data.status === 'error') {
             setError(res.data.message)
-            setTimeout(() => { 
+            setTimeout(() => {
                 setError(null)
             }, 3000);
         } else {
@@ -179,7 +179,8 @@ const Login = () => {
                                         <Label >Nombre</Label>
                                         <Input type="text" placeholder="Ingrese nombre"
                                             valid={validateNombre === true} invalid={validateNombre === false}
-                                            onChange={e => { setNombre(e.target.value)
+                                            onChange={e => {
+                                                setNombre(e.target.value)
                                                 validateNombreFun(e)
                                             }} />
                                         {validateNombre === false && nombre !== '' && <FormFeedback > no tiene nombre</FormFeedback>}

@@ -5,6 +5,9 @@ import { Apiurl } from '../../api/UsuariosApi'
 
 const CajaComentario = ({ idvideo, idper }) => {
 
+  console.log('////////////// id video desde caja comentario //////////////////////');
+  console.log(idvideo);
+
   const [comentario, setComentario] = useState('')
   const [respuesta, setRespuesta] = useState('')
   const [listaComentarios, setListaComentarios] = useState([])
@@ -12,9 +15,9 @@ const CajaComentario = ({ idvideo, idper }) => {
 
   useEffect(() => {
     getComentarios()
-  }, [])
+  }, [idvideo])
 
-  ///////////// obtiene cursos bd ///////////
+  /////////// obtiene cursos bd ///////////
   const getComentarios = async () => {
     console.log('id videooooo: ' + idvideo);
     try {
@@ -45,7 +48,6 @@ const CajaComentario = ({ idvideo, idper }) => {
     var today = new Date();
     var now = today.toLocaleString();
     await registraComentario(idvideo, idper, respuesta, now, idrespuesta)
-    // setListaComentarios([...listaComentarios, comentario])
     setError(null)
     setComentario(null)
   }
@@ -64,7 +66,7 @@ const CajaComentario = ({ idvideo, idper }) => {
     if (idvideo) {
       await registraComentario(idvideo, idper, comentario, now)
       console.log('pasando validaciones')
-    }else{ console.log('no hay idvideo'); }
+    } else { console.log('no hay idvideo'); }
     // setListaComentarios([...listaComentarios, comentario])
     setError(null)
     setComentario(null)
@@ -93,13 +95,9 @@ const CajaComentario = ({ idvideo, idper }) => {
 
   return (
     <div className='my-5'>
-      <hr />
       <p>Seccion comentarios</p>
-      {/* <p>idvideo: {idvideo} idpersona: {idper}</p> */}
       {
-        error && (
-          <div className="alert alet-danger">{error}</div>
-        )
+        error && (<div className="alert alet-danger">{error}</div>)
       }
       <form className="form-group" style={{ display: 'flex' }} onSubmit={procesarComentario} >
         <textarea className="form-control" onChange={e => setComentario(e.target.value)} placeholder='Ingresa tu comentario' style={{ width: '100%' }}></textarea>

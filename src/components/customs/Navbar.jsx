@@ -65,9 +65,9 @@ const Navbar = () => {
                       </>
                       :
                       <>
-                        <Link to="/CursoInstructor" className="btn btn-dark mr-2"> Mis Cursos </Link>
-                        <NavLink to="/NuevoCurso" className="btn btn-dark mr-2"> Nuevo Curso</NavLink>
-                        <NavLink to="/Foro" className="btn btn-dark mr-2"> Foro </NavLink>
+                        <Link to="/CursoInstructor" className="btn btn-dark mr-2 mt-2"> Creados </Link>
+                        <NavLink to="/NuevoCurso" className="btn btn-dark mr-2 mt-2"> Nuevo Curso</NavLink>
+                        <NavLink to="/ForoLista" className="btn btn-dark mr-2 mt-2"> Foro </NavLink>
                         <LogoutButton />
                       </>
                   }
@@ -82,7 +82,6 @@ const Navbar = () => {
           }
         </div>
       </div>
-      <hr />
     </div>
   )
 }

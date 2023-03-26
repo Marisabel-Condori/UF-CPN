@@ -59,10 +59,13 @@ const RecuperarContraseña = () => {
                             />
                             {validate === false && email !== '' && <FormFeedback > Email incorrecto</FormFeedback>}
                         </FormGroup>
+
                         <Button className="btn btn-info btn-sm btn-block" onClick={procesarDatos}
                             disabled={validate ? false : true}>
                             Enviar
                         </Button>
+                        <Button className="btn btn-info btn-sm btn-block" onClick={abrirModal}>Salir</Button>
+
                     </Form>
                 </ModalBody>
 

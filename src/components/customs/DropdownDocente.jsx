@@ -13,13 +13,13 @@ const DropdownDocente = () => {
             </DropdownToggle>
             <DropdownMenu >
                 <DropdownItem>
-                    <Link to="/CursoInstructor" className="btn"> Mis Cursos </Link>
+                    <Link to="/CursoInstructor" className="btn"> Creados </Link>
                 </DropdownItem>
                 <DropdownItem>
                     <NavLink to="/NuevoCurso" className="btn "> Nuevo Curso</NavLink>
                 </DropdownItem>
                 <DropdownItem>
-                    <NavLink to="/Foro" className="btn "> Foro </NavLink>
+                    <NavLink to="/ForoLista" className="btn "> Foro </NavLink>
                 </DropdownItem>
             </DropdownMenu>
         </UncontrolledDropdown>

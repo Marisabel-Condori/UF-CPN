@@ -8,7 +8,7 @@ import { Button, Modal, ModalHeader, ModalFooter, ModalBody } from 'reactstrap'
 import axios from 'axios'
 import { Apiurl } from '../../api/UsuariosApi'
 
-const TarjetaCursoEstudiante = ({ objCursoBD, nombreDocente, precio, idPersona, estaInscrito }) => {
+const TarjetaCursoEstudiante = ({ objCursoBD, idPersona, estaInscrito }) => {
   const imgProvisional = 'https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg'
   const imgStyles = { height: '150px' }
 
@@ -81,8 +81,8 @@ const TarjetaCursoEstudiante = ({ objCursoBD, nombreDocente, precio, idPersona, 
               'MARIIIII NO HAY DESCRIPCION aliquip aliqua laboris. Sint elit occaecat anim pariatur.'
           }
         </p>
-        <h6 className='text-justify'>{nombreDocente}</h6>
-        <h6 className='text-justify'>{precio} Bs</h6>
+        <h6 className='text-justify'>Por: {objCursoBD.nombre?objCursoBD.nombre:'SN'}</h6>
+        <h6 className='text-justify'>Precio: {objCursoBD.precio?objCursoBD.precio:'000'} Bs</h6>
         <Link to="/CursoCompletoInst" state={{ data: objCursoBD }} className="btn btn-outline-secondary rounded-0"> Ir al Curso </Link>
         {
           !estaInscrito &&

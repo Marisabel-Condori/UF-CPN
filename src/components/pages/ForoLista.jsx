@@ -3,11 +3,11 @@ import 'swiper/css'
 import 'swiper/css/free-mode'
 import { Apiurl } from '../../api/UsuariosApi'
 import axios from 'axios'
-import TarjetaCursoInstructor from './TarjetaCursoInstructor'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faBell, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { NavLink } from 'react-router-dom'
 
-const TarjetasInstructor = ({ idPersona }) => {
+const ForoLista = ({ idPer }) => {
 
     const [cursosInst, setCursosInst] = useState([])
     const [tablaBusqueda, setTablaBusqueda] = useState([])
@@ -18,12 +18,15 @@ const TarjetasInstructor = ({ idPersona }) => {
         getCursosInst()
     }, [])
 
+    console.log(' +++++++++++++++cursos foro lista  NUEVO notificacion+++++++++++');
+    console.log(cursosInst);
+
     ///////////// obtiene cursos bd ///////////
     const getCursosInst = async () => {
         try {
-            let url = Apiurl + "cursoByInstructor"
+            let url = Apiurl + "notificacionByIdInstructor"
             let cursosLista = await axios.get(url, {
-                params: { idInstructor: idPersona }
+                params: { idInstructor: idPer }
             })
             setCursosInst(cursosLista.data)
             return cursosLista;
@@ -55,6 +58,7 @@ const TarjetasInstructor = ({ idPersona }) => {
 
     return (
         <div>
+            <center> <h1>Foro </h1> </center>
             {cursosInst.length > 0
                 ? <div>
                     <button className="btn btn-outline-dark float-right">  <FontAwesomeIcon icon={faSearch} /> </button>
@@ -68,13 +72,25 @@ const TarjetasInstructor = ({ idPersona }) => {
                                 ? tablaBusqueda.length === 0 ? <h3>No se han encontrado resultados</h3>
                                     : tablaBusqueda.map(card => (
                                         <div key={card.idcurso} >
-                                            <TarjetaCursoInstructor objCursoBD={card} />
+                                            <div className="card ">
+                                            <div className='card-header'>
+                                                <h5>{card.titulo_curso} + {card.nroNot}
+                                                    <NavLink to='/Foro' state={{ data: card }} className="btn mr-2 float-right "> <FontAwesomeIcon icon={faBell} /> {card.nroNot} </NavLink>
+                                                </h5>
+                                            </div>
+                                        </div>
                                         </div>
                                     ))
                                 :
                                 cursosInst.map(card => (
-                                    <div className='col-md-4' key={card.idcurso}>
-                                        <TarjetaCursoInstructor objCursoBD={card} />
+                                    <div className='col-md-4 mb-2' key={card.idcurso}>
+                                        <div className="card ">
+                                            <div className='card-header'>
+                                                <h5>{card.titulo_curso}
+                                                    <NavLink to='/Foro' state={{ data: card }} className="btn mr-2 float-right "> <FontAwesomeIcon icon={faBell} /> {card.nroNot}  </NavLink>
+                                                </h5>
+                                            </div>
+                                        </div>
                                     </div>
                                 ))
                             }
@@ -82,11 +98,11 @@ const TarjetasInstructor = ({ idPersona }) => {
                     </div>
                 </div>
                 :
-                <center> <br /><br /><p>AUN NO TIENES CURSOS, CREA UN CURSO</p> </center>
+                <center> <br /><br /><p>AUN NO TIENES CURSOS, CREA UN CURSO -- FORO LISTA</p> </center>
 
             }
         </div>
     )
 }
 
-export default TarjetasInstructor
+export default ForoLista

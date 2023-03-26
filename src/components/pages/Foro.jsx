@@ -2,8 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { Apiurl } from '../../api/UsuariosApi'
 import axios from 'axios'
 import CajaRespuestaForo from '../customs/CajaRespuestaForo'
+import { useLocation } from 'react-router-dom'
 
 const Foro = ({ idPer }) => {
+
+  const location = useLocation()
+  const idcurso = location.state?.data.idcurso
 
   const [comentariosInst, setComentariosInst] = useState([])
   const [idComentario, setIdComentario] = useState('')
@@ -29,7 +33,7 @@ const Foro = ({ idPer }) => {
     try {
       let url = Apiurl + "comentariosByIdInstructor"
       let comentariosLista = await axios.get(url, {
-        params: { idinstructor: idPer }
+        params: { idinstructor: idPer, idcurso: idcurso }
       })
 
       setComentariosInst(comentariosLista.data)
@@ -44,36 +48,41 @@ const Foro = ({ idPer }) => {
   return (
     <>
       {/* ------------------------ lista de comentarios------------------------- */}
-      <h1>Foro </h1>
-      <center><p>AUN NO TIENES CURSOS, CREA UN CURSO EN LA SECCION NUEVO CURSO....</p> </center>
-      <div className='row'>
-        <div className='col-sm-5'>
-          {
-            comentariosInst.map(item => (
-              <div key={item.idcomentario}>
-                <div className='container'>
-                  <div className="card border-success mb-3 ">
-                    <div className="card-header border-success  ">
-                      {item.titulo_curso}
-                      <button className='btn btn-success float-right' onClick={() => enviarDatosComentario(item)}>Ir</button>
-                    </div>
-                    <div className="card-body text-success">
-                      <h5 className="card-title">{item.titulo}</h5>
-                      <p className="card-text">{item.comentario}</p>
-                    </div>
-                    <div className="card-footer text-right bg-transparent border-success">
-                      Por: {item.nombre} {item.ap_paterno}
+      <center>
+      <h4>Foro de consultas del curso: <br/> {location.state?.data.titulo_curso}</h4>
+      </center> <br/>
+      {
+        comentariosInst.length === 0
+          ? <center> <h3>no tienes consultas en el curso</h3> </center>
+          :
+          <div className='row'>
+            <div className='col-sm-5'>
+              {
+                comentariosInst.map(item => (
+                  <div key={item.idcomentario}>
+                    <div className='container'>
+                      <div className="card border-success mb-3 ">
+                        <div className="card-header border-success  ">
+                          {item.titulo}
+                          <button className='btn btn-success float-right' onClick={() => enviarDatosComentario(item)}>  Ir </button>
+                        </div>
+                        <div className="card-body text-success">
+                          <p className="card-text">{item.comentario}</p>
+                        </div>
+                        <div className="card-footer text-right bg-transparent border-success">
+                          Por: {item.nombre} {item.ap_paterno}
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            ))
-          }
-        </div>
+                ))
+              }
+            </div>
 
-        {/* -------------------------- selecciona solo un comentario ------------------------------------ */}
-        {idComentario && <CajaRespuestaForo objComentario={objComentario} />  }
-      </div>
+            {/* -------------------------- selecciona solo un comentario ------------------------------------ */}
+            {idComentario && <CajaRespuestaForo objComentario={objComentario} />}
+          </div>
+      }
 
     </>
   )

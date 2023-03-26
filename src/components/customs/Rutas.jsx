@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 
 import MisCursosDocente from "../pages/MisCursosDocente";
 import Foro from "../pages/Foro";
+import ForoLista from '../pages/ForoLista';
 import NuevoCurso from "../pages/NuevoCurso"
 import MisCursosEstudiante from "../pages/MisCursosEstudiante";
 import CursoInstructorCompleto from './CursoInstructorCompleto';
@@ -31,14 +32,15 @@ const Rutas = () => {
 
     return (
         <>
-            {/* <h3>..{idPersona}</h3> */}
-            {/* <h3>..{nombre}</h3> */}
+            <h3>..{idPersona}</h3> 
+            <h3>..{nombre}</h3>
             <Routes>
                 <Route exact path="/Login" element={<RegistroUsuario />} />
                 <Route exact path="/Forgot" element={<RecuperarContraseña/>} />
 
                 <Route exact path="/NuevoCurso/*" element={<NuevoCurso idPer = {idPersona}/>} />
                 <Route exact path="/Foro" element={<Foro idPer = {idPersona} />} /> 
+                <Route exact path="/ForoLista" element={<ForoLista idPer = {idPersona} />} /> 
                 <Route exact path="/CursoCompletoInst" element={<CursoInstructorCompleto />} />
                 <Route exact path="/CursoInstructor" element={<MisCursosDocente idPer = {idPersona}/>} />
 

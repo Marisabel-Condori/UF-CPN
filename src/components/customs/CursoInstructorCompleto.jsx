@@ -19,7 +19,7 @@ const CursoInstructorCompleto = () => {
   const [videoLink, setVideoLink] = useState('')
   const [idvideo, setIdVideo] = useState('')
 
-  let idPersona=''
+  let idPersona = ''
   if (localStorage.getItem('id')) { idPersona = localStorage.getItem('id') }
 
   const location = useLocation()
@@ -45,13 +45,13 @@ const CursoInstructorCompleto = () => {
 
   //////////////////////////////////
   const adicionaListaVideos = async () => {
-    console.log('verificando datos de secciones curso ++++');
-    console.log(seccionesdelCurso);
+    // console.log('verificando datos de secciones curso ++++');
+    // console.log(seccionesdelCurso);
     const listaVidCompleta = []
     for (let index = 0; index < seccionesdelCurso.length; index++) {
       const idSeccion = seccionesdelCurso[index].idseccion;
-      console.log("*************************++++++++++++++++");
-      console.log(idSeccion);
+      // console.log("*************************++++++++++++++++");
+      // console.log(idSeccion);
       const listaVid = await getVideosByIdSeccion(idSeccion)
       listaVidCompleta.push(...listaVid)
     }
@@ -75,25 +75,26 @@ const CursoInstructorCompleto = () => {
     return await obtVideos.data
   }
   ////////////////
-  const enviarDatosVideo = (vid)=>{
+  const enviarDatosVideo = (vid) => {
     setVideoLink(vid.urlvideo)
     setIdVideo(vid.idvideo)
   }
 
   return (
+    <>
+      <center>  <h3>{dataCurso.titulo_curso}</h3>  </center> <br/>
       <div className='row'>
         <div className="col-md-8">
-          {/* <h3>VISTA PREVIA CURSOOOOO: {dataCurso.idcurso} titulooo: {dataCurso.titulo_curso} ---</h3> */}
           <VideoPlayer urlVideo={videoLink} />
           {/* <h4>idvideo = {idvideo}</h4>
-          <h4>..{idPersona}.....</h4> */}
+        <h4>..{idPersona}.....</h4> */}
           {
-            idvideo&& <CajaComentario  idvideo = {idvideo} idper = {idPersona}/> 
+            idvideo && <CajaComentario idvideo={idvideo} idper={idPersona} />
           }
         </div>
         {/* /---------------------------------------------------------- */}
 
-        <div className="col-md-4"> 
+        <div className="col-md-4">
           {
             seccionesdelCurso.map(item => (
               <Accordion key={item.idseccion}>
@@ -117,7 +118,7 @@ const CursoInstructorCompleto = () => {
           }
         </div>
       </div>
-
+    </>
   )
 }
 

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import '../css/cards.css'
 
-const TarjetaCursoInstructor = ({ objCursoBD, nombreDocente, precio }) => {
+const TarjetaCursoInstructor = ({ objCursoBD }) => {
   const imgProvisional = 'https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg'
   const imgStyles = { height: '150px' }
 
@@ -23,8 +23,8 @@ const TarjetaCursoInstructor = ({ objCursoBD, nombreDocente, precio }) => {
               'MARIIIII NO HAY DESCRIPCION DGD FDF D F DF DD GD DF GD F laboris. Sint elit occaecat anim pariatur.'
           }
         </p>
-        <h6 className='text-justify'>{nombreDocente}</h6>
-        <h6 className='text-justify'>{precio} Bs</h6>
+        <h6 className='text-justify'>{objCursoBD.nombre}</h6>
+        <h6 className='text-justify'>{objCursoBD.precio} Bs</h6>
         {/* boton vista previa curso .................*/}
         <Link to="/CursoCompletoInst" state={{ data: objCursoBD }} className="btn btn-outline-secondary rounded-0"> Ir al Curso </Link>
 

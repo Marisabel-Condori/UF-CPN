@@ -223,9 +223,7 @@ const SeccionesCurso = ({ idCursoP }) => {
 
           <center>
             <button disabled={idCursoP && listaVideos.length > 0 ? false : true} className='btn btn-success mt-4' onClick={agregarSeccion}> Guardar Seccion</button>
-            {/* <button  className='btn btn-success mt-4' onClick={agregarSeccion}> Guardar Seccion</button> */}
-            {/* <button disabled={idCursoP && listaVideos.length > 0 ? false : true} type='button' className='btn btn-success mt-4' onClick={enviaBD}> Guardar Datos Seccion</button> */}
-          </center>
+           </center>
           {/* </form> */}
 
         </div>

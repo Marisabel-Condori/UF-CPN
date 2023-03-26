@@ -8,6 +8,9 @@ import TarjetasEstudiante from '../customs/TarjetasEstudiante'
 const MisCursosEstudiante = ({ idPer }) => {
 
   const [cursosInscritos, setCursosInscritos] = useState([])
+  console.log('INSCRITOS by estudiante..........');
+  console.log(cursosInscritos);
+  console.log('INSCRITOS by estudiante..........');
 
   useEffect(() => {
     getCursosInscritos()
@@ -25,9 +28,6 @@ const MisCursosEstudiante = ({ idPer }) => {
       console.log(error);
     }
   }
-
-  // console.log('++++++++++CURSOS INSCRITOS++++++++++++');
-  // console.log(cursosInscritos);
 
   return (
     <div >
