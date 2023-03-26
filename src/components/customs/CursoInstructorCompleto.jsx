@@ -18,6 +18,7 @@ const CursoInstructorCompleto = () => {
   const [videosdelaSeccion, setvideosdelaSeccion] = useState([])
   const [videoLink, setVideoLink] = useState('')
   const [idvideo, setIdVideo] = useState('')
+  const [estaInscrito, setEstaInscrito] = useState(false)
 
   let idPersona = ''
   if (localStorage.getItem('id')) { idPersona = localStorage.getItem('id') }
@@ -27,6 +28,26 @@ const CursoInstructorCompleto = () => {
   const dataCurso = location.state?.data
   // console.log('location state.data.....-*-*-*-*-*-*--*-*');
   // console.log(dataCurso);
+
+  //------------------ESTA INSCRITO??-----------------------------
+  useEffect(() => {
+    getEstaInscritoAlCurso(dataCurso.idcurso, idPersona)
+  }, [])
+  //////// obtiene si esta inscrito al curso
+  const getEstaInscritoAlCurso = async (idcursoBD, idPersona) => {
+    try {
+      let url = Apiurl + "estaInscrito"
+      let estaEnElCurso = await axios.get(url, {
+        params: { idcurso: idcursoBD, idestudiante:idPersona }
+      })
+      console.log('!!!!! esta inscrito??? !!!!!!')
+      console.log(estaEnElCurso.data)
+      console.log(estaEnElCurso.data.length)
+      estaEnElCurso.data.length>0&& setEstaInscrito(true)
+      } catch (error) {
+      console.log(error)
+    }
+  }
 
   //------------------------------------------------
   useEffect(() => {
@@ -85,11 +106,16 @@ const CursoInstructorCompleto = () => {
       <center>  <h3>{dataCurso.titulo_curso}</h3>  </center> <br/>
       <div className='row'>
         <div className="col-md-8">
-          <VideoPlayer urlVideo={videoLink} />
+          {
+            estaInscrito
+            ?<VideoPlayer urlVideo={videoLink} />
+            : <img src="https://m.media-amazon.com/images/I/6175EB35qYL._AC_UL400_.jpg" />
+            // <h5>NO ESTA INSCRITO AL CURSO</h5>
+          }
           {/* <h4>idvideo = {idvideo}</h4>
         <h4>..{idPersona}.....</h4> */}
           {
-            idvideo && <CajaComentario idvideo={idvideo} idper={idPersona} />
+            idvideo && <CajaComentario idvideo={idvideo} idper={idPersona} estaInscrito={estaInscrito}/>
           }
         </div>
         {/* /---------------------------------------------------------- */}

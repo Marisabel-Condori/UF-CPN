@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import '../css/cards.css'
 import { Link } from 'react-router-dom'
 
-import { Button, Modal, ModalHeader, ModalFooter, ModalBody } from 'reactstrap'
+import { Button, Modal, ModalHeader, ModalFooter, ModalBody, Alert } from 'reactstrap'
 import axios from 'axios'
 import { Apiurl } from '../../api/UsuariosApi'
 
@@ -13,6 +13,7 @@ const TarjetaCursoEstudiante = ({ objCursoBD, idPersona, estaInscrito }) => {
   const imgStyles = { height: '150px' }
 
   const [yaEstaInscrito, setYaEstaInscrito] = useState(false)
+  const [error, setError] = useState(null)
 
   //------------------ MODAL -------------
   const [isOpen, setIsOpen] = useState(false)
@@ -30,7 +31,10 @@ const TarjetaCursoEstudiante = ({ objCursoBD, idPersona, estaInscrito }) => {
     const verificaEstaInscrito = await getInscritos()
     if (verificaEstaInscrito.length === 0) inscripcionCurso(idPersona, objCursoBD.idcurso, now)
     else {
-      console.log('ya estas inscrito en el curso');
+      setError('ya estas inscrito en el curso')
+            setTimeout(() => {
+                setError(null)
+            }, 5000);
       setYaEstaInscrito(true)
     }
     abrirModalInscribirseAlCurso()
@@ -68,6 +72,7 @@ const TarjetaCursoEstudiante = ({ objCursoBD, idPersona, estaInscrito }) => {
 
   return (
     <div className='card card-con-hover text-center bg-dark ml-3 mt-5' >
+      {error && <Alert color="danger">  {error}  </Alert>}
       <img src={objCursoBD.portada_curso ? objCursoBD.portada_curso : imgProvisional}
         alt="Responsive image" className='card-img-top ' style={imgStyles} />
       <div className='card-body text-light'>
@@ -81,8 +86,8 @@ const TarjetaCursoEstudiante = ({ objCursoBD, idPersona, estaInscrito }) => {
               'MARIIIII NO HAY DESCRIPCION aliquip aliqua laboris. Sint elit occaecat anim pariatur.'
           }
         </p>
-        <h6 className='text-justify'>Por: {objCursoBD.nombre?objCursoBD.nombre:'SN'}</h6>
-        <h6 className='text-justify'>Precio: {objCursoBD.precio?objCursoBD.precio:'000'} Bs</h6>
+        <h6 className='text-justify'>Por: {objCursoBD.nombre ? objCursoBD.nombre : 'SN'}</h6>
+        <h6 className='text-justify'>Precio: {objCursoBD.precio ? objCursoBD.precio : '000'} Bs</h6>
         <Link to="/CursoCompletoInst" state={{ data: objCursoBD }} className="btn btn-outline-secondary rounded-0"> Ir al Curso </Link>
         {
           !estaInscrito &&
@@ -93,10 +98,12 @@ const TarjetaCursoEstudiante = ({ objCursoBD, idPersona, estaInscrito }) => {
 
       <Modal isOpen={isOpen}>
         <ModalHeader>{'¿Seguro que deseas Inscribirte al curso?'}  </ModalHeader>
-        {yaEstaInscrito && <ModalBody> {'Ya estas inscrito en el curso'} </ModalBody>}
-        <ModalBody>En este curso aprenderás paso a paso sobre procesos estocásticos</ModalBody>
+        {yaEstaInscrito
+          ? <ModalBody> {'Ya estas inscrito en el curso'} </ModalBody>
+          :<ModalBody>En este curso aprenderás paso a paso sobre ..... </ModalBody>
+        }
         <ModalFooter>
-          <Button color="primary" onClick={() => inscribirse()} disabled={yaEstaInscrito&&true}>Inscribirse</Button>
+          <Button color="primary" onClick={() => inscribirse()} disabled={yaEstaInscrito && true}>Inscribirse</Button>
           <Button color="secondary" onClick={abrirModalInscribirseAlCurso}>Cerrar</Button>
         </ModalFooter>
       </Modal>

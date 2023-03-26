@@ -3,7 +3,7 @@ import React, { useCallback, useEffect } from 'react'
 import { useState } from 'react'
 import { Apiurl } from '../../api/UsuariosApi'
 
-const CajaComentario = ({ idvideo, idper }) => {
+const CajaComentario = ({ idvideo, idper, estaInscrito }) => {
 
   console.log('////////////// id video desde caja comentario //////////////////////');
   console.log(idvideo);
@@ -99,10 +99,12 @@ const CajaComentario = ({ idvideo, idper }) => {
       {
         error && (<div className="alert alet-danger">{error}</div>)
       }
+      {estaInscrito&&
       <form className="form-group" style={{ display: 'flex' }} onSubmit={procesarComentario} >
         <textarea className="form-control" onChange={e => setComentario(e.target.value)} placeholder='Ingresa tu comentario' style={{ width: '100%' }}></textarea>
         <button type="submit" className="btn btn-outline-secondary" style={{ width: '15%', height: '33px' }}>Enviar</button>
       </form>
+      }
 
       <div className="card">
         {
@@ -114,7 +116,7 @@ const CajaComentario = ({ idvideo, idper }) => {
               </div>
               <form className=" form-group" style={{ display: 'flex' }}  >
                 {
-                  item.idrespuesta === null &&
+                  item.idrespuesta === null && estaInscrito &&
                   <>
                     <textarea className="form-control " onChange={e => setRespuesta(e.target.value)} placeholder='Responder comentario' style={{ width: '300%' }}></textarea>
                     <button type="button" onClick={() => procesarRespuesta(item.idcomentario)} className="btn btn-outline-secondary" style={{ width: '50%', height: '33px' }}>responder</button>
