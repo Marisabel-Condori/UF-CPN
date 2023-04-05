@@ -5,7 +5,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import TarjetaCursoEstudiante from './TarjetaCursoEstudiante'
 
-const Informatica = ({idPer}) => {
+const Informatica = ({ idPer }) => {
   const [cursosInst, setCursosInst] = useState([])
   const [tablaBusqueda, setTablaBusqueda] = useState([])
   const [busqueda, setBusqueda] = useState('')
@@ -56,8 +56,8 @@ const Informatica = ({idPer}) => {
       <div className='float-right'>
         <input className='form-control inputBuscar' value={busqueda} placeholder='Buscar titulo curso' onChange={procesarDatos} />
       </div>
-      <center>  <br /><br /> <h1>Informatica</h1>
-      </center>
+      <br /><br /> <h1 className='text-center'>Informatica</h1>
+
       {
         <div className='d-flex justify-content-center align-items-center h-100'>
           <div className='row'>
@@ -65,13 +65,13 @@ const Informatica = ({idPer}) => {
               tablaBusqueda.length === 0 ? <h3>No se han encontrado resultados</h3>
                 : tablaBusqueda.map(card => (
                   <div key={card.idcurso}>
-                    <TarjetaCursoEstudiante objCursoBD={card} url={url} idPersona={idPer} estaInscrito={false}/>
+                    <TarjetaCursoEstudiante objCursoBD={card} url={url} idPersona={idPer} estaInscrito={false} />
                   </div>
                 ))
               :
               cursosInst.map(card => (
                 <div className='col-md-4' key={card.idcurso}>
-                  <TarjetaCursoEstudiante objCursoBD={card} url={url} idPersona={idPer} estaInscrito={false}/>
+                  <TarjetaCursoEstudiante objCursoBD={card} url={url} idPersona={idPer} estaInscrito={false} />
                 </div>
               ))}
           </div>

@@ -36,9 +36,9 @@ const SeccionesCurso = ({ idCursoP }) => {
     },
       (err) => console.log(err),
       () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+    getDownloadURL(uploadTask.snapshot.ref).then((url) => {
           console.log(url)
-          setLink(url)
+    setLink(url)
         })
       })
   }
@@ -50,7 +50,7 @@ const SeccionesCurso = ({ idCursoP }) => {
     if (link) {
       console.log('tiene datos... a;adir ' + link)
       console.log('imprimiendo nombre video ' + video);
-      setListaVideos([
+    setListaVideos([
         ...listaVideos, { id: shortid.generate(), nombreVideo: video, linkVideo: link }
       ])
     } else { console.log('no hay archivo') }

@@ -103,7 +103,7 @@ const CursoInstructorCompleto = () => {
 
   return (
     <>
-      <center>  <h3>{dataCurso.titulo_curso}</h3>  </center> <br/>
+      <h3 className='text-center'>{dataCurso.titulo_curso}</h3>  <br/>
       <div className='row'>
         <div className="col-md-8">
           {

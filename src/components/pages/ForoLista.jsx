@@ -58,7 +58,7 @@ const ForoLista = ({ idPer }) => {
 
     return (
         <div>
-            <center> <h1>Foro </h1> </center>
+            <h1 className='text-center'>Foro </h1>
             {cursosInst.length > 0
                 ? <div>
                     <button className="btn btn-outline-dark float-right">  <FontAwesomeIcon icon={faSearch} /> </button>
@@ -73,22 +73,22 @@ const ForoLista = ({ idPer }) => {
                                     : tablaBusqueda.map(card => (
                                         <div key={card.idcurso} >
                                             <div className="card ">
-                                            <div className='card-header'>
-                                                <h5>{card.titulo_curso} + {card.nroNot}
-                                                    <NavLink to='/Foro' state={{ data: card }} className="btn mr-2 float-right "> <FontAwesomeIcon icon={faBell} className='green' /> {card.nroNot} </NavLink>
-                                                </h5>
+                                                <div className='card-header'>
+                                                    <h5>{card.titulo_curso} + {card.nroNot}
+                                                        <NavLink to='/Foro' state={{ data: card }} className="btn mr-2 float-right "> <FontAwesomeIcon icon={faBell} className='green' /> {card.nroNot} </NavLink>
+                                                    </h5>
+                                                </div>
                                             </div>
                                         </div>
-                                        </div> 
                                     ))
                                 :
                                 cursosInst.map(card => (
                                     <div className='col-md-4 mb-2' key={card.idcurso} >
-                                            {/* className={`btn ${esFavorito ? 'btn-success' : 'btn-outline-primary'} rounded-0 m-2`}      "card bg-info"*/  }
-                                        <div className= {`card ${card.nroNot>0&&'bg-info'}`} >
-                                            <div className='card-header'>       
-                                                <h5 style={{ color: card.nroNot>0&&'white' }} >{card.titulo_curso}
-                                                    <NavLink to='/Foro' state={{ data: card }} className="btn mr-2 float-right" style={{ color: card.nroNot>0&&'white' }}> <FontAwesomeIcon icon={faBell} color={card.nroNot>0&&'white'} /> {card.nroNot} </NavLink>
+                                        {/* className={`btn ${esFavorito ? 'btn-success' : 'btn-outline-primary'} rounded-0 m-2`}      "card bg-info"*/}
+                                        <div className={`card ${card.nroNot > 0 && 'bg-info'}`} >
+                                            <div className='card-header'>
+                                                <h5 style={{ color: card.nroNot > 0 && 'white' }} >{card.titulo_curso}
+                                                    <NavLink to='/Foro' state={{ data: card }} className="btn mr-2 float-right" style={{ color: card.nroNot > 0 && 'white' }}> <FontAwesomeIcon icon={faBell} color={card.nroNot > 0 && 'white'} /> {card.nroNot} </NavLink>
                                                 </h5>
                                             </div>
                                         </div>

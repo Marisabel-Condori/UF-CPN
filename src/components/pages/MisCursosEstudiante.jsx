@@ -33,7 +33,7 @@ const MisCursosEstudiante = ({ idPer }) => {
     <div >
       {cursosInscritos.length > 0
         ? <TarjetasEstudiante dataCursosInscritos={cursosInscritos} idPersona={idPer} />
-        : <center> <h5> Aun no estas inscrito a ningun curso</h5> </center>
+        :  <h5 className='text-center'> Aun no estas inscrito a ningun curso</h5> 
       }
 
     </div>

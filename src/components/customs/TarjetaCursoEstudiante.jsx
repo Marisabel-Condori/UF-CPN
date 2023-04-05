@@ -42,6 +42,8 @@ const TarjetaCursoEstudiante = ({ objCursoBD, idPersona, estaInscrito }) => {
 
   /********** INGRESA DATOS INSCRIPCION A BD *******/
   const inscripcionCurso = async (idPersona, idCurso, fecha) => {
+    // https://forms.gle/dpXu4SwhpoSnm4139
+    // <a href="https://www.google.com/">la página de inicio de Mozilla</a>
     console.log('///ENVIADOOOOO INSCRIPCION///')
     let url = Apiurl + "inscribe"
     await axios.post(url, null, {

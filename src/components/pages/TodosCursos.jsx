@@ -11,8 +11,8 @@ const TodosCursos = () => {
       {/* {isAuthenticated? <Profile/>
           :<h3>no inicio sesion aun</h3>
           } */}
-      <center> <h3> Todos los cursos</h3>  </center>
-      <TarjetasEstudiante /> 
+      <h3 className='text-center'> Todos los cursos</h3>
+      <TarjetasEstudiante />
     </div>
   )
 }

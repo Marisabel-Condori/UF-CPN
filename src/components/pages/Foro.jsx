@@ -48,12 +48,12 @@ const Foro = ({ idPer }) => {
   return (
     <>
       {/* ------------------------ lista de comentarios------------------------- */}
-      <center>
-      <h4>Foro de consultas del curso: <br/> {location.state?.data.titulo_curso}</h4>
-      </center> <br/>
+      
+      <h4 className='text-center'>Foro de consultas del curso: <br/> {location.state?.data.titulo_curso}</h4>
+       <br/>
       {
         comentariosInst.length === 0
-          ? <center> <h3>no tienes consultas en el curso</h3> </center>
+          ? <h3 className='text-center'>no tienes consultas en el curso</h3>
           :
           <div className='row'>
             <div className='col-sm-5'>

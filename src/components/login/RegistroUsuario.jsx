@@ -1,9 +1,11 @@
 import React, { useCallback, useState } from "react"
 import { Alert, Button, Form, FormFeedback, FormGroup, Input, Label, Modal, ModalBody } from "reactstrap"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import axios from "axios"
 import { Apiurl } from '../../api/UsuariosApi'
 import { Link } from "react-router-dom"
+import { faClose } from "@fortawesome/free-solid-svg-icons"
 
 const Login = () => {
 
@@ -60,6 +62,12 @@ const Login = () => {
         }
     }
 
+    //********************* CERRAR ********************/
+    const cerrar= ()=>{
+        window.location.pathname = '/'
+        abrirModal()
+    }
+
     //********************* MODAL ********************/
     const [isOpen, setIsOpen] = useState(true)
 
@@ -72,6 +80,13 @@ const Login = () => {
     const procesarDatos = (e) => {
         e.preventDefault()
         if (esRegistro) {
+            if (pass !== pass2) {
+                setError('Las contraseñas no coinciden')
+                setTimeout(() => {
+                    setError(null)
+                }, 3000);
+                return
+            }
             registrar(nombre, pass, apellidos, email)
         } else { login(email, pass) }
         // setNombre('')
@@ -85,9 +100,9 @@ const Login = () => {
     const login = useCallback(async (emailU, passU) => {
         // console.log('email... ' + emailU + ' pass ' + passU);
         let url = Apiurl + 'login'
-        let res = await axios.get(url, { params: { correo: email, password: passU } },)
-        console.log('LOGIN.......');
-        console.log(res.data);
+        let res = await axios.get(url, { params: { correo: emailU, password: passU } },)
+        // console.log('LOGIN.......');
+        // console.log(res.data);
         if (res.data.status === 'error') {
             setError(res.data.message)
             setTimeout(() => {
@@ -128,7 +143,9 @@ const Login = () => {
         <div className="my-5">
             <Modal isOpen={isOpen}>
                 <ModalBody>
-                    <center> <h5>{esRegistro ? 'registro de usuario' : 'login de acceso'}</h5> </center>
+                    <button className="btn btn-outline-dark float-right" onClick={()=>cerrar()}>  <FontAwesomeIcon icon={faClose} /> </button>
+                    <h5 className="text-center">{esRegistro ? 'registro de usuario' : 'login de acceso'}</h5>
+
                     <Form className='form' >
                         {error &&
                             <Alert color="danger">
@@ -157,9 +174,10 @@ const Login = () => {
                                 }} />
                             {validatePassword === false && pass !== '' && <FormFeedback > Password MENOR 8</FormFeedback>}
                         </FormGroup>
-                        {!esRegistro && (
+                        {/* ver como hacer el metodo olvidaste tu contraseña */}
+                        {/* {!esRegistro && (
                             <Link to="/Forgot" className="btn btn btn-link rounded-0"> Olvidaste tu contraseña </Link>
-                        )}
+                        )} */}
                         {
                             esRegistro && (
                                 <>
@@ -172,7 +190,7 @@ const Login = () => {
                                                 validatePassFun2(e)
                                             }}
                                         />
-                                        {validatePassword2 === false && pass2 !== '' && <FormFeedback > Password MENOR 8 luego ver si SON IGUALES</FormFeedback>}
+                                        {validatePassword2 === false && pass2 !== '' && <FormFeedback > Password MENOR 8</FormFeedback>}
                                     </FormGroup>
 
                                     <FormGroup>
