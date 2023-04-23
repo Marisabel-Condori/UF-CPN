@@ -21,7 +21,7 @@ const TarjetasInstructor = ({ idPersona }) => {
     ///////////// obtiene cursos bd ///////////
     const getCursosInst = async () => {
         try {
-            let url = Apiurl + "cursoByInstructor"
+            let url = Apiurl + "cursoByInstructor" 
             let cursosLista = await axios.get(url, {
                 params: { idInstructor: idPersona }
             })

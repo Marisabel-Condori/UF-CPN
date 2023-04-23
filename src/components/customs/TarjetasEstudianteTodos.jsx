@@ -27,7 +27,6 @@ const TarjetasEstudianteTodos = ({ idPer }) => {
             console.log(error);
         }
     }
-    const url = 'https://youtube.com'
 
     /**************** BUSQUEDA ********** */
     const procesarDatos = (e) => {
@@ -64,13 +63,13 @@ const TarjetasEstudianteTodos = ({ idPer }) => {
                             tablaBusqueda.length === 0 ? <h3>No se han encontrado resultados</h3>
                                 : tablaBusqueda.map(card => (
                                     <div key={card.idcurso} className=''>
-                                        <TarjetaCursoEstudiante objCursoBD={card} url={url} idPersona={idPer} estaInscrito={false} />
+                                        <TarjetaCursoEstudiante objCursoBD={card} idPersona={idPer} estaInscrito={false} />
                                     </div>
                                 ))
                             :
                             cursosInst.map(card => (
                                 <div className='col-md-4' key={card.idcurso}>
-                                    <TarjetaCursoEstudiante objCursoBD={card} url={url} idPersona={idPer} estaInscrito={false} />
+                                    <TarjetaCursoEstudiante objCursoBD={card} idPersona={idPer} estaInscrito={false} />
                                 </div>
                             ))}
                     </div>

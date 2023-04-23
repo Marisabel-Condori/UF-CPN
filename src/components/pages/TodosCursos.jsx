@@ -6,7 +6,7 @@ import TarjetasEstudiante from '../customs/TarjetasEstudiante';
 const TodosCursos = () => {
   //const { isAuthenticated, isLoading } = useAuth0()
   return (
-    <div className="">
+    <div className="mt-5">
       {/* AUTH0 */}
       {/* {isAuthenticated? <Profile/>
           :<h3>no inicio sesion aun</h3>

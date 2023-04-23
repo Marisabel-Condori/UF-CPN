@@ -12,13 +12,14 @@ import { useLocation } from 'react-router-dom'
 import VideoPlayer from '../video/VideoPlayer';
 import CajaComentario from './CajaComentario';
 
-const CursoInstructorCompleto = () => {
+const CursoEstudianteCompleto = () => {
 
   const [seccionesdelCurso, setSeccionesdelCurso] = useState([])
   const [videosdelaSeccion, setvideosdelaSeccion] = useState([])
   const [videoLink, setVideoLink] = useState('')
   const [nombreVideo, setNombreVideo] = useState('')
   const [idvideo, setIdVideo] = useState('')
+  const [estaInscrito, setEstaInscrito] = useState(false)
 
   let idPersona = ''
   if (localStorage.getItem('id')) { idPersona = localStorage.getItem('id') }
@@ -28,6 +29,26 @@ const CursoInstructorCompleto = () => {
   const dataCurso = location.state?.data
   // console.log('location state.data.....-*-*-*-*-*-*--*-*');
   // console.log(dataCurso);
+
+  //------------------ESTA INSCRITO??-----------------------------
+  useEffect(() => {
+    getEstaInscritoAlCurso(dataCurso.idcurso, idPersona)
+  }, [])
+  //////// obtiene si esta inscrito al curso
+  const getEstaInscritoAlCurso = async (idcursoBD, idPersona) => {
+    try {
+      let url = Apiurl + "estaInscrito"
+      let estaEnElCurso = await axios.get(url, {
+        params: { idcurso: idcursoBD, idestudiante: idPersona }
+      })
+      console.log('!!!!! esta inscrito??? !!!!!!')
+      console.log(estaEnElCurso.data)
+      console.log(estaEnElCurso.data.length)
+      estaEnElCurso.data.length > 0 && setEstaInscrito(true)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   //------------------------------------------------
   useEffect(() => {
@@ -83,14 +104,18 @@ const CursoInstructorCompleto = () => {
   }
 
   return (
-    <> 
+    <>
       <h3 className='text-center'>{dataCurso.titulo_curso}</h3>  <br />
       <div className='row'>
         <div className="col-md-8">
-          <VideoPlayer urlVideo={videoLink} />
+          {
+            estaInscrito
+              ? <VideoPlayer urlVideo={videoLink} />
+              : <img src="https://m.media-amazon.com/images/I/6175EB35qYL._AC_UL400_.jpg" />
+          }
           <h4 className='mt-5'>{nombreVideo}</h4> 
           {
-            idvideo && <CajaComentario idvideo={idvideo} idper={idPersona} estaInscrito={true} />
+            idvideo && <CajaComentario idvideo={idvideo} idper={idPersona} estaInscrito={estaInscrito} />
           }
         </div>
         {/* /---------------------------------------------------------- */}
@@ -108,7 +133,7 @@ const CursoInstructorCompleto = () => {
                       videosdelaSeccion.map(vid => (
                         item.idseccion === vid.idseccion &&
                         <li className="list-group-item py-0" key={vid.idvideo}>
-                          <button className='btn btn-link btn-sm ' onClick={() => enviarDatosVideo(vid)}>{vid.titulo} </button>
+                          <button className='btn btn-link btn-sm ' onClick={() => enviarDatosVideo(vid)}>{vid.titulo}  ...  {vid.idseccion}</button>
                         </li>
                       ))
                     }
@@ -123,4 +148,4 @@ const CursoInstructorCompleto = () => {
   )
 }
 
-export default CursoInstructorCompleto
+export default CursoEstudianteCompleto

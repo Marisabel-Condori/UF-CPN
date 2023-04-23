@@ -7,6 +7,7 @@ import ForoLista from '../pages/ForoLista';
 import NuevoCurso from "../pages/NuevoCurso"
 import MisCursosEstudiante from "../pages/MisCursosEstudiante";
 import CursoInstructorCompleto from './CursoInstructorCompleto';
+import CursoEstudianteCompleto from './CursoEstudianteCompleto';
 import TodosCursos from '../pages/TodosCursos';
 import RegistroUsuario from "../login/RegistroUsuario";
 import RecuperarContraseña from '../login/RecuperarContraseña';
@@ -26,14 +27,14 @@ const Rutas = () => {
     if (localStorage.getItem('id')) {
         idPersona = localStorage.getItem('id')
         nombre=localStorage.getItem('nombre')
-        console.log('mostrando valor local desde NAVBAR')
-        console.log(idPersona)
+        // console.log('mostrando valor local desde NAVBAR')
+        // console.log(idPersona)
     }
 
     return (
         <>
-            <h3>..{idPersona}</h3> 
-            <h3>..{nombre}</h3>
+            {/* <h3>..{idPersona}</h3> 
+            <h3>..{nombre}</h3> */}
             <Routes>
                 <Route exact path="/Login" element={<RegistroUsuario />} />
                 <Route exact path="/Forgot" element={<RecuperarContraseña/>} />
@@ -44,6 +45,7 @@ const Rutas = () => {
                 <Route exact path="/CursoCompletoInst" element={<CursoInstructorCompleto />} />
                 <Route exact path="/CursoInstructor" element={<MisCursosDocente idPer = {idPersona}/>} />
 
+                <Route exact path="/CursoCompletoEst" element={<CursoEstudianteCompleto />} />
                 <Route exact path="/CursoEstudiante" element={<MisCursosEstudiante idPer = {idPersona} />} />
                 <Route exact path="/Categorias" element={<Categorias />} />
                 <Route exact path="/" element={<TarjetasEstudianteTodos idPer = {idPersona} />} /> 

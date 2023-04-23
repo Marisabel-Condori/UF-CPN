@@ -5,9 +5,6 @@ import { Apiurl } from '../../api/UsuariosApi'
 
 const CajaComentario = ({ idvideo, idper, estaInscrito }) => {
 
-  console.log('////////////// id video desde caja comentario //////////////////////');
-  console.log(idvideo);
-
   const [comentario, setComentario] = useState('')
   const [respuesta, setRespuesta] = useState('')
   const [listaComentarios, setListaComentarios] = useState([])
@@ -49,7 +46,7 @@ const CajaComentario = ({ idvideo, idper, estaInscrito }) => {
     var now = today.toLocaleString();
     await registraComentario(idvideo, idper, respuesta, now, idrespuesta)
     setError(null)
-    setComentario(null)
+    setRespuesta('')
   }
 
   const procesarComentario = async (e) => {
@@ -69,7 +66,7 @@ const CajaComentario = ({ idvideo, idper, estaInscrito }) => {
     } else { console.log('no hay idvideo'); }
     // setListaComentarios([...listaComentarios, comentario])
     setError(null)
-    setComentario(null)
+    setComentario('')
   }
   /************** REGISTRO COMENTARIO - POST****************/
   const registraComentario = useCallback(async (idVIDEO, idPER, COMEN, NOW, IDRESP) => {
@@ -86,7 +83,7 @@ const CajaComentario = ({ idvideo, idper, estaInscrito }) => {
     },)
       .then((response) => {
         console.log('++++++++++++ response')
-        console.log(response)
+        console.log(response.data)
         console.log('idComentario => ' + response.data.id)
         getComentarios()
         //  setIdChild(response.data.insertId)
@@ -94,16 +91,16 @@ const CajaComentario = ({ idvideo, idper, estaInscrito }) => {
   }
 
   return (
-    <div className='my-5'>
-      <p>Seccion comentarios</p>
+    <div className='mt-3'>
+      {/* <p>Seccion comentarios</p> */}
       {
         error && (<div className="alert alet-danger">{error}</div>)
       }
-      {estaInscrito&&
-      <form className="form-group" style={{ display: 'flex' }} onSubmit={procesarComentario} >
-        <textarea className="form-control" onChange={e => setComentario(e.target.value)} placeholder='Ingresa tu comentario' style={{ width: '100%' }}></textarea>
-        <button type="submit" className="btn btn-outline-secondary" style={{ width: '15%', height: '33px' }}>Enviar</button>
-      </form>
+      {estaInscrito &&
+        <form className="form-group" style={{ display: 'flex' }} onSubmit={procesarComentario} >
+          <textarea className="form-control" value={comentario} onChange={e => setComentario(e.target.value)} placeholder='Ingresa tu comentario' style={{ width: '100%' }}></textarea>
+          <button type="submit" className="btn btn-outline-secondary" style={{ width: '15%', height: '33px' }}>Enviar</button>
+        </form>
       }
 
       <div className="card">
@@ -111,14 +108,14 @@ const CajaComentario = ({ idvideo, idper, estaInscrito }) => {
           listaComentarios.map((item, index) => (
             <div className={item.idrespuesta && 'pl-5 pr-2'} key={index} >
               <div className={!item.idrespuesta && "card-header"}>
-                <h6>Mari C</h6>
+                <h6>{item.nombre}</h6>
                 <p>{item.comentario} idvideo = {item.idvideo} idcomentario = {item.idcomentario} idrespuesta = {item.idrespuesta}</p>
               </div>
               <form className=" form-group" style={{ display: 'flex' }}  >
                 {
                   item.idrespuesta === null && estaInscrito &&
                   <>
-                    <textarea className="form-control " onChange={e => setRespuesta(e.target.value)} placeholder='Responder comentario' style={{ width: '300%' }}></textarea>
+                    <textarea className="form-control" onChange={e => setRespuesta(e.target.value)} placeholder='Responder comentario' style={{ width: '300%' }}></textarea>
                     <button type="button" onClick={() => procesarRespuesta(item.idcomentario)} className="btn btn-outline-secondary" style={{ width: '50%', height: '33px' }}>responder</button>
                   </>
                 }

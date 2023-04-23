@@ -14,6 +14,8 @@ const NuevoCursoDatos = ({ functionP, idPersona }) => {
     const [linkPortada, setLinkPortada] = useState('')
     const [progress, setProgress] = useState(0)
 
+    const [disabled, setDisabled] = useState(false);
+
     ///////// foto portada ////////////////////////
     const onChange = e => {
         const file = e.target.files[0]
@@ -57,6 +59,7 @@ const NuevoCursoDatos = ({ functionP, idPersona }) => {
             setError('Debes elegir una categoria')
             return
         }
+        setDisabled(true)
         setDeshabilitarBoton(true)
         registraCurso(data, linkPortada)
         setError(null)
@@ -82,7 +85,7 @@ const NuevoCursoDatos = ({ functionP, idPersona }) => {
                 setIdChild(response.data.idC)
             }).catch(err => console.log(err))
     }
-
+// d                       VER disabled
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -90,7 +93,7 @@ const NuevoCursoDatos = ({ functionP, idPersona }) => {
                     <div className="row">
                         <div className="col-md-2"> <label >Titulo del curso</label>  </div>
                         <div className="col-md-10">
-                            <input
+                            <inputs
                                 type="text"
                                 {...register('tituloCurso', {
                                     required: { value: true, message: 'El titulo es requerido' }
@@ -112,7 +115,7 @@ const NuevoCursoDatos = ({ functionP, idPersona }) => {
                                     required: { value: true, message: 'La descripcion es requerida' }
                                 })
                                 }
-                                name='descripcion' className="form-control" rows="3"
+                                name='descripcion' className="form-control" rows="3" 
                             />
                             {errors.descripcion && <div className='alert alert-danger mt-1 p-1'>{errors.descripcion.message}</div>}
                         </div>
@@ -123,7 +126,7 @@ const NuevoCursoDatos = ({ functionP, idPersona }) => {
                     <div className="row">
                         <div className="col-md-2"><label >Requisitos del curso</label></div>
                         <div className="col-md-10">
-                            <textarea
+                            <textarea disabled={disabled}
                                 {...register('requisitos', {
                                     required: { value: true, message: 'Los requisitos son requeridos' }
                                 })
@@ -139,7 +142,7 @@ const NuevoCursoDatos = ({ functionP, idPersona }) => {
                     <div className="row">
                         <div className="col-md-2"> <label>Categoria</label>   </div>
                         <div className="col-md-10">
-                            <select
+                            <select disabled={disabled}
                                 {...register('categoria')}
                                 name='categoria' className="form-control">
                                 <option>Elige una Categoria</option>
@@ -159,7 +162,7 @@ const NuevoCursoDatos = ({ functionP, idPersona }) => {
                     <div className="row">
                         <div className="col-md-2"><label >Portada del Curso</label></div>
                         <div className="col-md-10">
-                            <input
+                            <input disabled={disabled}
                                 {...register('portada', {
                                     required: { value: true, message: 'La portada es requerida' }
                                 })

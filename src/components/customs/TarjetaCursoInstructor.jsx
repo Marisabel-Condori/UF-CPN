@@ -25,7 +25,7 @@ const TarjetaCursoInstructor = ({ objCursoBD }) => {
         </p>
         <h6 className='text-justify'>{objCursoBD.nombre}</h6>
         <h6 className='text-justify'>{objCursoBD.precio} Bs</h6>
-        {/* boton vista previa curso .................*/}
+        {/* boton vista previa curso .................*/} 
         <Link to="/CursoCompletoInst" state={{ data: objCursoBD }} className="btn btn-outline-secondary rounded-0"> Ir al Curso </Link>
 
       </div>

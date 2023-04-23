@@ -15,12 +15,12 @@ const Categorias = () => {
             </DropdownToggle>
             <DropdownMenu >
                 <DropdownItem><Link to="/" className="btn"> Todos </Link></DropdownItem>
-                <DropdownItem><Link to="Informatica" className="btn"> Informatica </Link></DropdownItem>
-                <DropdownItem><Link to="Matematica" className="btn"> Matematica </Link></DropdownItem>
-                <DropdownItem><Link to="Biologia" className="btn"> Biologia </Link></DropdownItem>
-                <DropdownItem><Link to="Quimica" className="btn"> Quimica </Link></DropdownItem>
-                <DropdownItem><Link to="Fisica" className="btn"> Fisica </Link></DropdownItem>
-                <DropdownItem><Link to="Estadistica" className="btn"> Estadistica </Link></DropdownItem>
+                <DropdownItem><Link to="Informatica" className="btn"> Informática </Link></DropdownItem>
+                <DropdownItem><Link to="Matematica" className="btn"> Matemática </Link></DropdownItem>
+                <DropdownItem><Link to="Biologia" className="btn"> Biología </Link></DropdownItem>
+                <DropdownItem><Link to="Quimica" className="btn"> Química </Link></DropdownItem>
+                <DropdownItem><Link to="Fisica" className="btn"> Física </Link></DropdownItem>
+                <DropdownItem><Link to="Estadistica" className="btn"> Estadística </Link></DropdownItem>
             </DropdownMenu>
         </Dropdown>
     )

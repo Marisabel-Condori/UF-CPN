@@ -39,7 +39,7 @@ const Navbar = () => {
   }
 
   return (
-    <div className="mt-2">
+    <div className="my-3">
       <div className="navbar navbar-dark bg-dark">
         <Link className="navbar-brand" to="/">FCPN</Link>
         <div>

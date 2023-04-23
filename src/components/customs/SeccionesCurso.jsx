@@ -148,7 +148,7 @@ const SeccionesCurso = ({ idCursoP }) => {
 
   return (
     <>
-      <h5>dato recibido desde el padre {idCursoP}</h5>
+      {/* <h5>dato recibido desde el padre {idCursoP}</h5> */}
       {/**********************PETICION DE DATOS***********************/}
       <div className="card" >
         <div className="card-body">

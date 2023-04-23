@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import axios from "axios"
 import { Apiurl } from '../../api/UsuariosApi'
-import { Link } from "react-router-dom"
 import { faClose } from "@fortawesome/free-solid-svg-icons"
 
 const Login = () => {
@@ -63,7 +62,7 @@ const Login = () => {
     }
 
     //********************* CERRAR ********************/
-    const cerrar= ()=>{
+    const cerrar = () => {
         window.location.pathname = '/'
         abrirModal()
     }
@@ -112,11 +111,27 @@ const Login = () => {
             localStorage.setItem('token', res.data.token)
             localStorage.setItem('id', res.data.id)
             localStorage.setItem('nombre', res.data.nombre)
-            window.location.pathname = '/'
-            abrirModal()
+            esEstudianteDocente(res.data.id)
         }
         ///************ GUARDANDO DATOS LOCALMENTE SINGIN****** */
     }, [email, pass])
+    const esEstudianteDocente = async (idper) => {
+        try {
+            let url = Apiurl + "esEstudianteDocente"
+            let respuesta = await axios.get(url, {
+                params: { idpersona: idper }
+            })
+            console.log('++++++++++++ respuesta esestudiante ++++++++++');
+            console.log(respuesta.data);
+            if (respuesta.data.estudiante === 1 && respuesta.data.docente === 1 || 
+                respuesta.data.estudiante===1 && respuesta.data.docente===0) window.location.pathname = '/'
+            if (respuesta.data.estudiante === 0 && respuesta.data.docente === 1) window.location.pathname = '/CursoInstructor'
+            abrirModal()
+            return respuesta;
+        } catch (error) {
+            console.log(error)
+        }
+    }
     /************** REGISTRO PERSONA - POST****************/
     const registrar = useCallback(async (nomU, passU, apeU, emaU) => {
         console.log('///ENVIADOOOOO///')
@@ -143,7 +158,7 @@ const Login = () => {
         <div className="my-5">
             <Modal isOpen={isOpen}>
                 <ModalBody>
-                    <button className="btn btn-outline-dark float-right" onClick={()=>cerrar()}>  <FontAwesomeIcon icon={faClose} /> </button>
+                    <button className="btn btn-outline-dark float-right" onClick={() => cerrar()}>  <FontAwesomeIcon icon={faClose} /> </button>
                     <h5 className="text-center">{esRegistro ? 'registro de usuario' : 'login de acceso'}</h5>
 
                     <Form className='form' >
