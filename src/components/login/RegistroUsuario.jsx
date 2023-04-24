@@ -142,6 +142,7 @@ const Login = () => {
         console.log('++++++++++++ response registro de usuario')
         console.log(res);
         if (res.data.status === 'error') {
+            console.log('errrrrrrrrrrrrrrrrrrrrrrrro');
             setError(res.data.message)
             setTimeout(() => {
                 setError(null)
