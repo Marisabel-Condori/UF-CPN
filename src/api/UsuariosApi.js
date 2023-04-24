@@ -1,3 +1,3 @@
 // export const Apiurl = "http://localhost:5000/api/"
-export const Apiurl = "back-ud-cpn-production.up.railway.app/api/"
+export const Apiurl = "https://mysterious-savannah-51630.herokuapp.com/api/"
 
