@@ -109,7 +109,7 @@ const CajaComentario = ({ idvideo, idper, estaInscrito }) => {
             <div className={item.idrespuesta && 'pl-5 pr-2'} key={index} >
               <div className={!item.idrespuesta && "card-header"}>
                 <h6>{item.nombre}</h6>
-                <p>{item.comentario} idvideo = {item.idvideo} idcomentario = {item.idcomentario} idrespuesta = {item.idrespuesta}</p>
+                <p>{item.comentario}</p>
               </div>
               <form className=" form-group" style={{ display: 'flex' }}  >
                 {

@@ -36,9 +36,7 @@ const RecuperarContraseña = () => {
         enviarDatos()
         setError('')
     }
-
     const enviarDatos = useCallback(async (email) => {
-
     })
 
     return (
