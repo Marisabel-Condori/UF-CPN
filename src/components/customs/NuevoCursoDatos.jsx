@@ -93,7 +93,7 @@ const NuevoCursoDatos = ({ functionP, idPersona }) => {
                     <div className="row">
                         <div className="col-md-2"> <label >Titulo del curso</label>  </div>
                         <div className="col-md-10">
-                            <input
+                            <input disabled={disabled}
                                 type="text"
                                 {...register('tituloCurso', {
                                     required: { value: true, message: 'El titulo es requerido' }
