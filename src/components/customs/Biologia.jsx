@@ -56,7 +56,7 @@ const Biologia = ({ idPer }) => {
       </div>
 
       <br /><br />
-      <h1 className='text-center'>Biologia</h1>
+      <h1 className='text-center'>Biología</h1>
 
       {
         <div className='d-flex justify-content-center align-items-center h-100'>

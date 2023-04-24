@@ -59,7 +59,7 @@ const Quimica = ({ idPer }) => {
       </div>
 
       <br /><br />
-      <h1 className='text-center'>Quimica</h1>
+      <h1 className='text-center'>Química</h1>
 
       {
         <div className='d-flex justify-content-center align-items-center h-100'>

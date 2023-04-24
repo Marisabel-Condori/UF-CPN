@@ -60,7 +60,7 @@ const Fisica = ({ idPer }) => {
       </div>
 
       <br /><br />
-      <h1 className='text-center'>Fisica</h1>
+      <h1 className='text-center'>Física</h1>
 
       {
         <div className='d-flex justify-content-center align-items-center h-100'>

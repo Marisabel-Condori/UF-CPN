@@ -56,7 +56,7 @@ const Informatica = ({ idPer }) => {
       <div className='float-right'>
         <input className='form-control inputBuscar' value={busqueda} placeholder='Buscar titulo curso' onChange={procesarDatos} />
       </div>
-      <br /><br /> <h1 className='text-center'>Informatica</h1>
+      <br /><br /> <h1 className='text-center'>Informática</h1>
 
       {
         <div className='d-flex justify-content-center align-items-center h-100'>
