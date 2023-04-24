@@ -93,7 +93,7 @@ const NuevoCursoDatos = ({ functionP, idPersona }) => {
                     <div className="row">
                         <div className="col-md-2"> <label >Titulo del curso</label>  </div>
                         <div className="col-md-10">
-                            <inputs
+                            <input
                                 type="text"
                                 {...register('tituloCurso', {
                                     required: { value: true, message: 'El titulo es requerido' }
@@ -110,7 +110,7 @@ const NuevoCursoDatos = ({ functionP, idPersona }) => {
                     <div className="row">
                         <div className="col-md-2"> <label>Descripcion del Curso</label>  </div>
                         <div className="col-md-10">
-                            <textarea
+                            <textarea disabled={disabled}
                                 {...register('descripcion', {
                                     required: { value: true, message: 'La descripcion es requerida' }
                                 })
