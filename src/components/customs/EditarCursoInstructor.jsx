@@ -1,16 +1,17 @@
-import React from 'react'
-
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 
 import { Apiurl } from '../../api/UsuariosApi'
 import axios from 'axios'
 
-import { useLocation } from 'react-router-dom'
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { storage } from "../Firebase";
 import { faClose, faEdit, faEye, faSave, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap'
+import { Button, Modal, ModalFooter, ModalHeader } from 'reactstrap'
 import VideoPlayer from '../video/VideoPlayer'
+import SeccionesCurso from './SeccionesCurso';
 
 const EditarCursoInstructor = () => {
 
@@ -21,10 +22,12 @@ const EditarCursoInstructor = () => {
   const [editaNombreSeccion, setEditaNombreSeccion] = useState(false)
   const [idSec, setIdSec] = useState(0)
   const [nuevoNombreSeccion, setNuevoNombreSeccion] = useState('')
+  const [agregaSeccion, setAgregaSeccion] = useState(false)
 
   const [verVideo, setVerVideo] = useState(false)
   const [idvideo, setIdVideo] = useState('')
-  const [videoLink, setVideoLink] = useState('')
+  const [link, setLink] = useState('')
+  const [progress, setProgress] = useState(0)
   const [editaVideo, setEditaVideo] = useState(false)
 
   let idPersona = ''
@@ -36,6 +39,13 @@ const EditarCursoInstructor = () => {
   // console.log('location state.data.....-*-*-*-*-*-*--*-*');
   // console.log(dataCurso);
 
+  const agregaSec = () => {
+    setAgregaSeccion(!agregaSeccion)
+  }
+  const finalizar = () => {
+    setAgregaSeccion(false)
+    getSeccionesByIdCurso(dataCurso.idcurso)
+  }
   ///////////////////// EDITA SECCION //////////////////////////////
   const modificaDatosSeccion = (nombreSeccion, idseccion) => {
     setVerVideo(false)
@@ -89,7 +99,7 @@ const EditarCursoInstructor = () => {
     console.log(res);
     if (res.data.status === 'exitoso') {
       console.log('ya se ELIMINOOOOO');
-      setIdVideo(0)
+      setIdVideo('')
       abrirModalELiminaVideo()
       getSeccionesByIdCurso(dataCurso.idcurso)
     } else {
@@ -110,7 +120,7 @@ const EditarCursoInstructor = () => {
     setEditaVideo(false)
     setEditaNombreSeccion(false)
     setVerVideo(!verVideo)
-    setVideoLink(url)
+    setLink(url)
     setIdVideo(idVid)
   }
   ///////////////////////////////////////////////////////////////////////////
@@ -124,13 +134,60 @@ const EditarCursoInstructor = () => {
     setNombreVideo(nomVid)
   }
 
+  const onChange = e => {
+    const file = e.target.files[0]
+    console.log('*******************')
+    console.log(file.name);
+    uploadFiles(file)
+  }
+  const uploadFiles = file => {
+    if (!file) return;
+    const storageRef = ref(storage, `/files/${file.name}`)
+    const uploadTask = uploadBytesResumable(storageRef, file)
+
+    uploadTask.on("state_changed", (snapshot) => {
+      const prog = Math.round((snapshot.bytesTransferred * 100) / snapshot.totalBytes)
+      setProgress(prog)
+    },
+      (err) => console.log(err),
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+          console.log(url)
+          setLink(url)
+        })
+      })
+  }
+
   const editaVideoBD = (cancela) => {
     if (cancela === 'CANCELAR') {
       setEditaVideo(false)
       return
     }
     console.log('idvideo: ' + idvideo);
-    console.log('nombre video: ' + nombreVideo +' link: '+videoLink);
+    console.log('nombre video: ' + nombreVideo + ' link: ' + link);
+    if (!nombreVideo.trim()) {
+      console.log('error VACIO');
+      return
+    }
+    enviaBD(idvideo, nombreVideo, link)
+  }
+
+  const enviaBD = async (idvideo, nombrevideo, videolink) => {
+    let url = Apiurl + "video"
+    let res = await axios.patch(url, null, {
+      params: { idvideo: idvideo, titulo: nombrevideo, urlvideo: videolink }
+    })
+    console.log('++++++++++++ response video UPDATE -----------')
+    console.log(res);
+    if (res.data.status === 'exitoso') {
+      setEditaVideo(false)
+      setIdVideo('')
+      setNombreVideo('')
+      getSeccionesByIdCurso(dataCurso.idcurso)
+      console.log('ya se EDITOOOOOOOOO');
+    } else {
+      console.log('ERROOOOOOOOOOOOOOOOOOOOOOOOOR');
+    }
   }
   ///////////////////////////////////////////////////////////////////////////
 
@@ -180,18 +237,18 @@ const EditarCursoInstructor = () => {
     return await obtVideos.data
   }
   ////////////////
-  const enviarDatosVideo = (vid) => {
-    setNombreVideo(vid.titulo)
-    setVideoLink(vid.urlvideo)
-    setIdVideo(vid.idvideo)
-  }
+  // const enviarDatosVideo = (vid) => {
+  //   setNombreVideo(vid.titulo)
+  //   setLink(vid.urlvideo)
+  //   setIdVideo(vid.idvideo)
+  // }
 
 
   return (
     <>
       <h3 className='text-center'>{dataCurso.titulo_curso} EDITAR</h3>  <br />
 
-      <div className="">
+      <>
         {
           seccionesdelCurso.map(item => (
             <div className='card mb-2' key={item.idseccion}>
@@ -216,7 +273,10 @@ const EditarCursoInstructor = () => {
                           ?
                           <div className='my-3'>
                             <input type="text" value={nombreVideo} onChange={e => setNombreVideo(e.target.value)} placeholder='Ingrese nuevo titulo del video' className="form-control" />
-                            <input type="file" /> <br /> <br />
+                            <input type="file" onChange={onChange} />
+                            <div className="progress mb-2">
+                              <div className="progress-bar progress-bar-striped progress-bar-animated " style={{ width: `${progress}%` }}>{progress}%</div>
+                            </div>  <br />
                             <button className="btn btn-outline-danger btn-sm" onClick={() => editaVideoBD('NO CANCELAR')}> <FontAwesomeIcon icon={faSave} /> Guardar Cambios</button>
                             <button className="btn btn-outline-danger ml-3 btn-sm" onClick={() => editaVideoBD('CANCELAR')}> <FontAwesomeIcon icon={faClose} /> Cancelar</button>
 
@@ -229,7 +289,7 @@ const EditarCursoInstructor = () => {
                           </>
                         }
                         {verVideo && vid.idvideo === idvideo &&
-                          <VideoPlayer urlVideo={videoLink} />
+                          <VideoPlayer urlVideo={link} />
                         }
                       </li>
                     ))
@@ -240,7 +300,18 @@ const EditarCursoInstructor = () => {
             </div>
           ))
         }
-      </div>
+        <button className='btn btn-outline-success mb-2' onClick={agregaSec}> Agregar sección</button>
+        {agregaSeccion &&
+          <>
+            <SeccionesCurso idCursoP={dataCurso.idcurso} />
+            <center>
+
+              <button className='btn btn-outline-success mb-2' onClick={finalizar}> finalizar</button>
+            </center>
+          </>
+        }
+      </>
+
       <Modal isOpen={isOpen}>
         <ModalHeader className='center'>
           ¿Eliminar video ddd ??
