@@ -19,6 +19,7 @@ import Biologia from './Biologia';
 import Quimica from './Quimica';
 import Estadistica from './Estadistica';
 import TarjetasEstudianteTodos from './TarjetasEstudianteTodos';
+import EditarCursoInstructor from './EditarCursoInstructor';
 
 const Rutas = () => {
 
@@ -43,6 +44,7 @@ const Rutas = () => {
                 <Route exact path="/Foro" element={<Foro idPer = {idPersona} />} /> 
                 <Route exact path="/ForoLista" element={<ForoLista idPer = {idPersona} />} /> 
                 <Route exact path="/CursoCompletoInst" element={<CursoInstructorCompleto />} />
+                <Route exact path="/EditarCursoInst" element={<EditarCursoInstructor />} />
                 <Route exact path="/CursoInstructor" element={<MisCursosDocente idPer = {idPersona}/>} />
 
                 <Route exact path="/CursoCompletoEst" element={<CursoEstudianteCompleto />} />

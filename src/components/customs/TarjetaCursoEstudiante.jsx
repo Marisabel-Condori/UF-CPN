@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import PropTypes from 'prop-types'
 
 import '../css/cards.css'
 import { Link } from 'react-router-dom'
@@ -61,17 +60,17 @@ const TarjetaCursoEstudiante = ({ objCursoBD, idPersona, estaInscrito }) => {
   /**************************** opcion 1 - INSCRIPCION DIRECTA ***************************/
   /********** INGRESA DATOS INSCRIPCION A BD *******/
   // const inscripcionCurso = async (idPersona, idCurso, fecha) => {
-    // console.log('///ENVIADOOOOO INSCRIPCION///')
-    // let url = Apiurl + "inscribe"
-    // await axios.post(url, null, {
-    //   params: { idcurso: idCurso, idestudiante: idPersona, fecha: fecha }
-    // },)
-    //   .then((response) => {
-    //     console.log('++++++++++++ response SE INSCRIBE')
-    //     console.log(response)
-    //     console.log('id sec bd => ' + response.data.id)
-    //     //  setIdSeccion(response.data.insertId)
-    //   }).catch(err => console.log(err))
+  // console.log('///ENVIADOOOOO INSCRIPCION///')
+  // let url = Apiurl + "inscribe"
+  // await axios.post(url, null, {
+  //   params: { idcurso: idCurso, idestudiante: idPersona, fecha: fecha }
+  // },)
+  //   .then((response) => {
+  //     console.log('++++++++++++ response SE INSCRIBE')
+  //     console.log(response)
+  //     console.log('id sec bd => ' + response.data.id)
+  //     //  setIdSeccion(response.data.insertId)
+  //   }).catch(err => console.log(err))
   // }
   /************************************** opcion 1 - ************************************/
 
@@ -131,22 +130,17 @@ const TarjetaCursoEstudiante = ({ objCursoBD, idPersona, estaInscrito }) => {
         <ModalFooter>
           {/* /******************* opcion 1 - INSCRIPCION DIRECTA ******************/}
           {/* <Button color="primary" onClick={() => inscribirse()} disabled={yaEstaInscrito && true}>Inscribirse</Button> */}
-          {/* /****************************** opcion 1 ****************************/ }
+          {/* /****************************** opcion 1 ****************************/}
 
           {/* /******************* opcion 2 - MANDAR DATOS A FORMULARIO ******************/}
           <a href="https://forms.gle/dpXu4SwhpoSnm4139" target="_blank" className='btn btn-primary'>Ingresa tus datos en el siguiente formulario</a>
           {/* /******************************** opcion 2 *********************************/}
 
-            < Button color="secondary" onClick={abrirModalInscribirseAlCurso}>Cerrar</Button>
-      </ModalFooter>
-    </Modal>
-  </div >
-)
-}
-
-TarjetaCursoEstudiante.propTypes = {
-  imageSource: PropTypes.string,
-  descripcion: PropTypes.string
+          < Button color="secondary" onClick={abrirModalInscribirseAlCurso}>Cerrar</Button>
+        </ModalFooter>
+      </Modal>
+    </div >
+  )
 }
 
 export default TarjetaCursoEstudiante

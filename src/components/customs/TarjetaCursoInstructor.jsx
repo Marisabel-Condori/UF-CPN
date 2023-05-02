@@ -27,16 +27,10 @@ const TarjetaCursoInstructor = ({ objCursoBD }) => {
         <h6 className='text-justify'>{objCursoBD.precio} Bs</h6>
         {/* boton vista previa curso .................*/} 
         <Link to="/CursoCompletoInst" state={{ data: objCursoBD }} className="btn btn-outline-secondary rounded-0"> Ir al Curso </Link>
-
-      </div>
+        <Link to="/EditarCursoInst" state={{ data: objCursoBD }} className="btn btn-outline-warning rounded-0 mx-2"> Editar </Link>
+        </div>
     </div>
   )
-}
-
-TarjetaCursoInstructor.propTypes = {
-  url: PropTypes.string,
-  imageSource: PropTypes.string,
-  descripcion: PropTypes.string
 }
 
 export default TarjetaCursoInstructor
