@@ -6,7 +6,7 @@ import { Apiurl } from '../../api/UsuariosApi'
 import axios from 'axios'
 
 import { useLocation } from 'react-router-dom'
-import { faEdit, faEye, faSave, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faClose, faEdit, faEye, faSave, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap'
@@ -25,6 +25,7 @@ const EditarCursoInstructor = () => {
   const [verVideo, setVerVideo] = useState(false)
   const [idvideo, setIdVideo] = useState('')
   const [videoLink, setVideoLink] = useState('')
+  const [editaVideo, setEditaVideo] = useState(false)
 
   let idPersona = ''
   if (localStorage.getItem('id')) { idPersona = localStorage.getItem('id') }
@@ -37,6 +38,8 @@ const EditarCursoInstructor = () => {
 
   ///////////////////// EDITA SECCION //////////////////////////////
   const modificaDatosSeccion = (nombreSeccion, idseccion) => {
+    setVerVideo(false)
+    setEditaVideo(false)
     setEditaNombreSeccion(true)
     setNuevoNombreSeccion(nombreSeccion)
     setIdSec(idseccion)
@@ -93,16 +96,6 @@ const EditarCursoInstructor = () => {
       console.log('ERROOOOOOOOOOOOOOOOOOOOOOOOOR');
     }
   }
-  ///////////////////////////////////////////////////////////////////////////
-
-  //////////////////////// VER VIDEO ///////////////////////////
-  const opVerVid = (url, idVid) => {
-    setVerVideo(!verVideo)
-    setVideoLink(url)
-    setIdVideo(idVid)
-  }
-  ///////////////////////////////////////////////////////////////////////////
-
   // ------------------ MODAL -------------
   const [isOpen, setIsOpen] = useState(false)
   const abrirModalELiminaVideo = () => {
@@ -110,6 +103,37 @@ const EditarCursoInstructor = () => {
     { isOpen && <Modal isOpen={isOpen} /> }
   }
   //------------------------------------------------
+  ///////////////////////////////////////////////////////////////////////////
+
+  //////////////////////// VER VIDEO ///////////////////////////
+  const opVerVid = (url, idVid) => {
+    setEditaVideo(false)
+    setEditaNombreSeccion(false)
+    setVerVideo(!verVideo)
+    setVideoLink(url)
+    setIdVideo(idVid)
+  }
+  ///////////////////////////////////////////////////////////////////////////
+
+  //////////////////////// EDITAR VIDEO ///////////////////////////
+  const editarVideo = (idvid, nomVid) => {
+    setVerVideo(false)
+    setEditaNombreSeccion(false)
+    setEditaVideo(!editaVideo)
+    setIdVideo(idvid)
+    setNombreVideo(nomVid)
+  }
+
+  const editaVideoBD = (cancela) => {
+    if (cancela === 'CANCELAR') {
+      setEditaVideo(false)
+      return
+    }
+    console.log('idvideo: ' + idvideo);
+    console.log('nombre video: ' + nombreVideo +' link: '+videoLink);
+  }
+  ///////////////////////////////////////////////////////////////////////////
+
   useEffect(() => {
     getSeccionesByIdCurso(dataCurso.idcurso)
   }, [])
@@ -162,19 +186,20 @@ const EditarCursoInstructor = () => {
     setIdVideo(vid.idvideo)
   }
 
+
   return (
     <>
       <h3 className='text-center'>{dataCurso.titulo_curso} EDITAR</h3>  <br />
 
-      <div className="col-md-10">
+      <div className="">
         {
           seccionesdelCurso.map(item => (
             <div className='card mb-2' key={item.idseccion}>
               <div className="card-body">
                 {editaNombreSeccion && item.idseccion === idSec
                   ? <>
-                    <button className="btn" onClick={enviaEdicionSeccion}>  <FontAwesomeIcon icon={faSave} style={{ color: 'red' }} /> </button>
-                    <input type="text" value={nuevoNombreSeccion} onChange={e => setNuevoNombreSeccion(e.target.value)} />
+                    <button className="btn" onClick={enviaEdicionSeccion}> <FontAwesomeIcon icon={faSave} style={{ color: 'red' }} /> </button>
+                    <input type="text" className='form-control' value={nuevoNombreSeccion} onChange={e => setNuevoNombreSeccion(e.target.value)} />
                   </>
                   : <>
                     <button className="btn" onClick={() => modificaDatosSeccion(item.nombre_seccion, item.idseccion)}>  <FontAwesomeIcon icon={faEdit} /> </button>
@@ -187,15 +212,24 @@ const EditarCursoInstructor = () => {
                     videosdelaSeccion.map(vid => (
                       item.idseccion === vid.idseccion &&
                       <li className="list-group-item py-0" key={vid.idvideo}>
-                        <button className='btn btn-link btn-sm ' onClick={() => enviarDatosVideo(vid)}>{vid.titulo}</button>
-                        {/* <button className="btn float-right" onClick={()=> abrirModalELiminaVideo()} onChange={setIdVideo(vid.idvideo)}>  <FontAwesomeIcon icon={faTrash} /> </button> */}
-                        <button className="btn float-right" onClick={() => eliminarVideo(vid.idvideo)} >  <FontAwesomeIcon icon={faTrash} /> </button>
-                        <button className="btn float-right">  <FontAwesomeIcon icon={faEdit} /> </button>
-                        <button className="btn float-right" onClick={() => opVerVid(vid.urlvideo, vid.idvideo)}>  <FontAwesomeIcon icon={faEye} /> </button>
-                        {verVideo && vid.idvideo === idvideo &&
-                          <>
-                            <VideoPlayer urlVideo={videoLink} />
+                        {editaVideo && vid.idvideo === idvideo
+                          ?
+                          <div className='my-3'>
+                            <input type="text" value={nombreVideo} onChange={e => setNombreVideo(e.target.value)} placeholder='Ingrese nuevo titulo del video' className="form-control" />
+                            <input type="file" /> <br /> <br />
+                            <button className="btn btn-outline-danger btn-sm" onClick={() => editaVideoBD('NO CANCELAR')}> <FontAwesomeIcon icon={faSave} /> Guardar Cambios</button>
+                            <button className="btn btn-outline-danger ml-3 btn-sm" onClick={() => editaVideoBD('CANCELAR')}> <FontAwesomeIcon icon={faClose} /> Cancelar</button>
+
+                          </div>
+                          : <>
+                            <button className='btn btn-link btn-sm'>{vid.titulo}</button>
+                            <button className="btn float-right" onClick={() => eliminarVideo(vid.idvideo)} >  <FontAwesomeIcon icon={faTrash} /> </button>
+                            <button className="btn float-right" onClick={() => editarVideo(vid.idvideo, vid.titulo)}>  <FontAwesomeIcon icon={faEdit} /> </button>
+                            <button className="btn float-right" onClick={() => opVerVid(vid.urlvideo, vid.idvideo)}>  <FontAwesomeIcon icon={faEye} /> </button>
                           </>
+                        }
+                        {verVideo && vid.idvideo === idvideo &&
+                          <VideoPlayer urlVideo={videoLink} />
                         }
                       </li>
                     ))
