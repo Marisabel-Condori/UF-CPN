@@ -84,10 +84,32 @@ const EditarCursoInstructor = () => {
   }
   //////////////////////////////////////////////////////////////////
 
+  //////////////////////// ELIMINA SECCION ///////////////////////////
+  const eliminarSeccion = (idseccion) => {
+    setIdSec(idseccion)
+    abrirModalELimina()
+  }
+  const eliminaSecBD = async () => {
+    console.log('eliminando seccioooooon'+idSec);
+    let url = Apiurl + "seccion"
+    let res = await axios.delete(url, {
+      params: { idseccion: idSec }
+    })
+    console.log('++++++++++++ response seccion ELIMINADA -----------')
+    console.log(res);
+    if (res.data.status === 'exitoso') {
+      console.log('ya se ELIMINOOOOO');
+      setIdSec(0)
+      abrirModalELimina()
+      getSeccionesByIdCurso(dataCurso.idcurso)
+    } else {
+      console.log('ERROOOOOOOOOOOOOOOOOOOOOOOOOR');
+    }
+  }
   //////////////////////// ELIMINA VIDEO ///////////////////////////
   const eliminarVideo = (idvid) => {
     setIdVideo(idvid)
-    abrirModalELiminaVideo()
+    abrirModalELimina()
   }
   const eliminaVidBD = async () => {
     console.log('eliminando videooooooooo');
@@ -95,12 +117,12 @@ const EditarCursoInstructor = () => {
     let res = await axios.delete(url, {
       params: { idvideo: idvideo }
     })
-    console.log('++++++++++++ response docente ELIMINADO -----------')
+    console.log('++++++++++++ response video ELIMINADO -----------')
     console.log(res);
     if (res.data.status === 'exitoso') {
       console.log('ya se ELIMINOOOOO');
       setIdVideo('')
-      abrirModalELiminaVideo()
+      abrirModalELimina()
       getSeccionesByIdCurso(dataCurso.idcurso)
     } else {
       console.log('ERROOOOOOOOOOOOOOOOOOOOOOOOOR');
@@ -108,7 +130,7 @@ const EditarCursoInstructor = () => {
   }
   // ------------------ MODAL -------------
   const [isOpen, setIsOpen] = useState(false)
-  const abrirModalELiminaVideo = () => {
+  const abrirModalELimina = () => {
     setIsOpen(!isOpen)
     { isOpen && <Modal isOpen={isOpen} /> }
   }
@@ -246,7 +268,7 @@ const EditarCursoInstructor = () => {
 
   return (
     <>
-      <h3 className='text-center'>{dataCurso.titulo_curso} EDITAR</h3>  <br />
+      <h3 className='text-center'>EDITAR <br/> {dataCurso.titulo_curso}</h3>  <br />
 
       <>
         {
@@ -260,6 +282,7 @@ const EditarCursoInstructor = () => {
                   </>
                   : <>
                     <button className="btn" onClick={() => modificaDatosSeccion(item.nombre_seccion, item.idseccion)}>  <FontAwesomeIcon icon={faEdit} /> </button>
+                    <button className="btn" onClick={() => eliminarSeccion(item.idseccion)}>  <FontAwesomeIcon icon={faTrash} /> </button>
                     {item.nombre_seccion}
                   </>
                 }
@@ -314,11 +337,20 @@ const EditarCursoInstructor = () => {
 
       <Modal isOpen={isOpen}>
         <ModalHeader className='center'>
-          ¿Eliminar video ddd ??
+          {idvideo ? '¿Eliminar video?' : ' ¿Eliminar la seccion y todo su contenido?'}
         </ModalHeader>
         <ModalFooter>
-          < Button color="secondary" onClick={eliminaVidBD}>Eliminar</Button>
-          < Button color="secondary" onClick={abrirModalELiminaVideo}>Cerrar</Button>
+          {idvideo ?
+            <>
+              < Button color="secondary" onClick={eliminaVidBD}>Eliminar</Button>
+              < Button color="secondary" onClick={abrirModalELimina}>Cerrar</Button>
+            </>
+            :
+            <>
+             < Button color="secondary" onClick={eliminaSecBD}>Eliminar</Button>
+              < Button color="secondary" onClick={abrirModalELimina}>Cerrar</Button>
+            </>
+        }
         </ModalFooter>
       </Modal>
 

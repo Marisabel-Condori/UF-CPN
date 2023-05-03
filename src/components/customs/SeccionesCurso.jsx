@@ -36,9 +36,9 @@ const SeccionesCurso = ({ idCursoP }) => {
     },
       (err) => console.log(err),
       () => {
-    getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
           console.log(url)
-    setLink(url)
+          setLink(url)
         })
       })
   }
@@ -50,7 +50,7 @@ const SeccionesCurso = ({ idCursoP }) => {
     if (link) {
       console.log('tiene datos... a;adir ' + link)
       console.log('imprimiendo nombre video ' + video);
-    setListaVideos([
+      setListaVideos([
         ...listaVideos, { id: shortid.generate(), nombreVideo: video, linkVideo: link }
       ])
     } else { console.log('no hay archivo') }
@@ -58,7 +58,7 @@ const SeccionesCurso = ({ idCursoP }) => {
     setLink('')
     setProgress(0)
   }
-  const eliminarTarea = id => {
+  const eliminarVideo = id => {
     console.log(id)
     const arrayFiltrado = listaVideos.filter(item => item.id !== id)
     setListaVideos(arrayFiltrado)
@@ -114,8 +114,6 @@ const SeccionesCurso = ({ idCursoP }) => {
       setListaVideos([])
     }
   }, [idSeccion])
-
-
   /************************************************************************************************** */
   /*****************REGISTRO SECCION - POST***************** */
   const registraSeccion = async (idCur, nombreSec) => {
@@ -136,15 +134,6 @@ const SeccionesCurso = ({ idCursoP }) => {
       }).catch(err => console.log(err))
   }
   /************************************************************************************************** */
-
-  /************************************************************************************************** */
-  const eliminarSeccion = id => {
-    console.log('mostrando index eliminar secciooooooooooooon' + id)
-    const arrayFiltrado = seccionLista.filter(seccion => seccion.id !== id)
-    setSeccionLista(arrayFiltrado)
-  }
-  /************************************************************************************************** */
-
 
   return (
     <>
@@ -206,14 +195,11 @@ const SeccionesCurso = ({ idCursoP }) => {
                   {listaVideos.map(item => (
                     <li className="list-group-item" key={item.id}>
                       <span className="float-left">{item.nombreVideo}</span>
-                      <button className="btn btn-warning btn-sm float-right ml-2">Editar</button>
-                      <button className="btn btn-danger btn-sm float-right mx-2"
-                        onClick={() => eliminarTarea(item.id)}>
+                      {/* <button className="btn btn-warning btn-sm float-right ml-2" onClick={() => editarVideo(item)}>Editarqq</button> */}
+                      <button className="btn btn-danger btn-sm float-right mx-2" onClick={() => eliminarVideo(item.id)}>
                         Eliminar
                       </button>
                     </li>
-
-
                   ))
                   }
                 </ul>
@@ -223,7 +209,7 @@ const SeccionesCurso = ({ idCursoP }) => {
 
           <center>
             <button disabled={idCursoP && listaVideos.length > 0 ? false : true} className='btn btn-success mt-4' onClick={agregarSeccion}> Guardar Seccion</button>
-           </center>
+          </center>
           {/* </form> */}
 
         </div>
@@ -247,11 +233,9 @@ const SeccionesCurso = ({ idCursoP }) => {
                   }
                 </ul>
               </div>
-              <button className='btn btn-danger btn-sm float-right mx-2' onClick={() => eliminarSeccion(item.id)}>Eliminar seccion</button>
-              <button className="btn btn-warning btn-sm float-right ml-2">Editar Seccion</button>
-
+              {/* <button className='btn btn-danger btn-sm float-right mx-2' onClick={() => eliminarSeccion(item.id)}>Eliminar seccion</button>
+              <button className="btn btn-warning btn-sm float-right ml-2">Editar Seccion</button> */}
             </li>
-            // <button type="button" className="btn btn-success mt-2" onClick={() => agregaNuevaSeccion(seccion.id)}>+ Seccion</button>
           ))
         }
       </ul>
