@@ -2,8 +2,13 @@ import { Link } from "react-router-dom";
 
 import TarjetasInstructor from "../customs/TarjetasInstructor";
 
-const MisCursosDocente = ({ idPer }) => {
-  //const {isAuthenticated} = useAuth0()
+const MisCursosDocente = () => {
+
+  let idPer = ''
+  if (localStorage.getItem('id')) {
+    idPer = localStorage.getItem('id')
+  }
+
   let isAuthenticated = ''
   if (localStorage.getItem('id')) {
     isAuthenticated = localStorage.getItem('id')

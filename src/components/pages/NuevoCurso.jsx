@@ -3,14 +3,19 @@ import { useState, useCallback } from 'react';
 import NuevoCursoDatos from '../customs/NuevoCursoDatos';
 import SeccionesCurso from '../customs/SeccionesCurso';
 
-const NuevoCurso = ({ idPer }) => {
+const NuevoCurso = () => {
+
+  let idPer = ''
+  if (localStorage.getItem('id')) {
+    idPer = localStorage.getItem('id')
+  }
 
   const [idCurso, setIdCurso] = useState(null)
   const modificaID = useCallback(valor => {
     setIdCurso(valor)
   }, [])
   const finalizar = () => {
-    window.location.pathname = '/CursoInstructor' 
+    window.location.pathname = '/CursoInstructor'
   }
 
   return (

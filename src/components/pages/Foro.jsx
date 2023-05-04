@@ -4,7 +4,12 @@ import axios from 'axios'
 import CajaRespuestaForo from '../customs/CajaRespuestaForo'
 import { useLocation } from 'react-router-dom'
 
-const Foro = ({ idPer }) => {
+const Foro = () => {
+
+  let idPer = ''
+  if (localStorage.getItem('id')) {
+    idPer = localStorage.getItem('id')
+  }
 
   const location = useLocation()
   const idcurso = location.state?.data.idcurso

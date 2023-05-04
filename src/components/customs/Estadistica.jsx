@@ -5,7 +5,13 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import TarjetaCursoEstudiante from './TarjetaCursoEstudiante'
 
-const Estadistica = ({ idPer }) => {
+const Estadistica = () => {
+
+  let idPer = ''
+  if (localStorage.getItem('id')) {
+    idPer = localStorage.getItem('id')
+  }
+
   const [cursosInst, setCursosInst] = useState([])
   const [tablaBusqueda, setTablaBusqueda] = useState([])
   const [busqueda, setBusqueda] = useState('')

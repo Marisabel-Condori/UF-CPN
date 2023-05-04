@@ -5,7 +5,12 @@ import { Apiurl } from '../../api/UsuariosApi'
 import '../../App.css'
 import TarjetasEstudiante from '../customs/TarjetasEstudiante'
 
-const MisCursosEstudiante = ({ idPer }) => {
+const MisCursosEstudiante = () => {
+
+  let idPer = ''
+  if (localStorage.getItem('id')) {
+    idPer = localStorage.getItem('id')
+  }
 
   const [cursosInscritos, setCursosInscritos] = useState([])
   console.log('INSCRITOS by estudiante..........');

@@ -7,7 +7,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBell, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { NavLink } from 'react-router-dom'
 
-const ForoLista = ({ idPer }) => {
+const ForoLista = () => {
+
+    let idPer = ''
+    if (localStorage.getItem('id')) {
+        idPer = localStorage.getItem('id')
+    }
 
     const [cursosInst, setCursosInst] = useState([])
     const [tablaBusqueda, setTablaBusqueda] = useState([])

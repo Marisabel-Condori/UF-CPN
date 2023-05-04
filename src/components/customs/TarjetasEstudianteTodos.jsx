@@ -6,7 +6,12 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import TarjetaCursoEstudiante from './TarjetaCursoEstudiante'
 
-const TarjetasEstudianteTodos = ({ idPer }) => {
+const TarjetasEstudianteTodos = () => {
+
+    let idPer = ''
+    if (localStorage.getItem('id')) {
+        idPer = localStorage.getItem('id')
+    }
 
     const [cursosInst, setCursosInst] = useState([])
     const [tablaBusqueda, setTablaBusqueda] = useState([])

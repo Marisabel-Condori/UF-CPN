@@ -28,37 +28,35 @@ const Rutas = () => {
     if (localStorage.getItem('id')) {
         idPersona = localStorage.getItem('id')
         nombre=localStorage.getItem('nombre')
-        // console.log('mostrando valor local desde NAVBAR')
-        // console.log(idPersona)
     }
 
     return (
         <>
-            {/* <h3>..{idPersona}</h3> 
-            <h3>..{nombre}</h3> */}
+            {/* <h3>..{idPersona}</h3>  */}
+            <h3>Bienvenido {nombre}</h3>
             <Routes>
                 <Route exact path="/Login" element={<RegistroUsuario />} />
                 <Route exact path="/Forgot" element={<RecuperarContraseña/>} />
 
-                <Route exact path="/NuevoCurso/*" element={<NuevoCurso idPer = {idPersona}/>} />
-                <Route exact path="/Foro" element={<Foro idPer = {idPersona} />} /> 
-                <Route exact path="/ForoLista" element={<ForoLista idPer = {idPersona} />} /> 
+                <Route exact path="/NuevoCurso/*" element={<NuevoCurso/>} />
+                <Route exact path="/Foro" element={<Foro />} /> 
+                <Route exact path="/ForoLista" element={<ForoLista />} /> 
                 <Route exact path="/CursoCompletoInst" element={<CursoInstructorCompleto />} />
                 <Route exact path="/EditarCursoInst" element={<EditarCursoInstructor />} />
-                <Route exact path="/CursoInstructor" element={<MisCursosDocente idPer = {idPersona}/>} />
+                <Route exact path="/CursoInstructor" element={<MisCursosDocente/>} />
 
                 <Route exact path="/CursoCompletoEst" element={<CursoEstudianteCompleto />} />
-                <Route exact path="/CursoEstudiante" element={<MisCursosEstudiante idPer = {idPersona} />} />
+                <Route exact path="/CursoEstudiante" element={<MisCursosEstudiante  />} />
                 <Route exact path="/Categorias" element={<Categorias />} />
-                <Route exact path="/" element={<TarjetasEstudianteTodos idPer = {idPersona} />} /> 
+                <Route exact path="/" element={<TarjetasEstudianteTodos  />} /> 
                 {/* <Route exact path="/:categoria" element={<TodosCursos />} /> */}
                 
-                <Route exact path="/Informatica" element={<Informatica idPer = {idPersona}/>} />
-                <Route exact path="/Matematica" element={<Matematica idPer = {idPersona}/>} />
-                <Route exact path="/Fisica" element={<Fisica idPer = {idPersona}/>} />
-                <Route exact path="/Biologia" element={<Biologia idPer = {idPersona}/>} />
-                <Route exact path="/Quimica" element={<Quimica idPer = {idPersona}/>} />
-                <Route exact path="/Estadistica" element={<Estadistica idPer = {idPersona}/>} /> 
+                <Route exact path="/Informatica" element={<Informatica />} />
+                <Route exact path="/Matematica" element={<Matematica />} />
+                <Route exact path="/Fisica" element={<Fisica />} />
+                <Route exact path="/Biologia" element={<Biologia />} />
+                <Route exact path="/Quimica" element={<Quimica />} />
+                <Route exact path="/Estadistica" element={<Estadistica />} /> 
                 <Route path="*" element={<h1>not found</h1>} />
             </Routes>
         </>

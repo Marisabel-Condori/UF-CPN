@@ -5,7 +5,12 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import TarjetaCursoEstudiante from './TarjetaCursoEstudiante'
 
-const Biologia = ({ idPer }) => {
+const Biologia = () => {
+
+  let idPer = ''
+  if (localStorage.getItem('id')) {
+    idPer = localStorage.getItem('id')
+  }
   const [cursosInst, setCursosInst] = useState([])
   const [tablaBusqueda, setTablaBusqueda] = useState([])
   const [busqueda, setBusqueda] = useState('')
@@ -65,13 +70,13 @@ const Biologia = ({ idPer }) => {
               tablaBusqueda.length === 0 ? <h3>No se han encontrado resultados</h3>
                 : tablaBusqueda.map(card => (
                   <div key={card.idcurso}>
-                    <TarjetaCursoEstudiante objCursoBD={card} url={url} idPersona={idPer} estaInscrito={false} />
+                    <TarjetaCursoEstudiante objCursoBD={card} idPersona={idPer} estaInscrito={false} />
                   </div>
                 ))
               :
               cursosInst.map(card => (
                 <div className='col-md-4' key={card.idcurso}>
-                  <TarjetaCursoEstudiante objCursoBD={card} url={url} idPersona={idPer} estaInscrito={false} />
+                  <TarjetaCursoEstudiante objCursoBD={card} idPersona={idPer} estaInscrito={false} />
                 </div>
               ))}
           </div>
