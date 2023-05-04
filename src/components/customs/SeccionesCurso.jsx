@@ -220,7 +220,7 @@ const SeccionesCurso = ({ idCursoP }) => {
         {
           seccionLista.map(item => (
             <li className="list-group-item my-2" key={item.id}>
-              <h6>IDSECCION : {item.id}</h6>
+              {/* <h6>IDSECCION : {item.id}</h6> */}
               <span >Nombre Seccion: {item.nomSeccion}</span>
               <div className='ml-5'>
                 <ul className="list-group my-2">

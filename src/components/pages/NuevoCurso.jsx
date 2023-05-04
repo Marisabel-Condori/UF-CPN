@@ -10,7 +10,7 @@ const NuevoCurso = ({ idPer }) => {
     setIdCurso(valor)
   }, [])
   const finalizar = () => {
-    window.location.pathname = '/'
+    window.location.pathname = '/CursoInstructor' 
   }
 
   return (
